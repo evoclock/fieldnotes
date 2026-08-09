@@ -8,6 +8,15 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Circadian ChIP-seq reproducibility audit</title>
+      <link>https://evoclock.github.io/fieldnotes/compbio/circadian-chipseq-audit.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/compbio/circadian-chipseq-audit.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>A method reconstruction, sensitivity analysis and local ENCODE-equivalent comparison for public mouse liver circadian factor ChIP-seq. No tested condition reproduced both the deposited peak counts and the peak sets.</description>
+      <category>comp-bio</category>
+      <category>evaluation</category>
+    </item>
+    <item>
       <title>Which model holds the seat, and what to do when it does not</title>
       <link>https://evoclock.github.io/fieldnotes/notes/seat-benchmarking.html</link>
       <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/notes/seat-benchmarking.html</guid>

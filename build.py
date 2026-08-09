@@ -39,6 +39,11 @@ ENTRIES = [
   "publications/technical-report.html", "publications/assets/humaneval-repeated-effects.svg",
   "Repeated HumanEval+ effects across paired runs"),
 
+ (["comp-bio", "evaluation"], "2026-08-09", "Reproducibility audit · 9 August 2026",
+  "Circadian ChIP-seq reproducibility audit",
+  "A method reconstruction, sensitivity analysis and local ENCODE-equivalent comparison for public mouse liver circadian factor ChIP-seq. No tested condition reproduced both the deposited peak counts and the peak sets.",
+  "compbio/circadian-chipseq-audit.html", "compbio/figures/peak_comparison.png",
+  "Peak counts and overlap across eleven analysis conditions"),
  (["evaluation"], "2026-08-09", "Note · evaluation methodology · 9 August 2026",
   "Which model holds the seat, and what to do when it does not",
   "A leaderboard averages over the wrong axis. What matters is which model wins which seat, on what evidence, and which rung of the intervention ladder a failure points at.",
