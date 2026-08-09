@@ -45,7 +45,7 @@ def main() -> None:
         f'  <a href="{SITE}"><img'
         ' src="https://img.shields.io/badge/read-fieldnotes-79c39e?style=for-the-badge&labelColor=151719"'
         ' alt="Read fieldnotes"></a>',
-        f'  <a href="{SITE}feed.xml"><img'
+        f'  <a href="{SITE}subscribe.html"><img'
         ' src="https://img.shields.io/badge/subscribe-RSS-e77843?style=for-the-badge&logo=rss&logoColor=white&labelColor=151719"'
         ' alt="Subscribe by RSS"></a>',
         "</p>",
