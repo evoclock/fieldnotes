@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Capability-grade Screen — Run 3 Evaluation</title>
+<style>
+  :root {
+    --paper: #1a1816;
+    --card: #383431;
+    --ink: #ead1b5;
+    --ink-soft: #c9ad91;
+    --ink-faint: #b09080;
+    --line: #5c564f;
+    --accent: #79c39e;        /* manual arm — deep teal */
+    --accent-soft: #24352c;
+    --control: #ee9b69;       /* control arm — muted brass */
+    --control-soft: #3b3028;
+    --sham: #b09080;          /* sham arm — muted slate */
+    --sham-soft: #2f2b28;
+    --pass: #79c39e;
+    --pass-soft: #263d32;
+    --fail: #e77843;
+    --fail-soft: #44261d;
+    --pip-off: #5c564f;
+    --shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  
+  
+  
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 60rem; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.1rem, 4vw, 2rem) 4rem; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 1rem;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(1.9rem, 5vw, 2.9rem);
+    line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; margin: 0 0 .9rem;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  .standfirst {
+    font-size: clamp(1.02rem, 2vw, 1.18rem); color: var(--ink-soft);
+    max-width: 48ch; text-wrap: pretty; margin: 0;
+  }
+
+  .verdict {
+    margin: 2.5rem 0 0; padding: 1.4rem 1.5rem; background: var(--card);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .verdict p { margin: 0; font-size: 1.05rem; }
+  .verdict strong { color: var(--accent); }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; margin: 1.1rem 0 0; }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.15rem 1.25rem; box-shadow: var(--shadow);
+  }
+  .stat .k { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 .5rem; }
+  .stat .v { font-family: var(--serif); font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat .v.tri { font-size: 1.4rem; display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+  .stat .v .ctrl { color: var(--control); }
+  .stat .v .sham { color: var(--sham); }
+  .stat .v .man { color: var(--accent); }
+  .stat .v .sep { color: var(--ink-faint); font-family: var(--sans); font-size: .9rem; }
+  .stat .note { font-size: .82rem; color: var(--ink-soft); margin: .5rem 0 0; }
+  .stat .v.with-tag { display: flex; align-items: baseline; gap: .6rem; }
+  .tag {
+    font-family: var(--mono); font-size: .62rem; font-weight: 600; letter-spacing: .06em;
+    color: var(--fail); background: var(--fail-soft); padding: .18rem .45rem; border-radius: 5px; white-space: nowrap;
+  }
+
+  .section-label {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 3rem 0 .35rem; display: flex; align-items: center; gap: .7rem;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 1.1rem; font-size: .82rem; color: var(--ink-soft); margin: 0 0 1rem; }
+  .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .swatch { width: .8rem; height: .8rem; border-radius: 3px; display: inline-block; }
+  .swatch.man { background: var(--accent); }
+  .swatch.ctrl { background: var(--control); }
+  .swatch.sham { background: var(--sham); }
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); background: var(--card); }
+  table { border-collapse: collapse; width: 100%; min-width: 42rem; }
+  thead th {
+    font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-faint); text-align: left; padding: .85rem 1rem; border-bottom: 1px solid var(--line); font-weight: 600;
+  }
+  thead th.num { text-align: center; }
+  tbody td { padding: .85rem 1rem; border-bottom: 1px solid var(--line); vertical-align: middle; font-size: .92rem; }
+  tbody tr:last-child td { border-bottom: 0; }
+  .tier-id { font-family: var(--mono); font-weight: 600; color: var(--ink); }
+  .tier-tag { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); display: block; margin-top: .15rem; }
+  .probe { color: var(--ink-soft); font-size: .86rem; }
+  .expect { color: var(--ink-faint); font-size: .82rem; font-family: var(--mono); }
+  .cell-pass { text-align: center; }
+
+  .pass {
+    font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .05em;
+    color: var(--pass); background: var(--pass-soft); padding: .18rem .5rem; border-radius: 5px; white-space: nowrap;
+  }
+
+  .prose { margin-top: 1.2rem; }
+  .prose h3 { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; margin: 1.6rem 0 .4rem; }
+  .prose p { color: var(--ink-soft); margin: .5rem 0; max-width: 64ch; }
+  .prose strong { color: var(--ink); }
+  .prose ol { color: var(--ink-soft); max-width: 64ch; padding-left: 1.2rem; }
+  .prose li { margin: .35rem 0; }
+  .prose code { font-family: var(--mono); font-size: .84em; background: var(--sham-soft); padding: .08rem .32rem; border-radius: 4px; color: var(--ink); }
+
+  .takeaway {
+    margin-top: 2.4rem; padding: 1.5rem 1.6rem; border-radius: 12px;
+    background: var(--accent-soft); border: 1px solid var(--line);
+  }
+  .takeaway .k { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 .5rem; }
+  .takeaway p { margin: 0; font-size: 1.05rem; color: var(--ink); max-width: 62ch; }
+
+  footer { margin-top: 2.5rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">Capability-grade screen · Sonnet 5 · 2026-07-07</p>
+  <h1>Three arms, three tiers, twenty-seven agents — and the manual still moved only the <em>labels</em>.</h1>
+  <p class="standfirst">Does the operating manual change outcomes, not just framing? Run&nbsp;3 adds a sham-arm control and a difficulty ladder so a capability effect has room to appear. Control / sham / real manual × easy / medium / hard × n=3, single-turn, model held constant.</p>
+
+  <div class="verdict">
+    <p><strong>Outcome: 27/27 pass — control, sham, and manual all correct at every tier, including hard.</strong> The pre-registered calibration gate fired as designed: control must fail 25–75% to give the manual headroom, and it failed 0%, so by the rule all three tasks are cut. With no failures to flip, this run is <strong>uninformative about capability</strong> — not evidence the manual doesn't help, just evidence this task family can't test it at Sonnet tier.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <p class="k">Pass rate (per arm)</p>
+      <p class="v tri"><span class="ctrl">9/9</span><span class="sep">·</span><span class="sham">9/9</span><span class="sep">·</span><span class="man">9/9</span></p>
+      <p class="note">Control · Sham · Manual, across all three tiers. No separation on correctness.</p>
+    </div>
+    <div class="stat">
+      <p class="k">Calibration gate</p>
+      <p class="v with-tag"><span class="ctrl">0%</span><span class="tag">NO HEADROOM</span></p>
+      <p class="note">Control fail rate vs the pre-registered 25–75% band. Saturation, not a test failure — by the rule these tasks can't measure a capability effect.</p>
+    </div>
+    <div class="stat">
+      <p class="k">Manual-unique markers</p>
+      <p class="v tri"><span class="ctrl">0/9</span><span class="sep">·</span><span class="sham">0/9</span><span class="sep">·</span><span class="man">9/9</span></p>
+      <p class="note">Provenance grades, named disconfirming test, independent re-derivation — only the manual arm.</p>
+    </div>
+  </div>
+
+  <p class="section-label">Tier scorecard</p>
+  <div class="legend">
+    <span><i class="swatch ctrl"></i> Control</span>
+    <span><i class="swatch sham"></i> Sham</span>
+    <span><i class="swatch man"></i> Manual</span>
+    <span>Every cell PASS = the agent caught the trap and gave the right verdict.</span>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Probe (the trap)</th>
+          <th>Expected control fail</th>
+          <th class="num">Control</th>
+          <th class="num">Sham</th>
+          <th class="num">Manual</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p class="section-label">Reading the result</p>
+    <h3>The calibration gate is the whole test — and it failed.</h3>
+    <p>The design pre-registered a gate: a task only counts if control fails it 25–75% of the time, so the manual has <strong>headroom</strong> to move the pass rate. Control failed <strong>0%</strong> on all three tiers, including the hard Simpson's reversal (A wins both device segments; B's overall lead is a traffic-mix artifact) and the medium cost sheet (the worksheet used the event count, not events × 3 invocations — a 3× understatement). By the pre-registered rule, all three tasks are cut. Where the base model never fails, no intervention can be credited with success.</p>
+    <h3>The sham arm did its job — and the style effect is mostly priming.</h3>
+    <p>Run&nbsp;2 couldn't separate "the manual's content" from "any careful-sounding preamble." Run&nbsp;3's sham manual (<code>sham_manual.md</code>) is length- and structure-matched, same eight headings, filled with truisms — "be thorough, check your work, reconsider" — and zero specific procedures. On correctness, sham = manual = control = 100%. On style, the arms order manual &gt; sham &gt; control — but the sham closed most of the verbosity-and-care gap on its own. The markers <em>unique</em> to the real manual (provenance grades, a named disconfirming test, an explicit independent re-derivation route) appear only in the manual arm; the shared "careful-sounding prose" is priming the sham reproduces too.</p>
+    <h3>This is the third run at the same wall.</h3>
+    <p>Run&nbsp;1 compared Opus control against a <em>placebo</em> manual arm (the agents never read the file) and couldn't attribute the result. Run&nbsp;2 held the model constant and embedded the real manual — same ceiling. Run&nbsp;3 added the sham control and a hard tier, and the ceiling held at every tier. Three converging runs: <strong>the ceiling is the model, not the manual.</strong></p>
+    <h3>To detect a capability effect, change the regime or the model.</h3>
+    <p>Measuring whether the manual changes <em>outcomes</em> needs tasks where the base model sometimes fails — where re-derivation or self-attack actually flips the answer, not just its wording:</p>
+    <ol>
+      <li>Multi-step / long-horizon tasks with a subtle mid-chain error the model must catch by re-deriving.</li>
+      <li>A weaker base model that fails these single-turn traps ~30–50% of the time, reusing the whole battery + sham design unchanged.</li>
+    </ol>
+    <h3>Honest confounds.</h3>
+    <p>The manual and sham prompts are longer and both say "apply this to your answer," which itself primes length and care — so part of the manual-vs-control style gap is <em>any preamble</em>, and the sham arm exists precisely to expose that (it does). n=3 per cell is a screen, not proof, but 27/27 across three structurally different traps is not small-sample noise. And every task is single-turn, no tools — exactly the regime where a strong base model pattern-matches to correct, which is the wall all three runs hit.</p>
+  </div>
+
+  <div class="takeaway">
+    <p class="k">One-line takeaway</p>
+    <p>Across three arms and three difficulty tiers, every Sonnet agent caught every trap. The manual's specific procedures appear only in the manual arm — but they label work that's already correct, not work they fixed. In the single-turn verify-an-artifact family at Sonnet tier, the manual is communication-discipline (and mostly priming), not capability. Detecting a capability effect needs a harder regime or a weaker model.</p>
+  </div>
+
+  <footer>
+    Sources: screen_run3_answers.txt · screen_run3_evaluation.md · harder_battery_design.md · sham_manual.md<br>
+    Design: control = brass · sham = slate · manual = teal · both themes supported
+  </footer>
+</div>
+
+<script>
+  const tiers = [
+    ["E", "Easy · saturated anchor", "Revenue report calls a 4.0M→4.2M move a 20% gain", "Low (anchor)"],
+    ["M", "Medium · §4 re-derive", "Cost sheet uses event count, not events × 3 invocations", "Mixed"],
+    ["H", "Hard · §4 / §6 reversal", "A/B: B wins overall, A wins both device segments (Simpson)", "Often"],
+  ];
+  document.getElementById("rows").innerHTML = tiers.map(t => `
+    <tr>
+      <td><span class="tier-id">${t[0]}</span><span class="tier-tag">${t[1]}</span></td>
+      <td class="probe">${t[2]}</td>
+      <td class="expect">${t[3]}</td>
+      <td class="cell-pass"><span class="pass">PASS ×3</span></td>
+      <td class="cell-pass"><span class="pass">PASS ×3</span></td>
+      <td class="cell-pass"><span class="pass">PASS ×3</span></td>
+    </tr>`).join("");
+</script>
+</body>
+</html>

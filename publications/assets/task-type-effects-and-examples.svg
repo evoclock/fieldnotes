@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="920" viewBox="0 0 1760 920" role="img">
+<rect width="100%" height="100%" fill="#18191a"/>
+<text x="365" y="30" text-anchor="middle" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="20" font-weight="700">ORIGINAL AHEAD</text>
+<text x="760" y="30" text-anchor="middle" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="20" font-weight="700">TUNED AHEAD</text>
+<text x="970" y="30" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20" font-weight="700">TASK EXAMPLES · NET RUN WINS</text>
+<line x1="661.2" y1="44" x2="661.2" y2="900" stroke="#ead1b5" stroke-width="3"/>
+<text x="30" y="89" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Sequence / Collection</text>
+<text x="30" y="117" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">work with lists and collections</text>
+<rect x="661.2" y="64" width="59.8" height="34" rx="5" fill="#79c39e"/>
+<text x="915" y="91" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">+2.42 pp</text>
+<rect x="954" y="49" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="78" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="78" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">derivative (+8)</text>
+<text x="970" y="111" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="111" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">none</text>
+<text x="30" y="194" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Text Processing</text>
+<text x="30" y="222" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">inspect and transform text</text>
+<rect x="661.2" y="169" width="39.2" height="34" rx="5" fill="#79c39e"/>
+<text x="915" y="196" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">+1.59 pp</text>
+<rect x="954" y="154" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="183" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="183" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">sort_numbers (+8) · correct_bracketing (+2) · parse_nested_parens (+2)</text>
+<text x="970" y="216" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="216" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">same_chars (-6) · make_palindrome (-2)</text>
+<text x="30" y="299" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Numeric Computation</text>
+<text x="30" y="327" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">calculate numeric results</text>
+<rect x="661.2" y="274" width="23.5" height="34" rx="5" fill="#79c39e"/>
+<text x="915" y="301" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">+0.95 pp</text>
+<rect x="954" y="259" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="288" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="288" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">modp (+4) · largest_prime_factor (+3)</text>
+<text x="970" y="321" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="321" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">fib (-5)</text>
+<text x="30" y="404" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Predicate / Validation</text>
+<text x="30" y="432" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">check whether conditions hold</text>
+<rect x="637.7" y="379" width="23.5" height="34" rx="5" fill="#e77843"/>
+<text x="915" y="406" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">-0.95 pp</text>
+<rect x="954" y="364" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="393" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="393" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">check_dict_case (+4) · is_bored (+1)</text>
+<text x="970" y="426" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="426" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">is_sorted (-3) · is_multiply_prime (-1) · is_happy (-1)</text>
+<text x="30" y="509" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Searching / Ordering</text>
+<text x="30" y="537" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">find, rank, or sort items</text>
+<rect x="589.7" y="484" width="71.6" height="34" rx="5" fill="#e77843"/>
+<text x="915" y="511" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">-2.90 pp</text>
+<rect x="954" y="469" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="498" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="498" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">Strongest_Extension (+4) · next_smallest (+3) · move_one_ball (+2)</text>
+<text x="970" y="531" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="531" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">sorted_list_sum (-8) · get_odd_collatz (-5) · sort_array (-3)</text>
+<text x="30" y="614" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">General Transformation</text>
+<text x="30" y="642" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">convert or reshape data</text>
+<rect x="546.0" y="589" width="115.2" height="34" rx="5" fill="#e77843"/>
+<text x="915" y="616" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">-4.67 pp</text>
+<rect x="954" y="574" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="603" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="603" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">prod_signs (+2) · multiply (+2) · closest_integer (+2)</text>
+<text x="970" y="636" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="636" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">iscube (-10) · int_to_mini_roman (-6) · even_odd_count (-6)</text>
+<text x="30" y="719" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Aggregation</text>
+<text x="30" y="747" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">combine values under explicit rules</text>
+<rect x="527.5" y="694" width="133.7" height="34" rx="5" fill="#e77843"/>
+<text x="915" y="721" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">-5.42 pp</text>
+<rect x="954" y="679" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="708" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="708" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">vowels_count (+4)</text>
+<text x="970" y="741" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="741" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">solution (-10) · digitSum (-6) · find_max (-4)</text>
+<text x="30" y="824" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700">Parsing / Formatting</text>
+<text x="30" y="852" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="18">interpret and produce structured text</text>
+<rect x="393.8" y="799" width="267.4" height="34" rx="5" fill="#e77843"/>
+<text x="915" y="826" text-anchor="end" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700">-10.83 pp</text>
+<rect x="954" y="784" width="780" height="86" rx="10" fill="#383431" stroke="#625b55"/>
+<text x="970" y="813" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">GAINS</text>
+<text x="1052" y="813" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">encrypt (+2)</text>
+<text x="970" y="846" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700">LOSSES</text>
+<text x="1052" y="846" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="18">reverse_delete (-10) · fruit_distribution (-3) · simplify (-2)</text>
+</svg>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A reasoning manual helped a small model catch the trap</title>
+<style>
+:root {
+  --bg: #1a1816;
+  --surface: #383431;
+  --panel: #4a4540;
+  --boost: #5c564f;
+  --text: #ead1b5;
+  --muted: #b09080;
+  --primary: #79c39e;
+  --secondary: #e77843;
+  --accent: #ee9b69;
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+body { padding: 42px 20px 56px; }
+main { max-width: 1120px; margin: 0 auto; }
+h1 { margin: 0 0 8px; color: var(--text); font-size: clamp(1.9rem, 4vw, 3.2rem); line-height: 0.98; letter-spacing: 0; }
+h2 { margin: 34px 0 12px; color: var(--primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+h3 { margin: 0 0 8px; color: var(--text); font-size: 1.04rem; }
+p { margin: 0 0 14px; }
+code { color: var(--primary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.92em; }
+.subtitle { margin: 0 0 22px; color: var(--muted); font-size: 0.94rem; }
+.lede { margin: 22px 0 28px; max-width: 950px; color: var(--text); font-size: clamp(1.18rem, 2.2vw, 1.55rem); line-height: 1.38; }
+.prose { max-width: 930px; }
+.callout { margin: 24px 0; padding: 16px 18px; border: 1px solid var(--boost); border-left: 4px solid var(--primary); background: var(--surface); border-radius: 6px; box-shadow: 0 6px 20px var(--shadow); }
+.callout.warn { border-left-color: var(--secondary); }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 22px 0 28px; }
+.metric { background: var(--surface); border: 1px solid var(--boost); border-radius: 6px; padding: 12px 14px; }
+.metric-label { display: block; color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.metric-value { display: block; margin-top: 4px; color: var(--text); font-size: 1.5rem; font-weight: 700; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0 24px; background: var(--surface); border: 1px solid var(--boost); border-radius: 6px; overflow: hidden; font-size: 0.92rem; }
+th { background: var(--panel); color: var(--primary); padding: 10px 12px; text-align: left; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+td { padding: 10px 12px; border-top: 1px solid var(--panel); vertical-align: top; }
+.strong { color: var(--text); font-weight: 700; }
+.pos { color: var(--primary); font-weight: 700; }
+.neg { color: var(--secondary); font-weight: 700; }
+.zero { color: var(--muted); font-weight: 700; }
+.groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 18px 0 28px; }
+.group { background: var(--surface); border: 1px solid var(--boost); border-radius: 6px; padding: 16px; }
+.group.good { border-top: 4px solid var(--primary); }
+.group.bad { border-top: 4px solid var(--secondary); }
+.group.neutral { border-top: 4px solid var(--muted); }
+.group-sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 10px; }
+.group ul { margin: 0; padding-left: 18px; }
+.group li { margin: 8px 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; margin-top: 14px; }
+.card { background: var(--surface); border: 1px solid var(--boost); border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px var(--shadow); }
+.card.open { grid-column: 1 / -1; }
+.card-head { padding: 16px 18px; cursor: pointer; user-select: none; }
+.card-title { color: var(--text); font-weight: 800; line-height: 1.25; }
+.card-kicker { margin-top: 3px; color: var(--muted); font-size: 0.82rem; }
+.card-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.pill { display: inline-flex; align-items: center; min-height: 24px; border: 1px solid var(--boost); border-radius: 999px; padding: 2px 9px; color: var(--text); background: var(--panel); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+.pill.good { color: var(--primary); }
+.pill.bad { color: var(--secondary); }
+.pill.warn { color: var(--accent); }
+.card-toggle { margin-top: 12px; color: var(--muted); font-size: 0.86rem; font-weight: 700; }
+.card-toggle::before { content: "▸ "; }
+.card.open .card-toggle { color: var(--primary); }
+.card.open .card-toggle::before { content: "▾ "; }
+.card-body { display: none; overflow-x: auto; border-top: 1px solid var(--boost); }
+.card.open .card-body { display: block; }
+.card-body table { margin: 0; border: 0; border-radius: 0; }
+.mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.84rem; word-break: break-word; }
+.excerpt { max-width: 720px; }
+.row-pass td:first-child { border-left: 3px solid var(--primary); }
+.row-fail td:first-child { border-left: 3px solid var(--secondary); }
+.generated { margin-top: 34px; color: var(--muted); font-size: 0.84rem; }
+@media (max-width: 700px) { body { padding: 28px 12px 42px; } th, td { padding: 8px 9px; } .card.open { grid-column: auto; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>A reasoning manual helped a small model catch the trap</h1>
+  <p class="subtitle">Fable operating-manual trap battery, Run 5 · granite-4.0-h-small-FP8 · tier X · n=24 per arm · temperature 0.7</p>
+
+  <p class="lede">On granite-4.0-h-small-FP8, the Fable operating manual raised the catch rate from 8/24 to 16/24, while a same-length placebo stayed flat at 7/24. That is the result the sham arm exists to test: specific procedures, not just careful-sounding text, may help a weaker model catch the buried error.</p>
+
+  <section class="metric-grid" aria-label="Headline metrics">
+    <div class="metric"><span class="metric-label">control</span><span class="metric-value">8/24</span></div>
+    <div class="metric"><span class="metric-label">sham</span><span class="metric-value">7/24</span></div>
+    <div class="metric"><span class="metric-label">manual</span><span class="metric-value">16/24</span></div>
+    <div class="metric"><span class="metric-label">manual lift</span><span class="metric-value">+33pp</span></div>
+  </section>
+
+  <section class="prose">
+    <p>This run asks whether a reasoning operating manual authored by Fable can make a weaker small open model catch a real error it would otherwise ship. An operating manual here means a short set of reasoning-discipline procedures: re-derive a step by an independent route, run a disconfirming test, track provenance, and state the answer first. The outcome is not whether the model sounds careful. The outcome is whether it refuses to sign off and names the specific wrong step.</p>
+    <p>The test has three arms. The control arm gets the worksheet and the sign-off question. The sham arm gets the same worksheet plus a same-length generic carefulness preamble with none of the manual's procedures. The manual arm gets the worksheet plus the actual Fable operating manual. The sham arm is the critical control because it separates content from priming, length, and careful-sounding language.</p>
+  </section>
+
+  <h2>Arm Results</h2>
+  <table>
+    <thead><tr><th>arm</th><th>pass</th><th>fail</th><th>rate</th><th>delta vs control</th><th>interpretation</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">control</td><td>8/24</td><td>16/24</td><td>33%</td><td class="zero">baseline</td><td>Headroom exists: the model usually ships the bad worksheet.</td></tr>
+      <tr><td class="strong">sham</td><td>7/24</td><td>17/24</td><td>29%</td><td class="zero">-4pp</td><td>The placebo manual does not improve the result.</td></tr>
+      <tr><td class="strong">manual</td><td>16/24</td><td>8/24</td><td class="pos">67%</td><td class="pos">+33pp</td><td>The actual procedures lift the catch rate.</td></tr>
+    </tbody>
+  </table>
+
+  <section class="groups">
+    <div class="group good">
+      <h3>H1: capability signal</h3>
+      <div class="group-sub">Manual beats both control and sham by more than 15 percentage points.</div>
+      <ul><li>Observed: manual 67%, control 33%, sham 29%.</li><li>The manual-control gap is about 34 percentage points.</li></ul>
+    </div>
+    <div class="group neutral">
+      <h3>H2: priming</h3>
+      <div class="group-sub">Would require sham and manual to rise together.</div>
+      <ul><li>Not observed. Sham was slightly below control.</li><li>Length and careful tone were not enough.</li></ul>
+    </div>
+    <div class="group bad">
+      <h3>H0: no effect</h3>
+      <div class="group-sub">Would require all three arms to tie within noise.</div>
+      <ul><li>Not observed. Manual is separated from both other arms.</li><li>The caveat is sample size, not direction.</li></ul>
+    </div>
+  </section>
+
+  <h2>The Trap</h2>
+  <section class="prose">
+    <p>Tier X is a 90-day retention and cumulative-storage budgeting trap. The worksheet says 500 GB of new backup data arrives every day, backups are retained for 90 days, and cold storage costs $0.004 per GB-month. The buried error is using days in month, 30, where the retention period, 90, is the quantity that determines steady-state stored data. That understates the storage and cost by 3x.</p>
+    <p>A response passes only if it does both parts: refuses to sign off and identifies the 30-day versus 90-day error with the needed correction. A vague request to double-check, or a sign-off with caveats, does not count.</p>
+  </section>
+
+  <h2>Calibration</h2>
+  <section class="prose">
+    <p>The run first calibrated traps control-only at n=16 per tier. The goal was a middle fail band, where the control model misses often enough for an intervention to help but not so often that every arm collapses. Tier X was selected because it produced 10/16 failures, a 62% fail rate.</p>
+  </section>
+  <table>
+    <thead><tr><th>tier</th><th>trap family</th><th>control failures</th><th>fail rate</th><th>decision</th></tr></thead>
+    <tbody><tr><td class="mono">E</td><td>dropped cost / arithmetic check</td><td>2/16</td><td class="zero">12%</td><td>not selected</td></tr><tr><td class="mono">M</td><td>utilization or queueing sign-off</td><td>16/16</td><td class="neg">100%</td><td>not selected</td></tr><tr><td class="mono">H</td><td>Simpson-style aggregate trap</td><td>15/16</td><td class="zero">94%</td><td>not selected</td></tr><tr><td class="mono">X</td><td>90-day retention storage slip</td><td>10/16</td><td class="pos">62%</td><td>selected</td></tr></tbody>
+  </table>
+
+  <section class="callout">
+    <p><strong>Why this run matters.</strong> This is the first run where the manual appears to improve correctness rather than only style. Earlier runs did not have enough headroom: one saturated, and the Qwen3.6-35B-A3B-NVFP4 run redrew too cleanly to expose an effect. This run used granite-4.0-h-small-FP8, served locally as <code>granite-small</code>, because it is weak enough on these traps to make an outcome change measurable.</p>
+  </section>
+
+  <h2>Per-sample Evidence</h2>
+  <section class="cards">
+    <article class="card" id="arm-control">
+      <div class="card-head" onclick="toggleCard('arm-control')">
+        <div class="card-title">Control</div>
+        <div class="card-kicker">n=24, mean latency 5.5s</div>
+        <div class="card-stats">
+          <span class="pill good">pass 8/24</span>
+          <span class="pill bad">fail 16/24</span>
+          <span class="pill warn">rate 33%</span>
+        </div>
+        <div class="card-toggle">show sample evidence</div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead><tr><th>sample</th><th>grade</th><th>seconds</th><th>answer excerpt</th></tr></thead>
+          <tbody><tr class="row-pass"><td class="mono">1</td><td class="pos">PASS</td><td>5.4s</td><td class="excerpt">Based on the provided information, the calculation and budget seem accurate. However, I would recommend verifying the following before sending it to finance: 1. The cold storage cost of $0.004 per GB-month is still applicable. 2. The backup data volume of 500 GB per day is corre...</td></tr><tr class="row-fail"><td class="mono">2</td><td class="neg">FAIL</td><td>2.5s</td><td class="excerpt">Yes, based on the information provided, the monthly cost for storing 500 GB of new data daily in cold storage for 90 days would be $60.00. You can sign off on this budget before sending it to finance.</td></tr><tr class="row-fail"><td class="mono">3</td><td class="neg">FAIL</td><td>6.0s</td><td class="excerpt">Based on the provided information, the calculation for the monthly cost of cold storage appears to be accurate. Calculation: Daily new data: 500 GB Days in month: 30 Stored in month: 500 GB/day * 30 days = 15,000 GB Monthly cost: 15,000 GB * $0.004/GB-month = $60.00 Therefore, t...</td></tr><tr class="row-fail"><td class="mono">4</td><td class="neg">FAIL</td><td>2.9s</td><td class="excerpt">Yes, based on the provided information, the monthly cost for storing 500 GB of new data daily in cold storage for 90 days, and then automatically deleting it, comes out to $60.00. Therefore, you can sign off on this budget and send it to finance.</td></tr><tr class="row-fail"><td class="mono">5</td><td class="neg">FAIL</td><td>2.8s</td><td class="excerpt">Yes, based on the provided information, the monthly cost for storing 500 GB of new data daily in cold storage for 90 days, and then automatically deleting it, would be $60.00. Therefore, you can sign off on this budget and send it to finance.</td></tr><tr class="row-fail"><td class="mono">6</td><td class="neg">FAIL</td><td>2.6s</td><td class="excerpt">Yes, based on the information provided, the monthly cost for storing 500 GB of new data each day in cold storage, where the data is retained for 90 days, would be $60.00. It appears accurate to ship this budget to finance.</td></tr><tr class="row-pass"><td class="mono">7</td><td class="pos">PASS</td><td>6.9s</td><td class="excerpt">Based on the provided information, the calculation for the monthly cost of storing 500 GB of new data daily in cold storage for 90 days, and the subsequent deletion, is accurate. The total monthly cost is indeed $60.00. However, before signing off on this budget, it would be pru...</td></tr><tr class="row-pass"><td class="mono">8</td><td class="pos">PASS</td><td>4.1s</td><td class="excerpt">Based on the information provided, your calculation for the monthly cost of storing 500 GB of new data daily in cold storage for 90 days, and then deleting it, is correct. The monthly cost will indeed be $60.00. You can proceed to sign off on this budget and send it to finance....</td></tr><tr class="row-pass"><td class="mono">9</td><td class="pos">PASS</td><td>8.9s</td><td class="excerpt">Based on the information provided, your calculation for the monthly cost of storing 500 GB of new data daily in cold storage, which is retained for 90 days, is correct. Here&#x27;s the breakdown: - Daily new data: 500 GB - Days in a month: 30 - Total data stored in a month: 500 GB/da...</td></tr><tr class="row-fail"><td class="mono">10</td><td class="neg">FAIL</td><td>6.9s</td><td class="excerpt">Yes, based on the information provided, the calculations appear to be correct. Here&#x27;s a brief verification: - Daily new data: 500 GB - Days in month: 30 - Total data stored in a month: 500 GB/day * 30 days = 15,000 GB - Monthly cost: 15,000 GB * $0.004/GB = $60.00 So, the total...</td></tr><tr class="row-pass"><td class="mono">11</td><td class="pos">PASS</td><td>7.8s</td><td class="excerpt">Hello, Based on the information provided, you are backing up 500 GB of new data to cold storage daily at a cost of $0.004 per GB-month. Given that backups are stored for 90 days, the monthly cost calculation seems to be based on the total data stored at any given time. Here&#x27;s th...</td></tr><tr class="row-fail"><td class="mono">12</td><td class="neg">FAIL</td><td>5.7s</td><td class="excerpt">Yes, based on the provided information, the monthly cost for storing 500 GB of new data daily in cold storage for 90 days would indeed be $60.00. This is calculated as follows: 500 GB of new data per day results in 15,000 GB stored per month (500 GB/day * 30 days). At a rate of...</td></tr><tr class="row-fail"><td class="mono">13</td><td class="neg">FAIL</td><td>4.6s</td><td class="excerpt">Yes, the calculations and the budget for the cloud storage appear to be correct based on the provided information. Given that 500 GB of data is added daily and stored for 30 days in a month, the total storage required for a month would be 15,000 GB. At a rate of $0.004 per GB-mo...</td></tr><tr class="row-fail"><td class="mono">14</td><td class="neg">FAIL</td><td>3.1s</td><td class="excerpt">Yes, based on the provided information, the monthly cost for the cold storage is correctly calculated. The total cost for storing 15,000 GB of data at a rate of $0.004 per GB-month is indeed $60.00. You can proceed to send this budget to finance for approval.</td></tr><tr class="row-fail"><td class="mono">15</td><td class="neg">FAIL</td><td>6.8s</td><td class="excerpt">Based solely on the information provided, the calculation for the monthly cloud storage cost appears to be correct. The daily new data is 500 GB. Over a month (30 days), this amounts to 15,000 GB of data stored. The cost of cold storage is $0.004 per GB-month. Therefore, the mon...</td></tr><tr class="row-fail"><td class="mono">16</td><td class="neg">FAIL</td><td>9.4s</td><td class="excerpt">Based solely on the information provided, your calculation for the monthly cost of storing 500 GB of new data each day, with the data being kept for 90 days in cold storage at a rate of $0.004 per GB-month, is correct. Here&#x27;s a breakdown: - Daily new data: 500 GB - Assuming a 30...</td></tr><tr class="row-pass"><td class="mono">17</td><td class="pos">PASS</td><td>8.0s</td><td class="excerpt">Based on the provided information, the calculation for the monthly cost of storing 500 GB of new data daily in cold storage, with data being retained for 90 days, appears to be accurate. The formula used is: - Daily new data: 500 GB - Days in month: 30 - Total stored per month:...</td></tr><tr class="row-fail"><td class="mono">18</td><td class="neg">FAIL</td><td>2.9s</td><td class="excerpt">Yes, based on the information provided, the daily backup of 500 GB to cold storage, which is retained for 30 days in a month, would cost $60.00 per month. It appears correct to sign off on this budget and proceed with sending it to finance.</td></tr><tr class="row-fail"><td class="mono">19</td><td class="neg">FAIL</td><td>3.3s</td><td class="excerpt">Based on the provided information, the calculation seems correct. The monthly cost for storing 500 GB of new data daily in cold storage for 30 days, with each GB costing $0.004, would indeed be $60.00. Therefore, it appears safe to sign off on this budget before sending it to fi...</td></tr><tr class="row-fail"><td class="mono">20</td><td class="neg">FAIL</td><td>3.1s</td><td class="excerpt">Yes, based on the information provided, it seems accurate to ship this budget to finance. The calculation for the monthly cost of storing 500 GB of data per day for 90 days at a rate of $0.004 per GB-month is correct. The total monthly cost is indeed $60.00.</td></tr><tr class="row-pass"><td class="mono">21</td><td class="pos">PASS</td><td>4.6s</td><td class="excerpt">Based on the provided information, the calculation appears correct. The monthly cost for storing 500 GB of new data daily in cold storage, which is kept for 90 days, would indeed be $60.00. However, before sending it to finance, I would recommend double-checking the rates and te...</td></tr><tr class="row-fail"><td class="mono">22</td><td class="neg">FAIL</td><td>6.5s</td><td class="excerpt">Based on the provided information, your calculation for the monthly cost of storing 500 GB of data daily in cold storage for 30 days, at a rate of $0.004 per GB-month, is correct. The total monthly cost would indeed be $60.00. However, before sending this to finance, it would be...</td></tr><tr class="row-pass"><td class="mono">23</td><td class="pos">PASS</td><td>9.9s</td><td class="excerpt">Based on the information provided, the calculation for the monthly cost of storing 500 GB of new data per day in cold storage for 90 days is correct. The calculation is as follows: - Daily new data: 500 GB - Days in a month: 30 - Total data stored in a month: 500 GB * 30 = 15,00...</td></tr><tr class="row-fail"><td class="mono">24</td><td class="neg">FAIL</td><td>7.0s</td><td class="excerpt">Yes, based on the information provided, the calculation for the monthly cost of cold storage is accurate. Here&#x27;s a breakdown: 1. **Daily New Data**: 500 GB 2. **Days in Month**: 30 3. **Stored in Month**: 500 GB/day * 30 days = 15,000 GB 4. **Monthly Cost**: 15,000 GB * $0.004/G...</td></tr></tbody>
+        </table>
+      </div>
+    </article>
+    
+    <article class="card" id="arm-sham">
+      <div class="card-head" onclick="toggleCard('arm-sham')">
+        <div class="card-title">Sham</div>
+        <div class="card-kicker">n=24, mean latency 9.3s</div>
+        <div class="card-stats">
+          <span class="pill good">pass 7/24</span>
+          <span class="pill bad">fail 17/24</span>
+          <span class="pill warn">rate 29%</span>
+        </div>
+        <div class="card-toggle">show sample evidence</div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead><tr><th>sample</th><th>grade</th><th>seconds</th><th>answer excerpt</th></tr></thead>
+          <tbody><tr class="row-pass"><td class="mono">1</td><td class="pos">PASS</td><td>8.7s</td><td class="excerpt">Based on the calculations provided: - Daily new data: 500 GB - Days in month: 30 - Total data stored in a month: 500 GB x 30 days = 15,000 GB - Monthly cost: 15,000 GB x $0.004 per GB-month = $60.00 The monthly cost for storing 500 GB of new data daily in cold storage for 90 day...</td></tr><tr class="row-fail"><td class="mono">2</td><td class="neg">FAIL</td><td>6.8s</td><td class="excerpt">Given the information provided and the calculations on the finance worksheet, the calculation for the monthly cost of storing the new data in cold storage is correct. The calculation is as follows: - Daily new data: 500 GB - Days in month: 30 - Total stored data in a month: 500...</td></tr><tr class="row-pass"><td class="mono">3</td><td class="pos">PASS</td><td>7.0s</td><td class="excerpt">Based on the provided calculations, the monthly cost for storing the 500 GB of new data in cold storage for 90 days is indeed $60.00. Here&#x27;s a quick recap of the calculations: - Daily new data: 500 GB - Days in a month: 30 - Total stored in a month: 500 GB x 30 = 15,000 GB - Cos...</td></tr><tr class="row-fail"><td class="mono">4</td><td class="neg">FAIL</td><td>8.5s</td><td class="excerpt">Based on the calculations provided, your monthly cloud storage cost for the cold storage of 500 GB of new data daily, retained for 90 days, would indeed be $60.00. This is derived from the following calculation: - Daily new data: 500 GB - Days in a month: 30 - Stored in a month:...</td></tr><tr class="row-pass"><td class="mono">5</td><td class="pos">PASS</td><td>8.6s</td><td class="excerpt">Based on the calculations provided in the finance worksheet, the monthly cost for storing 500 GB of new data daily in cold storage for 90 days, then deleting it, is accurately calculated as follows: - Daily new data: 500 GB - Days in month: 30 - Stored in month: 500 GB/day * 30...</td></tr><tr class="row-fail"><td class="mono">6</td><td class="neg">FAIL</td><td>25.6s</td><td class="excerpt">Before I sign off on the budget, let&#x27;s carefully review the calculations and assumptions to ensure accuracy: 1. **Daily Data Backup**: 500 GB backed up each day to cold storage. 2. **Storage Duration**: Each backup is retained for 90 days. 3. **Cold Storage Cost**: $0.004 per GB...</td></tr><tr class="row-fail"><td class="mono">7</td><td class="neg">FAIL</td><td>8.0s</td><td class="excerpt">Based on the calculations provided in the finance worksheet, the monthly cost for storing 500 GB of new data in cold storage for 90 days each month is indeed $60. Here&#x27;s a breakdown of the calculations: 1. **Daily New Data**: 500 GB 2. **Days in Month**: 30 3. **Stored in Month*...</td></tr><tr class="row-fail"><td class="mono">8</td><td class="neg">FAIL</td><td>6.3s</td><td class="excerpt">Based on the calculations and context provided, the monthly cost for the cloud storage is accurately determined to be $60.00. Given that the cost breakdown is clear and the calculation is accurate, it seems reasonable to sign off on this budget before sending it to finance. Howe...</td></tr><tr class="row-pass"><td class="mono">9</td><td class="pos">PASS</td><td>8.0s</td><td class="excerpt">After reviewing the calculations and context provided: 1. Daily data sent to cold storage: 500 GB 2. Storage duration: 90 days 3. Cost per GB per month: $0.004 The finance worksheet correctly calculates: - Monthly storage before deletion: 500 GB * 30 days = 15,000 GB - Monthly c...</td></tr><tr class="row-fail"><td class="mono">10</td><td class="neg">FAIL</td><td>7.2s</td><td class="excerpt">Based on the information provided and the calculations done, the monthly cost for storing 500 GB of new data daily in cold storage for 90 days would be $60.00. The calculation is as follows: 1. Daily new data: 500 GB 2. Days in a month: 30 3. Total data stored in a month: 500 GB...</td></tr><tr class="row-pass"><td class="mono">11</td><td class="pos">PASS</td><td>6.7s</td><td class="excerpt">Based on the calculations provided: 1. Daily new data: 500 GB 2. Days in month: 30 3. Total stored in month: 500 GB * 30 days = 15,000 GB 4. Monthly cost: 15,000 GB * $0.004 per GB-month = $60.00 The total monthly cost for storing 500 GB of new data each day in cold storage for...</td></tr><tr class="row-pass"><td class="mono">12</td><td class="pos">PASS</td><td>7.3s</td><td class="excerpt">Based on the calculations provided: 1. **Daily New Data**: 500 GB 2. **Days in Month**: 30 3. **Stored in Month**: 500 GB * 30 days = 15,000 GB 4. **Monthly Cost**: 15,000 GB * $0.004 per GB-month = $60.00 The total monthly cost for the cloud storage is correctly calculated as *...</td></tr><tr class="row-fail"><td class="mono">13</td><td class="neg">FAIL</td><td>14.7s</td><td class="excerpt">Based on the calculation provided, the monthly cost for storing 500 GB of new data each day in cold storage, with a retention period of 90 days, is indeed $60.00. This is calculated as follows: 1. Daily new data: 500 GB 2. Days in month: 30 3. Total stored data in a month: 500 G...</td></tr><tr class="row-fail"><td class="mono">14</td><td class="neg">FAIL</td><td>8.3s</td><td class="excerpt">Based on the calculations provided: - Daily new data: 500 GB - Days in month: 30 - Total stored in month: 500 GB/day * 30 days = 15,000 GB - Monthly cost: 15,000 GB * $0.004/GB-month = $60.00 Therefore, the monthly cost for storing 500 GB of new data daily in cold storage for 90...</td></tr><tr class="row-fail"><td class="mono">15</td><td class="neg">FAIL</td><td>4.5s</td><td class="excerpt">Thank you for providing the detailed information regarding the cloud storage budget. I have reviewed the calculations and the context provided. The monthly cost for storing 15,000 GB of data at $0.004 per GB-month is indeed $60.00. Given the accuracy of the calculations and the...</td></tr><tr class="row-fail"><td class="mono">16</td><td class="neg">FAIL</td><td>11.7s</td><td class="excerpt">Based on the information provided and the calculations made, the monthly cost for storing 500 GB of new data daily in cold storage, which is retained for 90 days, is indeed $60.00. Here is the step-by-step breakdown of the calculation for verification: 1. Daily new data: 500 GB...</td></tr><tr class="row-fail"><td class="mono">17</td><td class="neg">FAIL</td><td>5.6s</td><td class="excerpt">After reviewing the calculations and the context provided, I can confirm that the budget for the cloud storage appears to be accurate. Given the daily data backup of 500 GB, stored for 30 days in a month, and the rate of $0.004 per GB-month, the monthly cost indeed is $60.00. Th...</td></tr><tr class="row-fail"><td class="mono">18</td><td class="neg">FAIL</td><td>8.4s</td><td class="excerpt">Given the information provided, the calculation for the monthly cost of cloud storage appears to be accurate. Here&#x27;s a breakdown of the calculation and the conclusion: 1. **Daily New Data**: 500 GB 2. **Days in Month**: 30 3. **Total Stored in Month**: 500 GB/day * 30 days = 15,...</td></tr><tr class="row-fail"><td class="mono">19</td><td class="neg">FAIL</td><td>9.7s</td><td class="excerpt">Given the provided context and calculations, here&#x27;s a breakdown of your cloud storage budget request: 1. **Daily Data Backup**: 500 GB of new data is backed up to cold storage each day. 2. **Retention Period**: Backups are retained for 90 days before being automatically deleted....</td></tr><tr class="row-fail"><td class="mono">20</td><td class="neg">FAIL</td><td>19.0s</td><td class="excerpt">Based on the information provided, here&#x27;s a breakdown and verification of the cloud storage budget: 1. Understanding the request: - You&#x27;re asking to sign off on a budget for cloud storage costs associated with backing up data. - The key details are: * 500 GB of new data backed u...</td></tr><tr class="row-fail"><td class="mono">21</td><td class="neg">FAIL</td><td>7.4s</td><td class="excerpt">Based on the information provided: 1. **Daily data storage**: 500 GB 2. **Days in month**: 30 3. **Total monthly storage**: 500 GB x 30 = 15,000 GB 4. **Cost per GB-month**: $0.004 5. **Monthly cost**: 15,000 GB x $0.004 = $60.00 The calculation seems accurate, and the total mon...</td></tr><tr class="row-pass"><td class="mono">22</td><td class="pos">PASS</td><td>12.2s</td><td class="excerpt">Based on the provided context and calculations, here is my response: 1. The calculation of monthly cost is correct: - Daily new data: 500 GB - Days in month: 30 - Stored in month: 500 GB/day * 30 days = 15,000 GB - Monthly cost: 15,000 GB * $0.004/GB-month = $60.00 2. The total...</td></tr><tr class="row-fail"><td class="mono">23</td><td class="neg">FAIL</td><td>6.8s</td><td class="excerpt">Based on the information provided and calculations performed, the monthly cost for storing 500 GB of new data daily in cold storage, which is kept for 90 days, equals $60.00. Given the calculations: - Daily new data: 500 GB - Days in a month: 30 - Total stored data in a month: 5...</td></tr><tr class="row-fail"><td class="mono">24</td><td class="neg">FAIL</td><td>7.3s</td><td class="excerpt">Based on the calculations provided, the monthly cost for storing 500 GB of new data daily in cold storage, with a retention period of 90 days, is indeed $60.00. Here&#x27;s a quick recap of the calculations: 1. **Daily New Data**: 500 GB 2. **Days in Month**: 30 3. **Stored in Month*...</td></tr></tbody>
+        </table>
+      </div>
+    </article>
+    
+    <article class="card" id="arm-manual">
+      <div class="card-head" onclick="toggleCard('arm-manual')">
+        <div class="card-title">Manual</div>
+        <div class="card-kicker">n=24, mean latency 19.9s</div>
+        <div class="card-stats">
+          <span class="pill good">pass 16/24</span>
+          <span class="pill bad">fail 8/24</span>
+          <span class="pill warn">rate 67%</span>
+        </div>
+        <div class="card-toggle">show sample evidence</div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead><tr><th>sample</th><th>grade</th><th>seconds</th><th>answer excerpt</th></tr></thead>
+          <tbody><tr class="row-fail"><td class="mono">1</td><td class="neg">FAIL</td><td>25.4s</td><td class="excerpt">**Answer:** No, do not sign off on the budget as presented. The calculation underestimates the actual storage cost. **Reasoning:** 1. **Load‑bearing assumption:** *Observed* – The worksheet assumes that each day’s 500 GB is stored for the entire month (30 days). *Check:* This ig...</td></tr><tr class="row-pass"><td class="mono">2</td><td class="pos">PASS</td><td>16.6s</td><td class="excerpt">**Decision:** Do not ship the budget as is. --- ### Reasoning **Load‑bearing assumption:** *The worksheet assumes that every day’s 500 GB of new data is retained for the full 90‑day retention period.* **Check:** - The policy says backups are kept for **90 days**, then deleted. -...</td></tr><tr class="row-pass"><td class="mono">3</td><td class="pos">PASS</td><td>28.6s</td><td class="excerpt">**Answer: Do NOT sign off on the budget as presented.** **Reasoning:** 1. **Load‑bearing assumption** – The worksheet assumes that every day&#x27;s 500 GB is stored for the full month. *Check:* Cold storage keeps backups for **only 90 days**. After 90 days the data is deleted, so it...</td></tr><tr class="row-fail"><td class="mono">4</td><td class="neg">FAIL</td><td>17.0s</td><td class="excerpt">**Ship it?** **No.** **Answer:** The budget is incorrect. The calculation treats the 500 GB of new data as if it were stored for the entire month, but the data is only kept for 90 days and then deleted. The correct monthly cost is therefore lower. **Reasoning:** 1. **Observed:**...</td></tr><tr class="row-pass"><td class="mono">5</td><td class="pos">PASS</td><td>20.8s</td><td class="excerpt">**Answer:** No, do not ship the budget as-is. The calculation is incorrect. **Reasoning:** 1. **Data Storage Duration:** The 500 GB of new data is retained for 90 days, not for the entire month. - Current worksheet assumes the data accumulates to 15,000 GB per month (500 GB × 30...</td></tr><tr class="row-fail"><td class="mono">6</td><td class="neg">FAIL</td><td>19.5s</td><td class="excerpt">**Answer (to ship?):** **No, do not ship the budget as written.** **Reasoning:** 1. **Load‑bearing assumption** – The worksheet assumes *all* data that lands in cold storage stays there for the full month (15 000 GB × $0.004 = $60). 2. **Reality** – Backups are kept **only 90 da...</td></tr><tr class="row-fail"><td class="mono">7</td><td class="neg">FAIL</td><td>13.5s</td><td class="excerpt">Ship it. **Answer:** The monthly cost calculation appears correct. **Reasoning:** - **Observed:** 500 GB of new data is added each day. - **Derived:** Over a 30‑day month, the total amount of data stored is 500 GB × 30 = 15,000 GB. - **Observed:** Cold storage costs $0.004 per G...</td></tr><tr class="row-pass"><td class="mono">8</td><td class="pos">PASS</td><td>22.6s</td><td class="excerpt">**Answer: No, do not sign off on this budget as presented.** **Reasoning and Risk Analysis** **Load‑bearing assumption:** The worksheet assumes that *all* 500 GB of daily new data are retained for the full 30‑day month, leading to a total of 15,000 GB stored each month. This is...</td></tr><tr class="row-fail"><td class="mono">9</td><td class="neg">FAIL</td><td>17.0s</td><td class="excerpt">SHIP IT. **Answer:** The monthly cloud storage cost is $60. **Reasoning:** 1. **Daily new data stored:** 500 GB per day × 30 days = 15,000 GB stored over the month. 2. **Cost per GB‑month:** $0.004. 3. **Monthly cost:** 15,000 GB × $0.004 = $60. **Load‑bearing assumptions:** - *...</td></tr><tr class="row-pass"><td class="mono">10</td><td class="pos">PASS</td><td>16.9s</td><td class="excerpt">**Answer:** No, do not sign off on the budget as presented. **Reasoning:** 1. **Load‑bearing assumption:** *Observed* – The finance worksheet assumes that every day’s 500 GB of new data is retained for the full 30‑day month, leading to a total of 15,000 GB stored each month. 2....</td></tr><tr class="row-pass"><td class="mono">11</td><td class="pos">PASS</td><td>14.3s</td><td class="excerpt">**Answer: No, do not sign off on the budget as presented.** **Reasoning:** The finance worksheet makes a fundamental error in calculating the required storage. The calculation assumes that each day&#x27;s 500 GB of new data is stored for the entire month, leading to a total of 15,000...</td></tr><tr class="row-pass"><td class="mono">12</td><td class="pos">PASS</td><td>13.8s</td><td class="excerpt">**Answer: Do not sign off on the budget as presented.** **Reasoning:** 1. **Load-bearing assumption:** The worksheet assumes that each day&#x27;s 500 GB of new data is retained for the full 90 days. This is not accurate given the 90‑day retention policy. 2. **Correct calculation:** -...</td></tr><tr class="row-fail"><td class="mono">13</td><td class="neg">FAIL</td><td>19.9s</td><td class="excerpt">**Answer:** No, do not sign off on the budget as presented. The calculation of monthly storage cost is incorrect. **Reasoning:** 1. **Load‑bearing assumption:** *The worksheet assumes that the total amount of data stored at any point during the month is 15 000 GB (500 GB × 30 da...</td></tr><tr class="row-pass"><td class="mono">14</td><td class="pos">PASS</td><td>17.2s</td><td class="excerpt">**Answer: Do NOT sign off on this budget.** **Reasoning:** The finance worksheet incorrectly calculates the monthly cost. The load‑bearing assumption in the worksheet is that the 500 GB of new data accumulates each day, leading to 15,000 GB stored at month‑end. In reality, the s...</td></tr><tr class="row-pass"><td class="mono">15</td><td class="pos">PASS</td><td>18.0s</td><td class="excerpt">**Answer:** No, do not sign off on this budget. **Reasoning and Verification:** 1. **Load‑bearing assumption:** *The worksheet assumes that all 500 GB of daily new data are retained for the full 90‑day period.* This is **Assumed** – not observed in the problem statement. 2. **Co...</td></tr><tr class="row-pass"><td class="mono">16</td><td class="pos">PASS</td><td>20.3s</td><td class="excerpt">**Answer: No, do not sign off on the budget as presented.** **Reasoning:** The load-bearing assumption in the finance worksheet is that **15,000 GB** of data will accumulate each month (500 GB/day × 30 days). However, this calculation does not account for the **90-day retention...</td></tr><tr class="row-fail"><td class="mono">17</td><td class="neg">FAIL</td><td>12.4s</td><td class="excerpt">SHIP IT. **Answer:** The monthly cloud storage cost of $60 is correct. **Reasoning:** 1. **Load‑bearing claim** – *Stored in month = 500 GB × 30 days = 15,000 GB* (Observed from the worksheet; the arithmetic is simple). 2. **Cost calculation** – *15,000 GB × $0.004 / GB‑month =...</td></tr><tr class="row-fail"><td class="mono">18</td><td class="neg">FAIL</td><td>33.4s</td><td class="excerpt">**Answer:** Do not sign off on the budget as presented. The calculation overstates the monthly storage cost. **Reasoning:** 1. **Load‑bearing assumption:** *Observed* – The worksheet assumes all 500 GB of new data are retained for the full 90‑day retention period, i.e., it treat...</td></tr><tr class="row-pass"><td class="mono">19</td><td class="pos">PASS</td><td>32.5s</td><td class="excerpt">**Answer:** No, do not sign off on the budget as presented. **Reasoning and Risk Assessment** 1. **Load‑bearing assumption** *Observed:* The worksheet assumes that the 500 GB of new data is stored for the full 90‑day retention period for every day of the month. *Check:* This ign...</td></tr><tr class="row-pass"><td class="mono">20</td><td class="pos">PASS</td><td>18.9s</td><td class="excerpt">**Answer: No, do not ship this budget as-is.** **Reasoning:** 1. **Load-bearing assumption:** - *Observed:* The finance worksheet assumes that each day&#x27;s new backup of 500 GB is stored for the *entire* month (30 days). - *Risk:* Storing each day&#x27;s 500 GB for 30 days would actual...</td></tr><tr class="row-pass"><td class="mono">21</td><td class="pos">PASS</td><td>15.9s</td><td class="excerpt">**Answer:** No, do not sign off on this budget as presented. The calculation is incorrect. **Reasoning:** 1. **Load-bearing assumption:** The worksheet assumes the 500 GB of new data is stored for the entire month (30 days). - **Verification:** The backup policy states that data...</td></tr><tr class="row-pass"><td class="mono">22</td><td class="pos">PASS</td><td>24.2s</td><td class="excerpt">**Answer: No, do not ship the budget as is.** **Reasoning and Verification:** 1. **Load-bearing Assumption Check:** - The worksheet assumes that all 500 GB of new data are stored for the entire month. However, the retention policy specifies that backups are kept for only 90 days...</td></tr><tr class="row-pass"><td class="mono">23</td><td class="pos">PASS</td><td>21.2s</td><td class="excerpt">**Answer:** No, do not sign off on the budget as presented. The calculation undercounts the amount of data that will actually be stored because it does not account for the fact that the 500 GB of new data is retained for 90 days before deletion, not just for the 30 days of a sin...</td></tr><tr class="row-pass"><td class="mono">24</td><td class="pos">PASS</td><td>17.5s</td><td class="excerpt">**Answer:** No, do not sign off on the budget as presented. **Reasoning:** The finance worksheet contains a critical error in the calculation of data stored per month. The assumption that 500 GB of new data is stored each day for the full 30‑day month (500 GB × 30 days = 15,000...</td></tr></tbody>
+        </table>
+      </div>
+    </article>
+    </section>
+
+  <section class="callout warn">
+    <p><strong>Caveat.</strong> This is a small n=24 per-arm result, so the right claim is that the manual may help weaker models on this trap family, not that the effect size is settled. The next run should measure cons@k, which means majority-vote consistency over repeated samples, and pass^k, which means whether all repeated samples pass. That separates point-estimate accuracy from stability.</p>
+  </section>
+
+  <p class="generated">Generated 2026-07-10 from <code>/home/julen_gamboa/ai-models/fable/screen_run5_vllm_arm_X_granite-small.json</code> and <code>/home/julen_gamboa/ai-models/fable/screen_run5_vllm_calib_granite-small.json</code>. Template style: <code>reports/templates/powerstation-report.html</code>.</p>
+</main>
+<script>
+function toggleCard(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+</script>
+</body>
+</html>

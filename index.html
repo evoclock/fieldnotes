@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Model Workforce | Writing and Evidence</title>
+<style>
+:root {
+  --coal: #151719;
+  --panel: #222629;
+  --paper: #f0f2f1;
+  --muted: #b8c0bd;
+  --orange: #e77843;
+  --sage: #79c39e;
+  --teal: #3fbec1;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(63,190,193,.12), transparent 34rem),
+    var(--coal);
+  color: var(--muted);
+  font: 18px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+main {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 4.5rem 0;
+}
+header {
+  max-width: 850px;
+  margin-bottom: 2.5rem;
+}
+.eyebrow, .meta {
+  color: var(--sage);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: .35rem 0 .8rem;
+  color: var(--paper);
+  font-size: clamp(2.3rem, 6vw, 4.8rem);
+  line-height: 1.02;
+}
+.intro {
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  max-width: 720px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+.card {
+  overflow: hidden;
+  border: 1px solid rgba(240,242,241,.16);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 18px 48px rgba(0,0,0,.22);
+}
+.art {
+  display: block;
+  height: 270px;
+  background: #111;
+}
+.art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.card-body { padding: 1.5rem; }
+.card h2 {
+  margin: .3rem 0 .65rem;
+  color: var(--paper);
+  font-size: 1.55rem;
+  line-height: 1.18;
+}
+.card p { margin: .5rem 0; }
+a { color: inherit; }
+.card h2 a { text-decoration: none; }
+.card h2 a:hover, .read:hover { color: var(--teal); }
+.read {
+  color: var(--orange);
+  font-weight: 800;
+}
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(240,242,241,.14);
+  color: var(--muted);
+}
+footer a { color: var(--sage); }
+@media (max-width: 760px) {
+  main { padding: 2.5rem 0; }
+  .grid { grid-template-columns: 1fr; }
+  .art { height: 230px; }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: 0 0 2rem;
+}
+.toolbar span {
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+.toolbar button {
+  border: 1px solid rgba(240,242,241,.22);
+  border-radius: 999px;
+  padding: .38rem 1rem;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .92rem;
+  cursor: pointer;
+}
+.toolbar button[aria-pressed="true"] {
+  border-color: var(--sage);
+  background: rgba(121,195,158,.14);
+  color: var(--paper);
+}
+.theme {
+  margin-bottom: 1.6rem;
+  border-top: 1px solid rgba(240,242,241,.14);
+}
+.theme > summary {
+  padding: 1.1rem 0 .9rem;
+  color: var(--paper);
+  font-size: 1.35rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.theme > summary::-webkit-details-marker { display: none; }
+.theme > summary::before {
+  content: "\25B8";
+  display: inline-block;
+  margin-right: .6rem;
+  color: var(--sage);
+  transition: transform .15s ease;
+}
+.theme[open] > summary::before { transform: rotate(90deg); }
+.theme > summary .count {
+  margin-left: .5rem;
+  color: var(--muted);
+  font-size: .95rem;
+  font-weight: 500;
+}
+.theme > summary .blurb {
+  display: block;
+  margin-top: .3rem;
+  padding-left: 1.6rem;
+  color: var(--muted);
+  font-size: .95rem;
+  font-weight: 400;
+}
+.theme .grid { padding: .4rem 0 1.6rem; }
+.empty {
+  padding: 1rem 0 0;
+  color: var(--muted);
+  font-style: italic;
+}
+#latest { display: none; }
+body.by-date #latest { display: grid; }
+body.by-date .theme { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Agent systems &middot; models &middot; evaluation</p>
+    <h1>Writing and evidence</h1>
+    <p class="intro">Long-form writing, project briefs and reproducible
+    evidence. An entry can belong to more than one theme, so some appear
+    twice.</p>
+  </header>
+
+  <div class="toolbar">
+    <span>View</span>
+    <button type="button" id="view-theme" aria-pressed="true">By theme</button>
+    <button type="button" id="view-date" aria-pressed="false">Latest first</button>
+  </div>
+
+<details class="theme" open>
+  <summary>Agent systems<span class="count">1 piece</span>
+    <span class="blurb">Harnesses, gates, sandboxes, orchestration, and the products built on them.</span>
+  </summary>
+  <div class="grid">
+<article class="card" data-date="2026-07-30" data-theme="agent-systems">
+  <a class="art" href="articles/local-multi-model-workforce.html"><img src="diagrams/00_workforce_overview.png" alt="Local model workforce roles, services and control boundaries" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Multi-model systems · 30 July 2026</p>
+    <h2><a href="articles/local-multi-model-workforce.html">Why I Started Building a Local Multi-Model Workforce, and Why the Industry May Be Heading There Too</a></h2>
+    <p>How a self-directed effort grew into a supervised multi-model architecture, a set of working products, and an emerging professional direction.</p>
+    <p><a class="read" href="articles/local-multi-model-workforce.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+  </div>
+</details>
+<details class="theme" open>
+  <summary>Models<span class="count">5 pieces</span>
+    <span class="blurb">Adapting models to a job, and serving them on hardware I own.</span>
+  </summary>
+  <div class="grid">
+<article class="card" data-date="2026-07-29" data-theme="models">
+  <a class="art" href="publications/project-brief.html"><img src="publications/assets/task-type-effects-and-examples.svg" alt="Task-type effects and representative coding examples" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">LLM fine-tuning · 29 July 2026</p>
+    <h2><a href="publications/project-brief.html">Building a 4B Local Implementer</a></h2>
+    <p>A concise account of the task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</p>
+    <p><a class="read" href="publications/project-brief.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-27" data-theme="models evaluation">
+  <a class="art" href="publications/technical-report.html"><img src="publications/assets/humaneval-repeated-effects.svg" alt="Repeated HumanEval+ effects across paired runs" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Technical report · 27 July 2026</p>
+    <h2><a href="publications/technical-report.html">Building a 4B Local Implementer: technical report</a></h2>
+    <p>The full method and results: training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
+    <p><a class="read" href="publications/technical-report.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-27" data-theme="models">
+  <a class="art" href="publications/presentation.html"><img src="publications/assets/four-condition-implementation-scorecard.svg" alt="Four-condition implementation scorecard" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Presentation · 27 July 2026</p>
+    <h2><a href="publications/presentation.html">Building a 4B Local Implementer: slides</a></h2>
+    <p>The same work as a presentation, for reading in one sitting.</p>
+    <p><a class="read" href="publications/presentation.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-10" data-theme="evaluation models">
+  <a class="art" href="evals/cruxeval-o-ab-184.html"><img src="evals/cruxeval-o-ab-184.svg" alt="CRUXEval-O A/B across 184 problems" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">CRUXEval-O · A/B · 10 July 2026</p>
+    <h2><a href="evals/cruxeval-o-ab-184.html">The prompt is not the model</a></h2>
+    <p>Seven models over 184 output-prediction problems. The headline change is meaningless on its own, the effect is bimodal, and the real signal is the floor.</p>
+    <p><a class="read" href="evals/cruxeval-o-ab-184.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-08" data-theme="evaluation models">
+  <a class="art" href="evals/cruxeval-o-results.html"><img src="evals/cruxeval-o-results.svg" alt="CRUXEval-O results across seven local models" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">CRUXEval-O · reviewer seat · 8 July 2026</p>
+    <h2><a href="evals/cruxeval-o-results.html">Seven local models on output prediction</a></h2>
+    <p>A reviewer-seat battery over 100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
+    <p><a class="read" href="evals/cruxeval-o-results.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+  </div>
+</details>
+<details class="theme" open>
+  <summary>Evaluation<span class="count">7 pieces</span>
+    <span class="blurb">Designing a study, running it, and reporting what it did and did not show.</span>
+  </summary>
+  <div class="grid">
+<article class="card" data-date="2026-07-27" data-theme="models evaluation">
+  <a class="art" href="publications/technical-report.html"><img src="publications/assets/humaneval-repeated-effects.svg" alt="Repeated HumanEval+ effects across paired runs" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Technical report · 27 July 2026</p>
+    <h2><a href="publications/technical-report.html">Building a 4B Local Implementer: technical report</a></h2>
+    <p>The full method and results: training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
+    <p><a class="read" href="publications/technical-report.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-10" data-theme="evaluation">
+  <a class="art" href="evals/fable-run5-granite.html"><img src="evals/fable-run5-granite.svg" alt="Control 8 of 24, sham 7 of 24, manual 16 of 24" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Operating manual · run 5 · 10 July 2026</p>
+    <h2><a href="evals/fable-run5-granite.html">A reasoning manual helped a small model catch the trap</a></h2>
+    <p>On granite-4.0-h-small-FP8 the manual raised the catch rate from 8/24 to 16/24, while a same-length placebo did nothing. Small n, stated plainly.</p>
+    <p><a class="read" href="evals/fable-run5-granite.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-10" data-theme="evaluation models">
+  <a class="art" href="evals/cruxeval-o-ab-184.html"><img src="evals/cruxeval-o-ab-184.svg" alt="CRUXEval-O A/B across 184 problems" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">CRUXEval-O · A/B · 10 July 2026</p>
+    <h2><a href="evals/cruxeval-o-ab-184.html">The prompt is not the model</a></h2>
+    <p>Seven models over 184 output-prediction problems. The headline change is meaningless on its own, the effect is bimodal, and the real signal is the floor.</p>
+    <p><a class="read" href="evals/cruxeval-o-ab-184.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-08" data-theme="evaluation">
+  <a class="art" href="evals/screen_eval_run4.html"><img src="evals/screen_eval_run4.svg" alt="Capability screen run 4 on Qwen3.6-35B" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Capability screen · run 4 · 8 July 2026</p>
+    <h2><a href="evals/screen_eval_run4.html">The gate opened, and the manual still moved nothing</a></h2>
+    <p>A weaker base model and a harder trap gave the manual room to show a capability effect. It did not.</p>
+    <p><a class="read" href="evals/screen_eval_run4.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-08" data-theme="evaluation models">
+  <a class="art" href="evals/cruxeval-o-results.html"><img src="evals/cruxeval-o-results.svg" alt="CRUXEval-O results across seven local models" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">CRUXEval-O · reviewer seat · 8 July 2026</p>
+    <h2><a href="evals/cruxeval-o-results.html">Seven local models on output prediction</a></h2>
+    <p>A reviewer-seat battery over 100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
+    <p><a class="read" href="evals/cruxeval-o-results.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-07" data-theme="evaluation">
+  <a class="art" href="evals/screen_eval.html"><img src="evals/screen_eval.svg" alt="Capability screen run 3 on Sonnet 5" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Capability screen · run 3 · 7 July 2026</p>
+    <h2><a href="evals/screen_eval.html">The manual moved only the labels</a></h2>
+    <p>Three arms, three tiers and twenty-seven agents, with a sham arm so a real capability effect would have had room to appear.</p>
+    <p><a class="read" href="evals/screen_eval.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-07" data-theme="evaluation">
+  <a class="art" href="evals/trap_eval.html"><img src="evals/trap_eval.svg" alt="Trap battery A/B on Sonnet 5" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Trap battery · A/B · 7 July 2026</p>
+    <h2><a href="evals/trap_eval.html">It changed how the work was shown, not what was caught</a></h2>
+    <p>Nine traps, model held constant, one arm reading the operating manual and one not.</p>
+    <p><a class="read" href="evals/trap_eval.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+  </div>
+</details>
+<details class="theme">
+  <summary>Computational biology<span class="count">nothing published yet</span>
+    <span class="blurb">Circadian genomics, phenome classification, and disease modelling.</span>
+  </summary>
+  <div class="grid"><p class="empty">Write-ups for this theme are in progress.</p></div>
+</details>
+
+  <section class="grid" id="latest" aria-label="All pieces, most recent first">
+<article class="card" data-date="2026-07-30" data-theme="agent-systems">
+  <a class="art" href="articles/local-multi-model-workforce.html"><img src="diagrams/00_workforce_overview.png" alt="Local model workforce roles, services and control boundaries" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Multi-model systems · 30 July 2026</p>
+    <h2><a href="articles/local-multi-model-workforce.html">Why I Started Building a Local Multi-Model Workforce, and Why the Industry May Be Heading There Too</a></h2>
+    <p>How a self-directed effort grew into a supervised multi-model architecture, a set of working products, and an emerging professional direction.</p>
+    <p><a class="read" href="articles/local-multi-model-workforce.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-29" data-theme="models">
+  <a class="art" href="publications/project-brief.html"><img src="publications/assets/task-type-effects-and-examples.svg" alt="Task-type effects and representative coding examples" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">LLM fine-tuning · 29 July 2026</p>
+    <h2><a href="publications/project-brief.html">Building a 4B Local Implementer</a></h2>
+    <p>A concise account of the task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</p>
+    <p><a class="read" href="publications/project-brief.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-27" data-theme="models evaluation">
+  <a class="art" href="publications/technical-report.html"><img src="publications/assets/humaneval-repeated-effects.svg" alt="Repeated HumanEval+ effects across paired runs" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Technical report · 27 July 2026</p>
+    <h2><a href="publications/technical-report.html">Building a 4B Local Implementer: technical report</a></h2>
+    <p>The full method and results: training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
+    <p><a class="read" href="publications/technical-report.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-27" data-theme="models">
+  <a class="art" href="publications/presentation.html"><img src="publications/assets/four-condition-implementation-scorecard.svg" alt="Four-condition implementation scorecard" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Presentation · 27 July 2026</p>
+    <h2><a href="publications/presentation.html">Building a 4B Local Implementer: slides</a></h2>
+    <p>The same work as a presentation, for reading in one sitting.</p>
+    <p><a class="read" href="publications/presentation.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-10" data-theme="evaluation">
+  <a class="art" href="evals/fable-run5-granite.html"><img src="evals/fable-run5-granite.svg" alt="Control 8 of 24, sham 7 of 24, manual 16 of 24" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Operating manual · run 5 · 10 July 2026</p>
+    <h2><a href="evals/fable-run5-granite.html">A reasoning manual helped a small model catch the trap</a></h2>
+    <p>On granite-4.0-h-small-FP8 the manual raised the catch rate from 8/24 to 16/24, while a same-length placebo did nothing. Small n, stated plainly.</p>
+    <p><a class="read" href="evals/fable-run5-granite.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-10" data-theme="evaluation models">
+  <a class="art" href="evals/cruxeval-o-ab-184.html"><img src="evals/cruxeval-o-ab-184.svg" alt="CRUXEval-O A/B across 184 problems" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">CRUXEval-O · A/B · 10 July 2026</p>
+    <h2><a href="evals/cruxeval-o-ab-184.html">The prompt is not the model</a></h2>
+    <p>Seven models over 184 output-prediction problems. The headline change is meaningless on its own, the effect is bimodal, and the real signal is the floor.</p>
+    <p><a class="read" href="evals/cruxeval-o-ab-184.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-08" data-theme="evaluation">
+  <a class="art" href="evals/screen_eval_run4.html"><img src="evals/screen_eval_run4.svg" alt="Capability screen run 4 on Qwen3.6-35B" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Capability screen · run 4 · 8 July 2026</p>
+    <h2><a href="evals/screen_eval_run4.html">The gate opened, and the manual still moved nothing</a></h2>
+    <p>A weaker base model and a harder trap gave the manual room to show a capability effect. It did not.</p>
+    <p><a class="read" href="evals/screen_eval_run4.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-08" data-theme="evaluation models">
+  <a class="art" href="evals/cruxeval-o-results.html"><img src="evals/cruxeval-o-results.svg" alt="CRUXEval-O results across seven local models" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">CRUXEval-O · reviewer seat · 8 July 2026</p>
+    <h2><a href="evals/cruxeval-o-results.html">Seven local models on output prediction</a></h2>
+    <p>A reviewer-seat battery over 100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
+    <p><a class="read" href="evals/cruxeval-o-results.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-07" data-theme="evaluation">
+  <a class="art" href="evals/screen_eval.html"><img src="evals/screen_eval.svg" alt="Capability screen run 3 on Sonnet 5" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Capability screen · run 3 · 7 July 2026</p>
+    <h2><a href="evals/screen_eval.html">The manual moved only the labels</a></h2>
+    <p>Three arms, three tiers and twenty-seven agents, with a sham arm so a real capability effect would have had room to appear.</p>
+    <p><a class="read" href="evals/screen_eval.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-07" data-theme="evaluation">
+  <a class="art" href="evals/trap_eval.html"><img src="evals/trap_eval.svg" alt="Trap battery A/B on Sonnet 5" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Trap battery · A/B · 7 July 2026</p>
+    <h2><a href="evals/trap_eval.html">It changed how the work was shown, not what was caught</a></h2>
+    <p>Nine traps, model held constant, one arm reading the operating manual and one not.</p>
+    <p><a class="read" href="evals/trap_eval.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+  </section>
+
+  <footer>
+    <p>Built and maintained by
+    <a href="https://github.com/evoclock">Julen Gamboa</a>.
+    Source and project material are available in the
+    <a href="https://github.com/evoclock/local-model-workforce">public
+    repository</a>.</p>
+  </footer>
+</main>
+<script>
+(function () {
+  var byTheme = document.getElementById("view-theme");
+  var byDate = document.getElementById("view-date");
+  function show(dateFirst) {
+    document.body.classList.toggle("by-date", dateFirst);
+    byTheme.setAttribute("aria-pressed", String(!dateFirst));
+    byDate.setAttribute("aria-pressed", String(dateFirst));
+    try { localStorage.setItem("lmw-view", dateFirst ? "date" : "theme"); } catch (e) {}
+  }
+  byTheme.addEventListener("click", function () { show(false); });
+  byDate.addEventListener("click", function () { show(true); });
+  try { if (localStorage.getItem("lmw-view") === "date") show(true); } catch (e) {}
+})();
+</script>
+</body>
+</html>

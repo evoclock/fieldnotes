@@ -1,0 +1,24 @@
+direction: right
+style.fill: "#18191a"
+classes: {
+  task: { style: { fill: "#383431"; stroke: "#ee9b69"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 22; bold: true } }
+  route: { shape: diamond; style: { fill: "#4a4540"; stroke: "#79c39e"; stroke-width: 4; font-color: "#ead1b5"; font-size: 21; bold: true } }
+  role: { style: { fill: "#383431"; stroke: "#ead1b5"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 22; bold: true } }
+  local: { style: { fill: "#383431"; stroke: "#79c39e"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 22; bold: true } }
+  control: { style: { fill: "#383431"; stroke: "#e77843"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 20; bold: true } }
+  output: { style: { fill: "#383431"; stroke: "#ee9b69"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 20; bold: true } }
+}
+title: "TASK\nDefined objective" { class: task; width: 250; height: 110 }
+router: "ROUTER\nClarity and complexity" { class: route; width: 300; height: 170; style.font-size: 18 }
+planner: "PLANNER\nClarify · decompose\napprove scope" { class: role; width: 300; height: 130; style.font-size: 19 }
+reasoning: "REASONING IMPLEMENTER\nHarder specified work" { class: role; width: 330; height: 125; style.font-size: 18 }
+implementer: "4B TASK-BOUND IMPLEMENTER\nWell-defined implementation" { class: local; width: 330; height: 125; style.font-size: 18 }
+reviewer: "REVIEWER\nCheck against the rubric\nReturn corrections" { class: control; width: 280; height: 125; style.font-size: 18 }
+git: "GIT WORKTREE\nAccepted change and report\nfor human review" { class: output; width: 300; height: 125; style.font-size: 18 }
+title -> router: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+router -> planner: { style.stroke: "#e77843"; style.stroke-width: 4; style.font-color: "#ead1b5"; style.font-size: 18 }
+planner -> reasoning: { style.stroke: "#ead1b5"; style.stroke-width: 4; style.font-color: "#ead1b5"; style.font-size: 18 }
+planner -> implementer: { style.stroke: "#79c39e"; style.stroke-width: 4; style.font-color: "#ead1b5"; style.font-size: 18 }
+reasoning <-> reviewer: { style.stroke: "#ead1b5"; style.stroke-width: 4; style.font-color: "#ead1b5"; style.font-size: 18 }
+implementer <-> reviewer: { style.stroke: "#79c39e"; style.stroke-width: 4; style.font-color: "#ead1b5"; style.font-size: 18 }
+reviewer -> git: { style.stroke: "#ee9b69"; style.stroke-width: 4; style.font-color: "#ead1b5"; style.font-size: 18 }

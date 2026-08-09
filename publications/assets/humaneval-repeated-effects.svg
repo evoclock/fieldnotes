@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="570" viewBox="0 0 1400 570">
+<rect width="100%" height="100%" fill="#18191a"/>
+<text x="48" y="57" fill="#ead1b5" font-family="Arial,sans-serif" font-size="31" font-weight="700">HumanEval+ effect across 15 sampled pairs</text>
+<text x="48" y="92" fill="#c2aa94" font-family="Arial,sans-serif" font-size="17">Compact view · each dot is one 164-task tuned/base pair</text>
+<rect x="48" y="120" width="265" height="82" rx="10" fill="#383431"/>
+<text x="70" y="150" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">MEAN</text>
+<text x="70" y="184" fill="#e77843" font-family="Arial,sans-serif" font-size="27" font-weight="700">-2.32 pp</text>
+<rect x="331" y="120" width="265" height="82" rx="10" fill="#383431"/>
+<text x="353" y="150" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">MEDIAN</text>
+<text x="353" y="184" fill="#e77843" font-family="Arial,sans-serif" font-size="27" font-weight="700">-2.44 pp</text>
+<rect x="614" y="120" width="355" height="82" rx="10" fill="#383431"/>
+<text x="636" y="150" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">OBSERVED RANGE</text>
+<text x="636" y="184" fill="#ead1b5" font-family="Arial,sans-serif" font-size="24" font-weight="700">-6.71 to +1.22 pp</text>
+<line x1="120" y1="345" x2="1310" y2="345" stroke="#625b55" stroke-width="3"/>
+<line x1="734.8" y1="245" x2="734.8" y2="420" stroke="#ee9b69" stroke-width="4"/>
+<line x1="721.6" y1="245" x2="721.6" y2="420" stroke="#ead1b5" stroke-width="3" stroke-dasharray="10 8"/>
+<circle cx="721.6" cy="303" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="655.6" cy="324" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="787.6" cy="345" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="1117.4" cy="366" r="9" fill="#79c39e" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="721.6" cy="387" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="787.6" cy="303" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="919.5" cy="324" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="457.7" cy="345" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="259.8" cy="366" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="655.6" cy="387" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="1051.4" cy="303" r="9" fill="#79c39e" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="721.6" cy="324" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="589.7" cy="345" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="721.6" cy="366" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<circle cx="853.5" cy="387" r="9" fill="#e77843" stroke="#18191a" stroke-width="2" opacity="0.92"/>
+<line x1="120.0" y1="400" x2="120.0" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="120.0" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-8</text>
+<line x1="228.2" y1="400" x2="228.2" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="228.2" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-7</text>
+<line x1="336.4" y1="400" x2="336.4" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="336.4" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-6</text>
+<line x1="444.5" y1="400" x2="444.5" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="444.5" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-5</text>
+<line x1="552.7" y1="400" x2="552.7" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="552.7" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-4</text>
+<line x1="660.9" y1="400" x2="660.9" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="660.9" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-3</text>
+<line x1="769.1" y1="400" x2="769.1" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="769.1" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-2</text>
+<line x1="877.3" y1="400" x2="877.3" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="877.3" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">-1</text>
+<line x1="985.5" y1="400" x2="985.5" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="985.5" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">+0</text>
+<line x1="1093.6" y1="400" x2="1093.6" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="1093.6" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">+1</text>
+<line x1="1201.8" y1="400" x2="1201.8" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="1201.8" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">+2</text>
+<line x1="1310.0" y1="400" x2="1310.0" y2="410" stroke="#625b55" stroke-width="2"/>
+<text x="1310.0" y="437" text-anchor="middle" fill="#c2aa94" font-family="Arial,sans-serif" font-size="14">+3</text>
+<text x="744.8" y="235" fill="#ee9b69" font-family="Arial,sans-serif" font-size="14">mean</text>
+<text x="711.6" y="218" text-anchor="end" fill="#ead1b5" font-family="Arial,sans-serif" font-size="14">median</text>
+<text x="120" y="520" fill="#e77843" font-family="Arial,sans-serif" font-size="16">base ahead ←</text>
+<text x="1310" y="520" text-anchor="end" fill="#79c39e" font-family="Arial,sans-serif" font-size="16">→ tuned ahead</text>
+</svg>

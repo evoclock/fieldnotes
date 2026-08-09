@@ -1,0 +1,44 @@
+# Public role architecture and control boundaries.
+direction: down
+style.fill: "#18191a"
+classes: {
+ role: { style: { fill: "#383431"; stroke: "#ead1b5"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ local: { style: { fill: "#383431"; stroke: "#79c39e"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ control: { style: { fill: "#4a4540"; stroke: "#e77843"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ evidence: { style: { fill: "#383431"; stroke: "#79c39e"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+}
+planning: {
+ label: "PLANNING"
+ direction: down
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 27; bold: true }
+ user: "USER INTENT" { class: evidence; width: 380 }
+ planner: "PLANNER\nClarify · scope · route" { class: role; width: 420 }
+ contract: "SIGNED-OFF CONTRACT" { class: control; width: 420 }
+ user -> planner: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+ planner -> contract: { style.stroke: "#e77843"; style.stroke-width: 4 }
+}
+delivery: {
+ label: "IMPLEMENTATION"
+ direction: down
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 27; bold: true }
+ route: "IMPLEMENTER ROUTE" { shape: diamond; class: evidence; width: 430; height: 150 }
+ reasoning: "REASONING IMPLEMENTER" { class: role; width: 450 }
+ tuned: "TASK-BOUND FINE-TUNED\nIMPLEMENTER" { class: local; width: 450 }
+ runtime: "MEDIATED EXECUTION\nAuthority · tools · tests" { class: control; width: 500 }
+ route -> reasoning: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+ route -> tuned: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+ reasoning -> runtime: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+ tuned -> runtime: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+}
+assurance: {
+ label: "ASSURANCE"
+ direction: down
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 27; bold: true }
+ receipts: "ARTIFACTS AND RECEIPTS" { class: evidence; width: 450 }
+ reviewer: "REVIEWER\nInspect · correct · escalate" { class: role; width: 450 }
+ result: "VERIFIED RESULT" { class: evidence; width: 400 }
+ receipts -> reviewer: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+ reviewer -> result: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+}
+planning.contract -> delivery.route: { style.stroke: "#e77843"; style.stroke-width: 4 }
+delivery.runtime -> assurance.receipts: { style.stroke: "#e77843"; style.stroke-width: 4 }

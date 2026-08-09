@@ -1,0 +1,45 @@
+# Public corpus, training, and evaluation map.
+direction: down
+style.fill: "#18191a"
+classes: {
+ source: { style: { fill: "#5c564f"; stroke: "#ee9b69"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ evidence: { style: { fill: "#383431"; stroke: "#79c39e"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ role: { style: { fill: "#383431"; stroke: "#ead1b5"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ control: { style: { fill: "#4a4540"; stroke: "#e77843"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+}
+inputs: "GROUNDED SOURCES\nRepository evidence · fixtures · conventions" { class: source; width: 600 }
+family: "EXECUTABLE FAMILY\nParent · accepted result · oracle · receipts" { class: evidence; width: 620 }
+roles: {
+ label: "LINKED ROLE PROJECTIONS"
+ direction: right
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 26; bold: true }
+ planner: "PLANNER" { class: role; width: 300 }
+ implementer: "IMPLEMENTER" { class: role; width: 300 }
+ reviewer: "REVIEWER" { class: role; width: 300 }
+}
+splits: {
+ label: "FAMILY-DISJOINT SPLITS"
+ direction: right
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 26; bold: true }
+ train: "TRAIN" { class: evidence; width: 300 }
+ validation: "VALIDATION" { class: evidence; width: 300 }
+ frozen: "FROZEN EVALUATION" { class: control; width: 360 }
+}
+training: "ROLE TRAINING\nPinned model · recipe · hashes" { class: role; width: 540 }
+comparison: "CONTROLLED COMPARISON\nBase · tuned · governed system" { class: evidence; width: 580 }
+verdict: "MEASURED VERDICT" { shape: diamond; class: control; width: 430; height: 150 }
+promote: "PROMOTE" { class: evidence; width: 300 }
+retune: "RETUNE" { class: role; width: 300 }
+reject: "REJECT" { class: control; width: 300 }
+inputs -> family: { style.stroke: "#ee9b69"; style.stroke-width: 4 }
+family -> roles: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+family -> splits: { style.stroke: "#e77843"; style.stroke-width: 4 }
+splits.train -> training: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+splits.validation -> training: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+training -> comparison: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+splits.frozen -> comparison: { style.stroke: "#e77843"; style.stroke-width: 4 }
+comparison -> verdict: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+verdict -> promote: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+verdict -> retune: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+verdict -> reject: { style.stroke: "#e77843"; style.stroke-width: 4 }
+promote -> family: { style.stroke: "#79c39e"; style.stroke-width: 4 }

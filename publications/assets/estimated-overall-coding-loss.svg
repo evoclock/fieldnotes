@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="470" viewBox="0 0 1000 470" role="img">
+<rect width="100%" height="100%" fill="#18191a"/>
+<text x="40" y="52" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="34" font-weight="700">Estimated overall coding effect</text>
+<text x="40" y="88" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="21">Mean across 15 paired runs · task-bootstrap 95% interval</text>
+<text x="599.5" y="145" text-anchor="middle" fill="#ead1b5" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="700">-2.32 points</text>
+<text x="599.5" y="180" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="22">95% interval: -4.84 to -0.04</text>
+<line x1="461.7" y1="260" x2="724.0" y2="260" stroke="#ead1b5" stroke-width="8"/>
+<circle cx="599.5" cy="260" r="15" fill="#e77843" stroke="#ead1b5" stroke-width="3"/>
+<line x1="70" y1="330" x2="945" y2="330" stroke="#625b55" stroke-width="3"/>
+<line x1="70.0" y1="330" x2="70.0" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="70.0" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">-12</text>
+<line x1="179.4" y1="330" x2="179.4" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="179.4" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">-10</text>
+<line x1="288.8" y1="330" x2="288.8" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="288.8" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">-8</text>
+<line x1="398.1" y1="330" x2="398.1" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="398.1" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">-6</text>
+<line x1="507.5" y1="330" x2="507.5" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="507.5" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">-4</text>
+<line x1="616.9" y1="330" x2="616.9" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="616.9" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">-2</text>
+<line x1="726.2" y1="330" x2="726.2" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="726.2" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">0</text>
+<line x1="835.6" y1="330" x2="835.6" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="835.6" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">2</text>
+<line x1="945.0" y1="330" x2="945.0" y2="342" stroke="#625b55" stroke-width="2"/>
+<text x="945.0" y="373" text-anchor="middle" fill="#c2aa94" font-family="Inter,Arial,sans-serif" font-size="20">4</text>
+<text x="70" y="430" fill="#79c39e" font-family="Inter,Arial,sans-serif" font-size="21">loss ←</text>
+<text x="945" y="430" text-anchor="end" fill="#e77843" font-family="Inter,Arial,sans-serif" font-size="21">→ gain</text>
+</svg>

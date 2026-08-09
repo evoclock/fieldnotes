@@ -1,0 +1,29 @@
+# Public/demo assurance path: generic names, no private implementation details.
+direction: down
+style.fill: "#18191a"
+
+classes: {
+  source: { style: { fill: "#5c564f"; stroke: "#ee9b69"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 21; bold: true } }
+  evidence: { style: { fill: "#383431"; stroke: "#79c39e"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 21; bold: true } }
+  control: { style: { fill: "#4a4540"; stroke: "#e77843"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 21; bold: true } }
+  role: { style: { fill: "#383431"; stroke: "#ead1b5"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 21; bold: true } }
+}
+
+title: "FROM EVIDENCE TO A DEPLOYABLE ROLE MODEL" { class: source; style.font-size: 27; width: 760 }
+inputs: "CONTROLLED INPUTS\nOperating preferences · role contracts · real tasks\npurpose-built fixtures · security and governance posture" { class: source; width: 700 }
+family: "EXECUTABLE CAPABILITY FAMILY\nConcrete parent state · bounded accepted change\nnegative path · correction path · deterministic oracle" { class: evidence; width: 700 }
+execute: "CAUSAL EXECUTION\nParent fails for the intended reason\naccepted change passes · receipts bind the result" { class: evidence; width: 700 }
+linked: "LINKED ROLE TRAJECTORY\nPlanner dispatch → Implementer action\nexecution receipt → Reviewer verdict" { class: role; width: 700 }
+freeze: "QUALIFICATION AND FREEZE\nFamily-disjoint splits · clean reproduction\nindependent review · frozen evaluation and recipe" { class: control; width: 700 }
+train: "VERSIONED TRAINING RUN\nPinned base model · train and validation only\nresumable checkpoints · retained recipe and lineage" { class: role; width: 700 }
+compare: "CONTROLLED EVALUATION\nCompare base, instruction-file, tuned and governed conditions\nmeasure role behaviour, coding quality, safety and task success" { class: evidence; width: 760 }
+decision: "PROMOTE · RETUNE · REJECT\nOnly measured improvement is eligible for deployment" { class: control; width: 700 }
+
+title -> inputs: { style.opacity: 0 }
+inputs -> family: { style.stroke: "#ee9b69"; style.stroke-width: 4 }
+family -> execute: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+execute -> linked: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+linked -> freeze: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+freeze -> train: { style.stroke: "#e77843"; style.stroke-width: 4 }
+train -> compare: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+compare -> decision: { style.stroke: "#79c39e"; style.stroke-width: 4 }

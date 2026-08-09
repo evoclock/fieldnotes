@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Capability-grade Screen — Run 4 (Qwen3.6-35B, local vLLM)</title>
+<style>
+  :root {
+    --paper: #1a1816;
+    --card: #383431;
+    --ink: #ead1b5;
+    --ink-soft: #c9ad91;
+    --ink-faint: #b09080;
+    --line: #5c564f;
+    --accent: #79c39e;        /* manual arm — deep teal */
+    --accent-soft: #24352c;
+    --control: #ee9b69;       /* control arm — muted brass */
+    --control-soft: #3b3028;
+    --sham: #b09080;          /* sham arm — muted slate */
+    --sham-soft: #2f2b28;
+    --pass: #79c39e;
+    --pass-soft: #263d32;
+    --fail: #e77843;
+    --fail-soft: #44261d;
+    --band: #3a6b8a;          /* in-band calibration — muted steel-blue */
+    --band-soft: #dde6ee;
+    --pip-off: #5c564f;
+    --shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  
+  
+  
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 60rem; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.1rem, 4vw, 2rem) 4rem; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 1rem;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(1.9rem, 5vw, 2.9rem);
+    line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; margin: 0 0 .9rem;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  .standfirst {
+    font-size: clamp(1.02rem, 2vw, 1.18rem); color: var(--ink-soft);
+    max-width: 50ch; text-wrap: pretty; margin: 0;
+  }
+
+  .verdict {
+    margin: 2.5rem 0 0; padding: 1.4rem 1.5rem; background: var(--card);
+    border: 1px solid var(--line); border-left: 3px solid var(--band);
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .verdict p { margin: 0; font-size: 1.05rem; }
+  .verdict strong { color: var(--band); }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; margin: 1.1rem 0 0; }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.15rem 1.25rem; box-shadow: var(--shadow);
+  }
+  .stat .k { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 .5rem; }
+  .stat .v { font-family: var(--serif); font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat .v.tri { font-size: 1.4rem; display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+  .stat .v .ctrl { color: var(--control); }
+  .stat .v .sham { color: var(--sham); }
+  .stat .v .man { color: var(--accent); }
+  .stat .v .sep { color: var(--ink-faint); font-family: var(--sans); font-size: .9rem; }
+  .stat .note { font-size: .82rem; color: var(--ink-soft); margin: .5rem 0 0; }
+  .stat .v.with-tag { display: flex; align-items: baseline; gap: .6rem; }
+  .tag {
+    font-family: var(--mono); font-size: .62rem; font-weight: 600; letter-spacing: .06em;
+    padding: .18rem .45rem; border-radius: 5px; white-space: nowrap;
+  }
+  .tag.band { color: var(--band); background: var(--band-soft); }
+  .tag.sat  { color: var(--ink-faint); background: var(--pip-off); }
+  .tag.h0   { color: var(--band); background: var(--band-soft); }
+
+  .section-label {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 3rem 0 .35rem; display: flex; align-items: center; gap: .7rem;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 1.1rem; font-size: .82rem; color: var(--ink-soft); margin: 0 0 1rem; }
+  .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .swatch { width: .8rem; height: .8rem; border-radius: 3px; display: inline-block; }
+  .swatch.man { background: var(--accent); }
+  .swatch.ctrl { background: var(--control); }
+  .swatch.sham { background: var(--sham); }
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); background: var(--card); }
+  table { border-collapse: collapse; width: 100%; min-width: 44rem; }
+  thead th {
+    font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-faint); text-align: left; padding: .85rem 1rem; border-bottom: 1px solid var(--line); font-weight: 600;
+  }
+  thead th.num { text-align: center; }
+  tbody td { padding: .85rem 1rem; border-bottom: 1px solid var(--line); vertical-align: middle; font-size: .92rem; }
+  tbody tr:last-child td { border-bottom: 0; }
+  .tier-id { font-family: var(--mono); font-weight: 600; color: var(--ink); }
+  .tier-tag { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); display: block; margin-top: .15rem; }
+  .probe { color: var(--ink-soft); font-size: .86rem; }
+  .expect { color: var(--ink-faint); font-size: .82rem; font-family: var(--mono); }
+  .cell-pass { text-align: center; }
+  .cell-na { text-align: center; color: var(--ink-faint); font-family: var(--mono); font-size: .78rem; }
+
+  .pass {
+    font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .05em;
+    color: var(--pass); background: var(--pass-soft); padding: .18rem .5rem; border-radius: 5px; white-space: nowrap;
+  }
+  .fail {
+    font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .05em;
+    color: var(--fail); background: var(--fail-soft); padding: .18rem .5rem; border-radius: 5px; white-space: nowrap;
+  }
+
+  .prose { margin-top: 1.2rem; }
+  .prose h3 { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; margin: 1.6rem 0 .4rem; }
+  .prose p { color: var(--ink-soft); margin: .5rem 0; max-width: 64ch; }
+  .prose strong { color: var(--ink); }
+  .prose ol { color: var(--ink-soft); max-width: 64ch; padding-left: 1.2rem; }
+  .prose li { margin: .35rem 0; }
+  .prose code { font-family: var(--mono); font-size: .84em; background: var(--sham-soft); padding: .08rem .32rem; border-radius: 4px; color: var(--ink); }
+
+  .takeaway {
+    margin-top: 2.4rem; padding: 1.5rem 1.6rem; border-radius: 12px;
+    background: var(--accent-soft); border: 1px solid var(--line);
+  }
+  .takeaway .k { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 .5rem; }
+  .takeaway p { margin: 0; font-size: 1.05rem; color: var(--ink); max-width: 62ch; }
+
+  footer { margin-top: 2.5rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">Capability-grade screen · Qwen3.6-35B (local vLLM) · 2026-07-08</p>
+  <h1>The gate opened for the first time — and the manual still moved <em>nothing</em>.</h1>
+  <p class="standfirst">Run&nbsp;4 changes the regime: a weaker base model (Qwen3.6-35B served locally via vLLM, thinking off, temp&nbsp;0.7) plus a new harder trap, so the manual finally has room to flip an outcome. The hard Simpson's tier calibrated into the pre-registered 25–75% band. Then the real 3-arm test ran on it.</p>
+
+  <div class="verdict">
+    <p><strong>Outcome: H0 — no capability effect, even with headroom.</strong> Control, sham, and manual all passed 8/8 on the calibrated hard tier. The 25% control-fail rate that opened the gate in calibration did not reproduce in the arm run's control draw (0/8) — within n=8, temp&nbsp;0.7 sampling noise. The headroom was marginal, not durable, so there were no control failures for the manual to flip. All three arms tied.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <p class="k">Pass rate (H tier, per arm)</p>
+      <p class="v tri"><span class="ctrl">8/8</span><span class="sep">·</span><span class="sham">8/8</span><span class="sep">·</span><span class="man">8/8</span></p>
+      <p class="note">Control · Sham · Manual, n=8 each. No separation on correctness.</p>
+    </div>
+    <div class="stat">
+      <p class="k">Calibration (control fail)</p>
+      <p class="v with-tag"><span class="ctrl" style="color:var(--band)">H 25%</span><span class="tag band">IN BAND</span></p>
+      <p class="note">First tier in any run to enter the 25–75% headroom band. New trap X saturated at 0%.</p>
+    </div>
+    <div class="stat">
+      <p class="k">Verdict</p>
+      <p class="v with-tag" style="font-size:1.5rem"><span class="tag h0" style="font-size:.66rem">H0</span></p>
+      <p class="note">All arms tie. Manual = sham = control. No capability effect detected.</p>
+    </div>
+  </div>
+
+  <p class="section-label">Tier scorecard</p>
+  <div class="legend">
+    <span><i class="swatch ctrl"></i> Control</span>
+    <span><i class="swatch sham"></i> Sham</span>
+    <span><i class="swatch man"></i> Manual</span>
+    <span>PASS = caught the trap and gave the right verdict. n=8/arm where armed.</span>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Probe (the trap)</th>
+          <th>Calib fail</th>
+          <th class="num">Control</th>
+          <th class="num">Sham</th>
+          <th class="num">Manual</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p class="section-label">Reading the result</p>
+    <h3>For the first time, a tier entered the headroom band.</h3>
+    <p>Runs 1–3 saturated at 0% control fail on every tier — no headroom, nothing for the manual to flip, uninformative about capability by design. Run&nbsp;4 drops to Qwen3.6-35B and the hard Simpson's reversal (A wins both device segments; B's overall lead is a traffic-mix artifact) calibrated at <strong>2/8 control fail = 25%</strong>. That brushes the bottom of the pre-registered 25–75% gate. The new, harder "X" trap — a 90-day retention budget where the worksheet used days-in-month (30) instead of retention (90), understating steady-state storage and cost by 3× — saturated at <strong>0/8</strong>: Qwen catches it every time.</p>
+    <h3>The headroom didn't hold under re-sampling.</h3>
+    <p>The gate opening was real but thin. Calibration drew 2 control fails out of 8; the 3-arm run's independent control draw produced <strong>0 fails out of 8</strong>. At n=8 and temp&nbsp;0.7 that gap is sampling noise, not a contradiction — but it means the arm run had no control failures to flip. Sham passed 8/8, manual passed 8/8, control passed 8/8. The pre-registered decision rule calls this <strong>H0</strong>: all arms within 15pp, no capability effect even with headroom present.</p>
+    <h3>A weaker model is necessary but not sufficient.</h3>
+    <p>Qwen3.6-35B did create the first headroom signal (H at 25%), where Sonnet and mistral-nemo sat at 0% and 0% respectively. But 25% is the edge of the band, and a single n=8 draw is high-variance — the true control fail rate on H is plausibly ~10–30%, straddling the gate. To run an informative 3-arm, the base rate needs to sit comfortably mid-band (≈30–50%) so the manual has durable failures to flip, not a coin-flip's worth. Two routes: a still-weaker model (Nemotron-30B, queued), or a different task family.</p>
+    <h3>Single-turn traps still aren't the right regime.</h3>
+    <p>Four runs now converge: Sonnet (runs 1–3) saturates, mistral-nemo floors, and Qwen3.6-35B (run 4) brushes the band on one tier but can't sustain it. The single-turn <em>verify-an-artifact</em> family — one clean right answer, no tools, no chain — lets a competent model pattern-match to the catch, and lets a less-competent one either see it or not, with little in between for an intervention to act on. Detecting a capability effect needs tasks where re-derivation or self-attack actually <em>flips</em> an answer:</p>
+    <ol>
+      <li>Multi-step / long-horizon tasks with a subtle mid-chain error the model must catch by re-deriving through an independent route.</li>
+      <li>A still-weaker base model that fails H ~30–50% of the time, reusing this exact battery + sham design.</li>
+    </ol>
+    <h3>Grading note — buried reversals.</h3>
+    <p>Qwen3.6-35B sometimes opens with the wrong verdict then self-corrects mid-answer: "Yes, the math checks out. [re-derives…] <strong>Conclusion: Do not sign off yet.</strong>" or "Yes, ship Variant B. […analysis…] <strong>Bottom line: Ship A.</strong>" A naive "first word = verdict" grader marks these wrong; the correct catch is buried after a labelled Conclusion/Recommendation section. The grader verdicts the labelled conclusion (falling back to the opening only when there is no label) and strips markdown emphasis so <code>do **not** ship</code> still reads as a negation. Every graded row was eyeballed against the full answer; the only FAILs are genuine ships-of-B.</p>
+    <h3>Honest confounds.</h3>
+    <p>n=8/arm is a screen, not a powered test — a 25% vs 0% control difference across two independent draws is within noise, which is exactly why the arm result is uninformative rather than negative. The calibration and arm control draws are independent samples from the same temp=0.7 distribution; the gap reflects variance, not a bug. The manual and sham prompts are longer and both say "apply this to your answer," which itself primes care — the sham arm exists to absorb that. And every task is single-turn, no tools — the regime where pattern-matching to the catch is easiest.</p>
+  </div>
+
+  <div class="takeaway">
+    <p class="k">One-line takeaway</p>
+    <p>Dropping to Qwen3.6-35B opened the calibration gate for the first time (hard Simpson's tier, 25% control fail) — but the headroom was marginal sampling noise, not a durable base failure, and the 3-arm run tied 8/8 across control, sham, and manual. In the single-turn verify-an-artifact family the manual still changes no outcomes. A capability signal needs either a still-weaker model that fails H ~30–50% reliably, or a multi-step task family where re-derivation has room to flip an answer.</p>
+  </div>
+
+  <footer>
+    Sources: screen_run4_vllm_calib_qwen3.6-35b.json · screen_run4_vllm_arm_H_qwen3.6-35b.json · vllm_screen.py · screen_run3_prompts.txt (E/M/H/X) · harder_battery_design.md · sham_manual.md<br>
+    Model: Qwen3.6-35B · local vLLM · thinking off · temp 0.7 · n=8/arm · control = brass · sham = slate · manual = teal · both themes supported
+  </footer>
+</div>
+
+<script>
+  const tiers = [
+    ["H", "Hard · Simpson's reversal", "A/B: B wins overall, A wins both device segments (traffic-mix artifact)", "2/8 (25%)", "8/8", "8/8", "8/8"],
+    ["X", "New · 90-day retention / cumulative storage", "Budget worksheet used days-in-month (30) not retention (90) — 3× understated cost", "0/8 (0%)", "—", "—", "—"],
+  ];
+  document.getElementById("rows").innerHTML = tiers.map(t => `
+    <tr>
+      <td><span class="tier-id">${t[0]}</span><span class="tier-tag">${t[1]}</span></td>
+      <td class="probe">${t[2]}</td>
+      <td class="expect">${t[3]}</td>
+      ${t[4]==="—"
+        ? '<td class="cell-na">—</td><td class="cell-na">—</td><td class="cell-na">not armed</td>'
+        : `<td class="cell-pass"><span class="pass">${t[4]}</span></td>
+           <td class="cell-pass"><span class="pass">${t[5]}</span></td>
+           <td class="cell-pass"><span class="pass">${t[6]}</span></td>`}
+    </tr>`).join("");
+</script>
+</body>
+</html>

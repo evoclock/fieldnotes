@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img">
+<rect width="800" height="450" fill="#151719"/>
+<rect x="0" y="0" width="800" height="6" fill="#3fbec1"/>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#3fbec1"><tspan x="56" y="74">CRUXEVAL-O · A/B</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="34" font-weight="700" fill="#f0f2f1"><tspan x="56" y="138">The prompt is not the model</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" font-weight="500" fill="#b8c0bd"><tspan x="56" y="250">The headline change is meaningless on its own.</tspan><tspan x="56" y="275">The effect is bimodal. The signal is the floor.</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="500" fill="#b8c0bd"><tspan x="56" y="406">7 models · 184 problems · one attempt each · temperature 0</tspan></text>
+</svg>

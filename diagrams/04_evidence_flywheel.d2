@@ -1,0 +1,44 @@
+# Public consumer-neutral evidence flywheel.
+direction: down
+style.fill: "#18191a"
+classes: {
+ source: { style: { fill: "#383431"; stroke: "#79c39e"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ action: { style: { fill: "#383431"; stroke: "#ead1b5"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ gate: { style: { fill: "#4a4540"; stroke: "#e77843"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 24; bold: true } }
+ consumer: { style: { fill: "#5c564f"; stroke: "#ee9b69"; stroke-width: 4; border-radius: 12; font-color: "#ead1b5"; font-size: 23; bold: true } }
+}
+evidence: {
+ label: "EVIDENCE AND ATTRIBUTION"
+ direction: right
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 26; bold: true }
+ input: "1 · EVIDENCE INPUT" { class: source; width: 380 }
+ capture: "2 · CAPTURE" { class: source; width: 330 }
+ attribute: "3 · ATTRIBUTE FIRST DIVERGENCE" { class: action; width: 500 }
+ route: "4 · ROUTE THE REMEDY" { class: gate; width: 400 }
+ input -> capture: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+ capture -> attribute: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+ attribute -> route: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
+}
+consumers: {
+ label: "5 · DECLARED CONSUMERS"
+ direction: right
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 26; bold: true }
+ nuthatch: "Nuthatch / GraphRAG KB" { class: consumer; width: 560 }
+ controls: "MCP · HOOKS" { class: consumer; width: 280 }
+ evaluation: "EVALUATION" { class: consumer; width: 280 }
+ training: "ROLE TRAINING" { class: consumer; width: 300 }
+ other: "OTHER SYSTEMS" { class: consumer; width: 300 }
+}
+assurance: {
+ label: "ASSURANCE AND FEEDBACK"
+ direction: right
+ style: { fill: "#242220"; stroke: "#5c564f"; stroke-width: 4; border-radius: 16; font-color: "#ead1b5"; font-size: 26; bold: true }
+ verify: "6 · VERIFY THE REMEDY" { class: source; width: 400 }
+ decide: "7 · PROMOTE · REVISE · REJECT" { class: gate; width: 480 }
+ next: "8 · NEXT EVIDENCE CYCLE" { class: action; width: 420 }
+ verify -> decide: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+ decide -> next: { style.stroke: "#e77843"; style.stroke-width: 4 }
+}
+evidence.route -> consumers: { style.stroke: "#ee9b69"; style.stroke-width: 4 }
+consumers -> assurance.verify: { style.stroke: "#79c39e"; style.stroke-width: 4 }
+assurance.next -> evidence: { style.stroke: "#ead1b5"; style.stroke-width: 4 }
