@@ -28,4 +28,3 @@ python3 evals/thumbnails.py
 python3 diagrams/00_workforce_overview.py
 ```
 
-An entry can belong to more than one theme, so some appear twice on the index.

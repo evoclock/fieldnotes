@@ -192,8 +192,7 @@ def build_index(style: str) -> str:
         <h1>{TITLE}</h1>
       </div>
     </div>
-    <p class="intro">{TAGLINE} An entry can belong to more than one theme, so
-    some appear twice.</p>
+    <p class="intro">{TAGLINE}</p>
   </header>
 
   <div class="toolbar">
