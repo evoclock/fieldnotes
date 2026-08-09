@@ -208,7 +208,7 @@ def build_index(style: str) -> str:
     <span>View</span>
     <button type="button" id="view-theme" aria-pressed="true">By theme</button>
     <button type="button" id="view-date" aria-pressed="false">Latest first</button>
-    <a class="subscribe" href="feed.xml" title="Subscribe with a feed reader">
+    <a class="subscribe" href="subscribe.html" title="Subscribe with a feed reader">
       {RSS_ICON}<span>Subscribe</span></a>
   </div>
 
@@ -223,7 +223,7 @@ def build_index(style: str) -> str:
     <a href="https://github.com/evoclock">Julen Gamboa</a>.
     Source is in the <a href="https://github.com/evoclock/fieldnotes">public
     repository</a>. New pieces appear in the
-    <a href="feed.xml">RSS feed</a>.</p>
+    <a href="subscribe.html">RSS feed</a>.</p>
   </footer>
 </main>
 <script>

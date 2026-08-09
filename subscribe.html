@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Subscribe to fieldnotes by RSS.">
+<title>Subscribe | fieldnotes</title>
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="feed.xml">
+<style>
+:root {
+  --coal: #151719;
+  --panel: #222629;
+  --paper: #f0f2f1;
+  --muted: #b8c0bd;
+  --orange: #e77843;
+  --sage: #79c39e;
+  --teal: #3fbec1;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(63,190,193,.12), transparent 34rem),
+    var(--coal);
+  color: var(--muted);
+  font: 18px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main { width: min(680px, calc(100% - 2rem)); margin: 0 auto; padding: 4rem 0 5rem; }
+.back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: var(--orange);
+  font-weight: 800;
+  text-decoration: none;
+}
+.eyebrow {
+  margin: 0;
+  color: var(--sage);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+h1 { margin: .3rem 0 .8rem; color: var(--paper); font-size: clamp(2rem, 5vw, 3rem); }
+h2 { color: var(--paper); font-size: 1.15rem; margin: 2.2rem 0 .6rem; }
+p { margin: 0 0 1.1rem; }
+.copy {
+  display: flex;
+  gap: .6rem;
+  align-items: stretch;
+  margin: 0 0 1.4rem;
+}
+.copy input {
+  flex: 1;
+  padding: .8rem 1rem;
+  border: 1px solid rgba(240,242,241,.2);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--teal);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .95rem;
+}
+.copy button {
+  padding: .8rem 1.2rem;
+  border: 1px solid rgba(231,120,67,.5);
+  border-radius: 10px;
+  background: rgba(231,120,67,.14);
+  color: var(--orange);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.copy button:hover { background: rgba(231,120,67,.26); color: var(--paper); }
+ul { padding-left: 1.2rem; }
+li { margin: 0 0 .6rem; }
+a { color: var(--sage); }
+a:hover { color: var(--teal); }
+.raw {
+  display: inline-block;
+  margin-top: .4rem;
+  font-size: .95rem;
+}
+footer {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(240,242,241,.14);
+  font-size: .95rem;
+}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="index.html">&larr; fieldnotes</a>
+
+  <p class="eyebrow">Subscribe</p>
+  <h1>New pieces, without checking back</h1>
+
+  <p>There is no button a website can press to add itself to your reader, so
+  this is the address to paste into one. After that, anything published here
+  turns up on its own.</p>
+
+  <div class="copy">
+    <input id="url" type="text" readonly
+      value="https://evoclock.github.io/fieldnotes/feed.xml"
+      aria-label="Feed address">
+    <button type="button" id="copy">Copy</button>
+  </div>
+
+  <p class="raw">Or open the <a href="feed.xml">feed itself</a>. It is XML, and
+  it is meant for a reader rather than for you.</p>
+
+  <h2>If you do not have a reader</h2>
+
+  <p>Any of these will do, and all of them are free to start with:</p>
+
+  <ul>
+    <li><a href="https://netnewswire.com/">NetNewsWire</a>, for Mac and iOS.</li>
+    <li><a href="https://feedly.com/">Feedly</a> or
+    <a href="https://www.inoreader.com/">Inoreader</a>, in a browser.</li>
+    <li><a href="https://www.thunderbird.net/">Thunderbird</a>, if you would
+    rather they arrived beside your email.</li>
+  </ul>
+
+  <p>Most readers accept the site address on its own, so
+  <code>evoclock.github.io/fieldnotes</code> is usually enough. The page
+  declares where its feed lives and the reader follows that.</p>
+
+  <footer>
+    <p>Back to <a href="index.html">fieldnotes</a>.</p>
+  </footer>
+</main>
+<script>
+document.getElementById("copy").addEventListener("click", function () {
+  var field = document.getElementById("url");
+  field.select();
+  var done = function () {
+    var b = document.getElementById("copy");
+    b.textContent = "Copied";
+    setTimeout(function () { b.textContent = "Copy"; }, 1600);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(field.value).then(done, function () {});
+  } else {
+    try { document.execCommand("copy"); done(); } catch (e) {}
+  }
+});
+</script>
+</body>
+</html>

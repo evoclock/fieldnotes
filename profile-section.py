@@ -39,10 +39,16 @@ def main() -> None:
         "</p>",
         "",
         f'<p align="center"><strong><a href="{SITE}">fieldnotes</a></strong><br>',
-        "<sub>Agent systems, models, evaluation and computational biology.<br>",
-        f'Everything below is published at <a href="{SITE}">'
-        "evoclock.github.io/fieldnotes</a>, and new pieces appear in the ",
-        f'<a href="{SITE}feed.xml">RSS feed</a>.</sub></p>',
+        "<sub>Agent systems, models, evaluation and computational biology.</sub></p>",
+        "",
+        '<p align="center">',
+        f'  <a href="{SITE}"><img'
+        ' src="https://img.shields.io/badge/read-fieldnotes-79c39e?style=for-the-badge&labelColor=151719"'
+        ' alt="Read fieldnotes"></a>',
+        f'  <a href="{SITE}feed.xml"><img'
+        ' src="https://img.shields.io/badge/subscribe-RSS-e77843?style=for-the-badge&logo=rss&logoColor=white&labelColor=151719"'
+        ' alt="Subscribe by RSS"></a>',
+        "</p>",
         "",
     ]
 
