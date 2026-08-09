@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Origami hummingbird in sentoku" width="140">
+</p>
+
 # fieldnotes
 
 Writing and evidence: agent systems, models, evaluation and computational
@@ -14,6 +18,7 @@ Published at <https://evoclock.github.io/fieldnotes/>.
 | `publications/` | project briefs, technical reports and slides |
 | `evals/` | evaluation write-ups, and the script that renders their thumbnails |
 | `diagrams/` | figures, with the sources that generate them |
+| `assets/` | the marks, in three copper alloys: sentoku, shibuichi and yamagane |
 
 Thumbnails and diagrams are generated rather than drawn by hand. Regenerate
 them with:

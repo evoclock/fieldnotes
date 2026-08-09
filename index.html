@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Local Model Workforce | Writing and Evidence</title>
+<title>fieldnotes | Writing and evidence</title>
 <style>
 :root {
   --coal: #151719;
@@ -34,6 +34,20 @@ header {
   max-width: 850px;
   margin-bottom: 2.5rem;
 }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+.brand img {
+  width: 92px;
+  height: 92px;
+  flex: none;
+}
+@media (max-width: 760px) {
+  .brand img { width: 68px; height: 68px; }
+}
 .eyebrow, .meta {
   color: var(--sage);
   font-size: .78rem;
@@ -44,7 +58,7 @@ header {
 h1 {
   margin: .35rem 0 .8rem;
   color: var(--paper);
-  font-size: clamp(2.3rem, 6vw, 4.8rem);
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
   line-height: 1.02;
 }
 .intro {
@@ -179,11 +193,17 @@ body.by-date .theme { display: none; }
 <body>
 <main>
   <header>
-    <p class="eyebrow">Agent systems &middot; models &middot; evaluation</p>
-    <h1>Writing and evidence</h1>
-    <p class="intro">Long-form writing, project briefs and reproducible
-    evidence. An entry can belong to more than one theme, so some appear
-    twice.</p>
+    <div class="brand">
+      <img src="assets/logo.png" alt="Origami hummingbird in sentoku"
+        width="92" height="92">
+      <div>
+        <p class="eyebrow">Agent systems &middot; models &middot; evaluation</p>
+        <h1>fieldnotes</h1>
+      </div>
+    </div>
+    <p class="intro">Writing and evidence: agent systems, models, evaluation
+    and computational biology. An entry can belong to more than one theme, so
+    some appear twice.</p>
   </header>
 
   <div class="toolbar">
