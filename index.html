@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Writing and evidence: agent systems, models, evaluation and computational biology.">
 <title>fieldnotes | Writing and evidence</title>
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="feed.xml">
 <style>
 :root {
   --coal: #151719;
@@ -194,15 +196,13 @@ body.by-date .theme { display: none; }
 <main>
   <header>
     <div class="brand">
-      <img src="assets/logo.png" alt="Origami hummingbird in sentoku"
-        width="92" height="92">
+      <img src="assets/logo.png" alt="Origami hummingbird in sentoku" width="92" height="92">
       <div>
         <p class="eyebrow">Agent systems &middot; models &middot; evaluation</p>
         <h1>fieldnotes</h1>
       </div>
     </div>
-    <p class="intro">Writing and evidence: agent systems, models, evaluation
-    and computational biology. An entry can belong to more than one theme, so
+    <p class="intro">Writing and evidence: agent systems, models, evaluation and computational biology. An entry can belong to more than one theme, so
     some appear twice.</p>
   </header>
 
@@ -213,11 +213,20 @@ body.by-date .theme { display: none; }
   </div>
 
 <details class="theme" open>
-  <summary>Agent systems<span class="count">1 piece</span>
+  <summary>Agent systems<span class="count">2 pieces</span>
     <span class="blurb">Harnesses, gates, sandboxes, orchestration, and the products built on them.</span>
   </summary>
   <div class="grid">
-<article class="card" data-date="2026-07-30" data-theme="agent-systems">
+<article class="card" data-date="2026-08-09">
+  <a class="art" href="notes/memory-management.html"><img src="notes/memory-management.svg" alt="Four approaches to memory for models over a corpus" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Note · agent systems · 9 August 2026</p>
+    <h2><a href="notes/memory-management.html">Memory management for LLM-on-corpus</a></h2>
+    <p>Parametric state, chain-of-thought, flat RAG and graph-RAG are four answers to the same question, and the partitioning algorithm separates the principled tools from the rest.</p>
+    <p><a class="read" href="notes/memory-management.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-30">
   <a class="art" href="articles/local-multi-model-workforce.html"><img src="diagrams/00_workforce_overview.png" alt="Local model workforce roles, services and control boundaries" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Multi-model systems · 30 July 2026</p>
@@ -233,25 +242,25 @@ body.by-date .theme { display: none; }
     <span class="blurb">Adapting models to a job, and serving them on hardware I own.</span>
   </summary>
   <div class="grid">
-<article class="card" data-date="2026-07-29" data-theme="models">
+<article class="card" data-date="2026-07-29">
   <a class="art" href="publications/project-brief.html"><img src="publications/assets/task-type-effects-and-examples.svg" alt="Task-type effects and representative coding examples" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">LLM fine-tuning · 29 July 2026</p>
     <h2><a href="publications/project-brief.html">Building a 4B Local Implementer</a></h2>
-    <p>A concise account of the task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</p>
+    <p>The task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</p>
     <p><a class="read" href="publications/project-brief.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-27" data-theme="models evaluation">
+<article class="card" data-date="2026-07-27">
   <a class="art" href="publications/technical-report.html"><img src="publications/assets/humaneval-repeated-effects.svg" alt="Repeated HumanEval+ effects across paired runs" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Technical report · 27 July 2026</p>
     <h2><a href="publications/technical-report.html">Building a 4B Local Implementer: technical report</a></h2>
-    <p>The full method and results: training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
+    <p>Training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
     <p><a class="read" href="publications/technical-report.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-10" data-theme="evaluation models">
+<article class="card" data-date="2026-07-10">
   <a class="art" href="evals/cruxeval-o-ab-184.html"><img src="evals/cruxeval-o-ab-184.svg" alt="CRUXEval-O A/B across 184 problems" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">CRUXEval-O · A/B · 10 July 2026</p>
@@ -260,32 +269,50 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/cruxeval-o-ab-184.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-08" data-theme="evaluation models">
+<article class="card" data-date="2026-07-08">
   <a class="art" href="evals/cruxeval-o-results.html"><img src="evals/cruxeval-o-results.svg" alt="CRUXEval-O results across seven local models" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">CRUXEval-O · reviewer seat · 8 July 2026</p>
     <h2><a href="evals/cruxeval-o-results.html">Seven local models on output prediction</a></h2>
-    <p>A reviewer-seat battery over 100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
+    <p>100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
     <p><a class="read" href="evals/cruxeval-o-results.html">Read this piece &rarr;</a></p>
   </div>
 </article>
   </div>
 </details>
 <details class="theme" open>
-  <summary>Evaluation<span class="count">7 pieces</span>
+  <summary>Evaluation<span class="count">9 pieces</span>
     <span class="blurb">Designing a study, running it, and reporting what it did and did not show.</span>
   </summary>
   <div class="grid">
-<article class="card" data-date="2026-07-27" data-theme="models evaluation">
+<article class="card" data-date="2026-08-09">
+  <a class="art" href="notes/seat-benchmarking.html"><img src="notes/seat-benchmarking.svg" alt="Per-model failure modes, per-seat benchmarking, intervention levels" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Note · evaluation methodology · 9 August 2026</p>
+    <h2><a href="notes/seat-benchmarking.html">Which model holds the seat, and what to do when it does not</a></h2>
+    <p>A leaderboard averages over the wrong axis. What matters is which model wins which seat, on what evidence, and which rung of the intervention ladder a failure points at.</p>
+    <p><a class="read" href="notes/seat-benchmarking.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-08-09">
+  <a class="art" href="notes/watts-per-token.html"><img src="notes/watts-per-token.svg" alt="Desk fan at 35W against an NF-A14 industrialPPC at 6.6W" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Note · running the hardware · 9 August 2026</p>
+    <h2><a href="notes/watts-per-token.html">6.6W versus 35W, and a desk-scale PUE argument</a></h2>
+    <p>Sustained eval workloads are watts-bound on a desk-scale box, and the fan moving air through a hot chassis is a bigger share of that than it looks.</p>
+    <p><a class="read" href="notes/watts-per-token.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-27">
   <a class="art" href="publications/technical-report.html"><img src="publications/assets/humaneval-repeated-effects.svg" alt="Repeated HumanEval+ effects across paired runs" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Technical report · 27 July 2026</p>
     <h2><a href="publications/technical-report.html">Building a 4B Local Implementer: technical report</a></h2>
-    <p>The full method and results: training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
+    <p>Training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
     <p><a class="read" href="publications/technical-report.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-10" data-theme="evaluation">
+<article class="card" data-date="2026-07-10">
   <a class="art" href="evals/fable-run5-granite.html"><img src="evals/fable-run5-granite.svg" alt="Control 8 of 24, sham 7 of 24, manual 16 of 24" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Operating manual · run 5 · 10 July 2026</p>
@@ -294,7 +321,7 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/fable-run5-granite.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-10" data-theme="evaluation models">
+<article class="card" data-date="2026-07-10">
   <a class="art" href="evals/cruxeval-o-ab-184.html"><img src="evals/cruxeval-o-ab-184.svg" alt="CRUXEval-O A/B across 184 problems" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">CRUXEval-O · A/B · 10 July 2026</p>
@@ -303,7 +330,7 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/cruxeval-o-ab-184.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-08" data-theme="evaluation">
+<article class="card" data-date="2026-07-08">
   <a class="art" href="evals/screen_eval_run4.html"><img src="evals/screen_eval_run4.svg" alt="Capability screen run 4 on Qwen3.6-35B" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Capability screen · run 4 · 8 July 2026</p>
@@ -312,16 +339,16 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/screen_eval_run4.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-08" data-theme="evaluation models">
+<article class="card" data-date="2026-07-08">
   <a class="art" href="evals/cruxeval-o-results.html"><img src="evals/cruxeval-o-results.svg" alt="CRUXEval-O results across seven local models" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">CRUXEval-O · reviewer seat · 8 July 2026</p>
     <h2><a href="evals/cruxeval-o-results.html">Seven local models on output prediction</a></h2>
-    <p>A reviewer-seat battery over 100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
+    <p>100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
     <p><a class="read" href="evals/cruxeval-o-results.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-07" data-theme="evaluation">
+<article class="card" data-date="2026-07-07">
   <a class="art" href="evals/screen_eval.html"><img src="evals/screen_eval.svg" alt="Capability screen run 3 on Sonnet 5" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Capability screen · run 3 · 7 July 2026</p>
@@ -330,7 +357,7 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/screen_eval.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-07" data-theme="evaluation">
+<article class="card" data-date="2026-07-07">
   <a class="art" href="evals/trap_eval.html"><img src="evals/trap_eval.svg" alt="Trap battery A/B on Sonnet 5" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Trap battery · A/B · 7 July 2026</p>
@@ -349,7 +376,34 @@ body.by-date .theme { display: none; }
 </details>
 
   <section class="grid" id="latest" aria-label="All pieces, most recent first">
-<article class="card" data-date="2026-07-30" data-theme="agent-systems">
+<article class="card" data-date="2026-08-09">
+  <a class="art" href="notes/seat-benchmarking.html"><img src="notes/seat-benchmarking.svg" alt="Per-model failure modes, per-seat benchmarking, intervention levels" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Note · evaluation methodology · 9 August 2026</p>
+    <h2><a href="notes/seat-benchmarking.html">Which model holds the seat, and what to do when it does not</a></h2>
+    <p>A leaderboard averages over the wrong axis. What matters is which model wins which seat, on what evidence, and which rung of the intervention ladder a failure points at.</p>
+    <p><a class="read" href="notes/seat-benchmarking.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-08-09">
+  <a class="art" href="notes/memory-management.html"><img src="notes/memory-management.svg" alt="Four approaches to memory for models over a corpus" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Note · agent systems · 9 August 2026</p>
+    <h2><a href="notes/memory-management.html">Memory management for LLM-on-corpus</a></h2>
+    <p>Parametric state, chain-of-thought, flat RAG and graph-RAG are four answers to the same question, and the partitioning algorithm separates the principled tools from the rest.</p>
+    <p><a class="read" href="notes/memory-management.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-08-09">
+  <a class="art" href="notes/watts-per-token.html"><img src="notes/watts-per-token.svg" alt="Desk fan at 35W against an NF-A14 industrialPPC at 6.6W" loading="lazy"></a>
+  <div class="card-body">
+    <p class="meta">Note · running the hardware · 9 August 2026</p>
+    <h2><a href="notes/watts-per-token.html">6.6W versus 35W, and a desk-scale PUE argument</a></h2>
+    <p>Sustained eval workloads are watts-bound on a desk-scale box, and the fan moving air through a hot chassis is a bigger share of that than it looks.</p>
+    <p><a class="read" href="notes/watts-per-token.html">Read this piece &rarr;</a></p>
+  </div>
+</article>
+<article class="card" data-date="2026-07-30">
   <a class="art" href="articles/local-multi-model-workforce.html"><img src="diagrams/00_workforce_overview.png" alt="Local model workforce roles, services and control boundaries" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Multi-model systems · 30 July 2026</p>
@@ -358,25 +412,25 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="articles/local-multi-model-workforce.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-29" data-theme="models">
+<article class="card" data-date="2026-07-29">
   <a class="art" href="publications/project-brief.html"><img src="publications/assets/task-type-effects-and-examples.svg" alt="Task-type effects and representative coding examples" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">LLM fine-tuning · 29 July 2026</p>
     <h2><a href="publications/project-brief.html">Building a 4B Local Implementer</a></h2>
-    <p>A concise account of the task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</p>
+    <p>The task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</p>
     <p><a class="read" href="publications/project-brief.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-27" data-theme="models evaluation">
+<article class="card" data-date="2026-07-27">
   <a class="art" href="publications/technical-report.html"><img src="publications/assets/humaneval-repeated-effects.svg" alt="Repeated HumanEval+ effects across paired runs" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Technical report · 27 July 2026</p>
     <h2><a href="publications/technical-report.html">Building a 4B Local Implementer: technical report</a></h2>
-    <p>The full method and results: training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
+    <p>Training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</p>
     <p><a class="read" href="publications/technical-report.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-10" data-theme="evaluation">
+<article class="card" data-date="2026-07-10">
   <a class="art" href="evals/fable-run5-granite.html"><img src="evals/fable-run5-granite.svg" alt="Control 8 of 24, sham 7 of 24, manual 16 of 24" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Operating manual · run 5 · 10 July 2026</p>
@@ -385,7 +439,7 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/fable-run5-granite.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-10" data-theme="evaluation models">
+<article class="card" data-date="2026-07-10">
   <a class="art" href="evals/cruxeval-o-ab-184.html"><img src="evals/cruxeval-o-ab-184.svg" alt="CRUXEval-O A/B across 184 problems" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">CRUXEval-O · A/B · 10 July 2026</p>
@@ -394,7 +448,7 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/cruxeval-o-ab-184.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-08" data-theme="evaluation">
+<article class="card" data-date="2026-07-08">
   <a class="art" href="evals/screen_eval_run4.html"><img src="evals/screen_eval_run4.svg" alt="Capability screen run 4 on Qwen3.6-35B" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Capability screen · run 4 · 8 July 2026</p>
@@ -403,16 +457,16 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/screen_eval_run4.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-08" data-theme="evaluation models">
+<article class="card" data-date="2026-07-08">
   <a class="art" href="evals/cruxeval-o-results.html"><img src="evals/cruxeval-o-results.svg" alt="CRUXEval-O results across seven local models" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">CRUXEval-O · reviewer seat · 8 July 2026</p>
     <h2><a href="evals/cruxeval-o-results.html">Seven local models on output prediction</a></h2>
-    <p>A reviewer-seat battery over 100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
+    <p>100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</p>
     <p><a class="read" href="evals/cruxeval-o-results.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-07" data-theme="evaluation">
+<article class="card" data-date="2026-07-07">
   <a class="art" href="evals/screen_eval.html"><img src="evals/screen_eval.svg" alt="Capability screen run 3 on Sonnet 5" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Capability screen · run 3 · 7 July 2026</p>
@@ -421,7 +475,7 @@ body.by-date .theme { display: none; }
     <p><a class="read" href="evals/screen_eval.html">Read this piece &rarr;</a></p>
   </div>
 </article>
-<article class="card" data-date="2026-07-07" data-theme="evaluation">
+<article class="card" data-date="2026-07-07">
   <a class="art" href="evals/trap_eval.html"><img src="evals/trap_eval.svg" alt="Trap battery A/B on Sonnet 5" loading="lazy"></a>
   <div class="card-body">
     <p class="meta">Trap battery · A/B · 7 July 2026</p>
@@ -435,9 +489,9 @@ body.by-date .theme { display: none; }
   <footer>
     <p>Built and maintained by
     <a href="https://github.com/evoclock">Julen Gamboa</a>.
-    Source and project material are available in the
-    <a href="https://github.com/evoclock/local-model-workforce">public
-    repository</a>.</p>
+    Source is in the <a href="https://github.com/evoclock/fieldnotes">public
+    repository</a>. New pieces appear in the
+    <a href="feed.xml">RSS feed</a>.</p>
   </footer>
 </main>
 <script>
@@ -448,11 +502,11 @@ body.by-date .theme { display: none; }
     document.body.classList.toggle("by-date", dateFirst);
     byTheme.setAttribute("aria-pressed", String(!dateFirst));
     byDate.setAttribute("aria-pressed", String(dateFirst));
-    try { localStorage.setItem("lmw-view", dateFirst ? "date" : "theme"); } catch (e) {}
+    try { localStorage.setItem("fn-view", dateFirst ? "date" : "theme"); } catch (e) {}
   }
   byTheme.addEventListener("click", function () { show(false); });
   byDate.addEventListener("click", function () { show(true); });
-  try { if (localStorage.getItem("lmw-view") === "date") show(true); } catch (e) {}
+  try { if (localStorage.getItem("fn-view") === "date") show(true); } catch (e) {}
 })();
 </script>
 </body>

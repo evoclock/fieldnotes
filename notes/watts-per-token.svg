@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img">
+<rect width="800" height="450" fill="#151719"/>
+<rect x="0" y="0" width="800" height="6" fill="#e77843"/>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#e77843"><tspan x="56" y="74">NOTE · RUNNING THE HARDWARE</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="34" font-weight="700" fill="#f0f2f1"><tspan x="56" y="138">6.6W versus 35W, and a</tspan><tspan x="56" y="180">desk-scale PUE argument</tspan></text>
+<rect x="56" y="210" width="300" height="16" rx="3" fill="#222629"/><rect x="56" y="210" width="300" height="16" rx="3" fill="#222629"/><text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="500" fill="#b8c0bd"><tspan x="370" y="223">desk fan 35/35</tspan></text><rect x="56" y="244" width="300" height="16" rx="3" fill="#222629"/><rect x="56" y="244" width="60" height="16" rx="3" fill="#e77843"/><text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="500" fill="#b8c0bd"><tspan x="370" y="257">NF-A14 iPPC 7/35</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="500" fill="#b8c0bd"><tspan x="56" y="406">Sustained eval workloads are watts-bound</tspan></text>
+</svg>

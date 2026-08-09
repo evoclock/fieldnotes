@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Parametric state, chain-of-thought, flat RAG and graph-RAG are four different answers to the same question, and the partitioning algorithm is what separates the principled tools from the rest.">
+<title>Memory management for LLM-on-corpus</title>
+<style>
+:root {
+  --coal: #151719;
+  --panel: #222629;
+  --paper: #f0f2f1;
+  --muted: #b8c0bd;
+  --orange: #e77843;
+  --sage: #79c39e;
+  --teal: #3fbec1;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(63,190,193,.12), transparent 34rem),
+    var(--coal);
+  color: var(--muted);
+  font: 18px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main {
+  width: min(720px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 4rem 0 5rem;
+}
+.eyebrow {
+  color: var(--sage);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: .4rem 0 .5rem;
+  color: var(--paper);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1.12;
+}
+.byline { color: var(--muted); font-size: .95rem; margin: 0 0 2.2rem; }
+h2 { color: var(--paper); font-size: 1.3rem; margin: 2.2rem 0 .6rem; }
+p { margin: 0 0 1.1rem; }
+ul { margin: 0 0 1.2rem; padding-left: 1.2rem; }
+li { margin: 0 0 .7rem; }
+strong { color: var(--paper); }
+a { color: var(--sage); }
+a:hover { color: var(--teal); }
+code {
+  padding: .1rem .35rem;
+  border-radius: 4px;
+  background: var(--panel);
+  font-size: .92em;
+}
+.back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: var(--orange);
+  font-weight: 800;
+  text-decoration: none;
+}
+footer {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(240,242,241,.14);
+  font-size: .95rem;
+}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../index.html">&larr; fieldnotes</a>
+  <p class="eyebrow">Note &middot; Agent systems</p>
+  <h1>Memory management for LLM-on-corpus</h1>
+  <p class="byline">Julen Gamboa &middot; 9 August 2026</p>
+
+  <p>Not an exhaustive list, but these are the areas I have been experimenting
+  on or validating against.</p>
+
+  <ul>
+    <li><strong>Parametric.</strong> Mamba, SSMs and Jamba hybrids
+    (<a href="https://arxiv.org/abs/2312.00752">Gu and Dao, 2023</a>) compress
+    context into a bounded recurrent state during inference. Deterministic for a
+    given input, ephemeral across calls.</li>
+    <li><strong>Chain-of-thought.</strong> The model's own scratchpad. It pays
+    tokens for working memory on every call, which is poor return for the cost
+    and the overhead.</li>
+    <li><strong>External flat RAG.</strong> Vector similarity and BM25. Memory
+    lives in an index, freshness wins, and recall is bounded by embedding
+    quality.</li>
+    <li><strong>Graph-RAG.</strong> The same external memory with structure:
+    nodes, edges, communities. The partitioning algorithm is what separates the
+    principled tools from the embedding-only ones. Microsoft's GraphRAG uses
+    <a href="https://arxiv.org/abs/2404.16130">Leiden community detection</a>;
+    <a href="https://github.com/evoclock/nuthatch">nuthatch</a> is the
+    SBM-based entry in this space.</li>
+  </ul>
+
+  <p>Worth saying why frontier labs might not be in a hurry to solve this. The
+  more rounds it takes to solve a problem, the more tokens get burned, and that
+  is ultimately in their commercial interest.</p>
+
+  <footer>
+    <p>A note rather than an article: an argument worth writing down, without
+    the length to justify more.</p>
+  </footer>
+</main>
+</body>
+</html>

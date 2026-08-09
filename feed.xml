@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fieldnotes</title>
+    <link>https://evoclock.github.io/fieldnotes/</link>
+    <description>Writing and evidence: agent systems, models, evaluation and computational biology.</description>
+    <language>en-GB</language>
+    <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Which model holds the seat, and what to do when it does not</title>
+      <link>https://evoclock.github.io/fieldnotes/notes/seat-benchmarking.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/notes/seat-benchmarking.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>A leaderboard averages over the wrong axis. What matters is which model wins which seat, on what evidence, and which rung of the intervention ladder a failure points at.</description>
+      <category>evaluation</category>
+    </item>
+    <item>
+      <title>Memory management for LLM-on-corpus</title>
+      <link>https://evoclock.github.io/fieldnotes/notes/memory-management.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/notes/memory-management.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>Parametric state, chain-of-thought, flat RAG and graph-RAG are four answers to the same question, and the partitioning algorithm separates the principled tools from the rest.</description>
+      <category>agent-systems</category>
+    </item>
+    <item>
+      <title>6.6W versus 35W, and a desk-scale PUE argument</title>
+      <link>https://evoclock.github.io/fieldnotes/notes/watts-per-token.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/notes/watts-per-token.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>Sustained eval workloads are watts-bound on a desk-scale box, and the fan moving air through a hot chassis is a bigger share of that than it looks.</description>
+      <category>evaluation</category>
+    </item>
+    <item>
+      <title>Why I Started Building a Local Multi-Model Workforce, and Why the Industry May Be Heading There Too</title>
+      <link>https://evoclock.github.io/fieldnotes/articles/local-multi-model-workforce.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/articles/local-multi-model-workforce.html</guid>
+      <pubDate>Thu, 30 Jul 2026 00:00:00 +0000</pubDate>
+      <description>How a self-directed effort grew into a supervised multi-model architecture, a set of working products, and an emerging professional direction.</description>
+      <category>agent-systems</category>
+    </item>
+    <item>
+      <title>Building a 4B Local Implementer</title>
+      <link>https://evoclock.github.io/fieldnotes/publications/project-brief.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/publications/project-brief.html</guid>
+      <pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate>
+      <description>The task-bound Implementer, its behavioural adaptation, repeated coding evaluation, evidence flywheel and next steps.</description>
+      <category>models</category>
+    </item>
+    <item>
+      <title>Building a 4B Local Implementer: technical report</title>
+      <link>https://evoclock.github.io/fieldnotes/publications/technical-report.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/publications/technical-report.html</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 +0000</pubDate>
+      <description>Training regime, paired evaluation across fifteen HumanEval+ runs, and what the numbers do and do not support.</description>
+      <category>models</category>
+      <category>evaluation</category>
+    </item>
+    <item>
+      <title>A reasoning manual helped a small model catch the trap</title>
+      <link>https://evoclock.github.io/fieldnotes/evals/fable-run5-granite.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/evals/fable-run5-granite.html</guid>
+      <pubDate>Fri, 10 Jul 2026 00:00:00 +0000</pubDate>
+      <description>On granite-4.0-h-small-FP8 the manual raised the catch rate from 8/24 to 16/24, while a same-length placebo did nothing. Small n, stated plainly.</description>
+      <category>evaluation</category>
+    </item>
+    <item>
+      <title>The prompt is not the model</title>
+      <link>https://evoclock.github.io/fieldnotes/evals/cruxeval-o-ab-184.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/evals/cruxeval-o-ab-184.html</guid>
+      <pubDate>Fri, 10 Jul 2026 00:00:00 +0000</pubDate>
+      <description>Seven models over 184 output-prediction problems. The headline change is meaningless on its own, the effect is bimodal, and the real signal is the floor.</description>
+      <category>evaluation</category>
+      <category>models</category>
+    </item>
+    <item>
+      <title>The gate opened, and the manual still moved nothing</title>
+      <link>https://evoclock.github.io/fieldnotes/evals/screen_eval_run4.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/evals/screen_eval_run4.html</guid>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 +0000</pubDate>
+      <description>A weaker base model and a harder trap gave the manual room to show a capability effect. It did not.</description>
+      <category>evaluation</category>
+    </item>
+    <item>
+      <title>Seven local models on output prediction</title>
+      <link>https://evoclock.github.io/fieldnotes/evals/cruxeval-o-results.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/evals/cruxeval-o-results.html</guid>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 +0000</pubDate>
+      <description>100 Python problems, graded strictly at Pass@1 and reported together with its prompt, infrastructure and harness failures.</description>
+      <category>evaluation</category>
+      <category>models</category>
+    </item>
+    <item>
+      <title>The manual moved only the labels</title>
+      <link>https://evoclock.github.io/fieldnotes/evals/screen_eval.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/evals/screen_eval.html</guid>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>
+      <description>Three arms, three tiers and twenty-seven agents, with a sham arm so a real capability effect would have had room to appear.</description>
+      <category>evaluation</category>
+    </item>
+    <item>
+      <title>It changed how the work was shown, not what was caught</title>
+      <link>https://evoclock.github.io/fieldnotes/evals/trap_eval.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/evals/trap_eval.html</guid>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>
+      <description>Nine traps, model held constant, one arm reading the operating manual and one not.</description>
+      <category>evaluation</category>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img">
+<rect width="800" height="450" fill="#151719"/>
+<rect x="0" y="0" width="800" height="6" fill="#79c39e"/>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#79c39e"><tspan x="56" y="74">NOTE · EVALUATION METHODOLOGY</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="34" font-weight="700" fill="#f0f2f1"><tspan x="56" y="138">Which model holds the seat,</tspan><tspan x="56" y="180">and what to do when it does</tspan><tspan x="56" y="223">not</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" font-weight="500" fill="#b8c0bd"><tspan x="56" y="250">A leaderboard averages over the wrong axis.</tspan><tspan x="56" y="275">Which model wins which seat, on what evidence?</tspan></text>
+<text text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="500" fill="#b8c0bd"><tspan x="56" y="406">Per-model failure modes · per-seat benchmarking · intervention levels</tspan></text>
+</svg>

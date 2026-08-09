@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sustained eval workloads are watts-bound on a desk-scale box, and the fan you use to move air through a hot chassis is a bigger share of that than it looks.">
+<title>Watts per token, at desk scale</title>
+<style>
+:root {
+  --coal: #151719;
+  --panel: #222629;
+  --paper: #f0f2f1;
+  --muted: #b8c0bd;
+  --orange: #e77843;
+  --sage: #79c39e;
+  --teal: #3fbec1;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(63,190,193,.12), transparent 34rem),
+    var(--coal);
+  color: var(--muted);
+  font: 18px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main {
+  width: min(720px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 4rem 0 5rem;
+}
+.eyebrow {
+  color: var(--sage);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: .4rem 0 .5rem;
+  color: var(--paper);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1.12;
+}
+.byline { color: var(--muted); font-size: .95rem; margin: 0 0 2.2rem; }
+h2 { color: var(--paper); font-size: 1.3rem; margin: 2.2rem 0 .6rem; }
+p { margin: 0 0 1.1rem; }
+ul { margin: 0 0 1.2rem; padding-left: 1.2rem; }
+li { margin: 0 0 .7rem; }
+strong { color: var(--paper); }
+a { color: var(--sage); }
+a:hover { color: var(--teal); }
+code {
+  padding: .1rem .35rem;
+  border-radius: 4px;
+  background: var(--panel);
+  font-size: .92em;
+}
+.back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: var(--orange);
+  font-weight: 800;
+  text-decoration: none;
+}
+footer {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(240,242,241,.14);
+  font-size: .95rem;
+}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../index.html">&larr; fieldnotes</a>
+  <p class="eyebrow">Note &middot; Running the hardware</p>
+  <h1>6.6W versus 35W, and a desk-scale PUE argument</h1>
+  <p class="byline">Julen Gamboa &middot; 9 August 2026</p>
+
+  <p>Sustained eval workloads are watts-bound on a desk-scale box. Not
+  thermally bound, though that comes into it, but bound by what the whole
+  machine draws to keep producing tokens for hours.</p>
+
+  <p>An external Noctua NF-A14 industrialPPC-3000 draws 6.6W to move air
+  through a hot chassis. A desk fan pulls around 35W to move roughly the same
+  air. That difference runs for the entire length of every eval, so it lands in
+  watts per token rather than in a peak figure nobody measures.</p>
+
+  <p>It saves on power and it prolongs the hardware, but the watts-per-token
+  argument is the one that matters. It is the same reasoning behind power usage
+  effectiveness in a datacenter, applied at the scale of one desk: the useful
+  work is the tokens, and everything else spent keeping the box able to produce
+  them is overhead worth measuring.</p>
+
+  <footer>
+    <p>A note rather than an article: an argument worth writing down, without
+    the length to justify more.</p>
+  </footer>
+</main>
+</body>
+</html>

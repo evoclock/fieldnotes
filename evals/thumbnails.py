@@ -134,7 +134,37 @@ THUMBNAILS = {
 }
 
 
+# Notes get the same treatment, written to notes/ rather than here.
+NOTE_THUMBNAILS = {
+    "seat-benchmarking": card(
+        "Note \u00b7 evaluation methodology",
+        "Which model holds the seat, and what to do when it does not",
+        "Per-model failure modes \u00b7 per-seat benchmarking \u00b7 intervention levels",
+        SAGE,
+        text(56, 250, ["A leaderboard averages over the wrong axis.", "Which model wins which seat, on what evidence?"], 19, MUTED, 500),
+    ),
+    "memory-management": card(
+        "Note \u00b7 agent systems",
+        "Memory management for LLM-on-corpus",
+        "Parametric \u00b7 chain-of-thought \u00b7 flat RAG \u00b7 graph-RAG",
+        TEAL,
+        text(56, 250, ["Four answers to the same question. The", "partitioning algorithm separates them."], 19, MUTED, 500),
+    ),
+    "watts-per-token": card(
+        "Note \u00b7 running the hardware",
+        "6.6W versus 35W, and a desk-scale PUE argument",
+        "Sustained eval workloads are watts-bound",
+        ORANGE,
+        bars(56, 210, 300, [("desk fan", 35, 35), ("NF-A14 iPPC", 7, 35)], ORANGE),
+    ),
+}
+
+
 def main() -> None:
+    for name, svg in NOTE_THUMBNAILS.items():
+        path = HERE.parent / "notes" / f"{name}.svg"
+        path.write_text(svg, encoding="utf-8")
+        print(f"  wrote notes/{path.name}")
     for name, svg in THUMBNAILS.items():
         path = HERE / f"{name}.svg"
         path.write_text(svg, encoding="utf-8")
