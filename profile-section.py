@@ -15,9 +15,10 @@ from build import ENTRIES, SITE, THEMES
 # has no mark of its own: it runs through everything else rather than sitting
 # beside it.
 MARKS = {
-    "agent-systems": ("Shibuichi", "Shibuichi-origami-removebg-preview.png"),
-    "models": ("Sentoku", "Sentoku-origami-removebg-preview.png"),
-    "comp-bio": ("Yamagane", "Yamagane-origami-removebg-preview.png"),
+    "agent-systems": "Shibuichi-origami-removebg-preview.png",
+    "models": "Shibuichi-origami-removebg-preview.png",
+    "evaluation": "Sentoku-origami-removebg-preview.png",
+    "comp-bio": "Yamagane-origami-removebg-preview.png",
 }
 
 
@@ -28,7 +29,7 @@ def entry(e) -> str:
 
 def main() -> None:
     out = [
-        "## Technical reports, experiments, evals and thoughts",
+        "## Fieldnotes: technical reports, experiments, evals and thoughts",
         "",
         '<p align="center">',
         f'  <a href="{SITE}">',
@@ -58,13 +59,13 @@ def main() -> None:
             ]
             continue
         out += [
-            "<details open>",
+            "<details>",
             f"<summary><strong>{heading}</strong> ({len(items)})</summary>",
             "", blurb, "",
         ]
         if mark:
             out += [
-                f'<img src="assets/{mark[1]}" alt="" width="58" align="right">',
+                f'<img src="assets/{mark}" alt="" width="58" align="right">',
                 "",
             ]
         out += ["\n\n".join(entry(e) for e in items), "", "</details>", ""]

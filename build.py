@@ -161,7 +161,7 @@ def build_index(style: str) -> str:
 </details>""")
             continue
         n = len(items)
-        sections.append(f"""<details class="theme" open>
+        sections.append(f"""<details class="theme">
   <summary>{name}<span class="count">{n} {'piece' if n == 1 else 'pieces'}</span>
     <span class="blurb">{blurb}</span>
   </summary>
