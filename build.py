@@ -16,6 +16,14 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SITE = "https://evoclock.github.io/fieldnotes/"
+
+# The familiar RSS mark: a dot with two arcs radiating from it.
+RSS_ICON = (
+    '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" '
+    'fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/>'
+    '<path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83C19.56 11.1 12.9 4.44 4 4.44z"/>'
+    '<path d="M4 10.1v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83C13.9 14.2 9.8 10.1 4 10.1z"/>'
+    '</svg>')
 TITLE = "fieldnotes"
 TAGLINE = ("Writing and evidence: agent systems, models, evaluation and "
            "computational biology.")
@@ -134,6 +142,7 @@ def build_feed() -> str:
     </item>""")
     newest = max(e[1] for e in ENTRIES)
     return f"""<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="feed.xsl"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{TITLE}</title>
@@ -199,6 +208,8 @@ def build_index(style: str) -> str:
     <span>View</span>
     <button type="button" id="view-theme" aria-pressed="true">By theme</button>
     <button type="button" id="view-date" aria-pressed="false">Latest first</button>
+    <a class="subscribe" href="feed.xml" title="Subscribe with a feed reader">
+      {RSS_ICON}<span>Subscribe</span></a>
   </div>
 
 {chr(10).join(sections)}

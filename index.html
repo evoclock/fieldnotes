@@ -182,6 +182,21 @@ footer a { color: var(--sage); }
   font-weight: 400;
 }
 .theme .grid { padding: .4rem 0 1.6rem; }
+.subscribe {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-left: auto;
+  padding: .38rem 1rem;
+  border: 1px solid rgba(231,120,67,.5);
+  border-radius: 999px;
+  background: rgba(231,120,67,.1);
+  color: var(--orange);
+  font-size: .92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.subscribe:hover { background: rgba(231,120,67,.2); color: var(--paper); }
 .empty {
   padding: 1rem 0 0;
   color: var(--muted);
@@ -209,6 +224,8 @@ body.by-date .theme { display: none; }
     <span>View</span>
     <button type="button" id="view-theme" aria-pressed="true">By theme</button>
     <button type="button" id="view-date" aria-pressed="false">Latest first</button>
+    <a class="subscribe" href="feed.xml" title="Subscribe with a feed reader">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83C19.56 11.1 12.9 4.44 4 4.44z"/><path d="M4 10.1v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83C13.9 14.2 9.8 10.1 4 10.1z"/></svg><span>Subscribe</span></a>
   </div>
 
 <details class="theme">
