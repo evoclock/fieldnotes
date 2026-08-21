@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A fieldnote on rediscovery, standardisation, prior art, and hype as a service in AI infrastructure.">
+<title>And the Simpsons Already Did It</title>
+<style>
+:root {
+  --ink: #23201d;
+  --muted: #655f59;
+  --paper: #f7f0df;
+  --paper-deep: #eee2c8;
+  --coal: #171716;
+  --orange: #ed7a3a;
+  --teal: #2fb9b5;
+  --sage: #9bc9a9;
+  --cream: #fff8e8;
+  --line: #c9bfa9;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(237,122,58,.12), transparent 34rem),
+    radial-gradient(circle at 90% 14%, rgba(47,185,181,.12), transparent 30rem),
+    var(--paper);
+  font: 18px/1.68 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+a { color: #086f71; text-underline-offset: .16em; }
+a:hover { color: #b84c1d; }
+main { width: min(100% - 2rem, 920px); margin: 0 auto; }
+header {
+  margin: 1.5rem 0 2.2rem;
+  padding: clamp(2rem, 6vw, 4.5rem);
+  color: var(--cream);
+  background: var(--coal);
+  border: 1px solid #3b3833;
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(43, 35, 25, .18);
+}
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--teal);
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+h1 {
+  max-width: 17ch;
+  margin: 0;
+  font-size: clamp(2.35rem, 7vw, 4.8rem);
+  line-height: .99;
+  letter-spacing: -.045em;
+}
+.subtitle {
+  max-width: 60ch;
+  margin: 1.6rem 0 0;
+  color: #dfd6c7;
+  font-size: clamp(1.05rem, 2.4vw, 1.32rem);
+  line-height: 1.5;
+}
+.byline { margin: 2rem 0 0; color: var(--sage); font-weight: 700; }
+article { padding-bottom: 5rem; }
+section { margin: 3.5rem 0; }
+h2 {
+  margin: 0 0 1.1rem;
+  font-size: clamp(1.65rem, 4vw, 2.45rem);
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+h3 { margin: 1.8rem 0 .6rem; line-height: 1.25; }
+p { margin: .85rem 0; }
+.lead {
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  line-height: 1.58;
+}
+.callout {
+  margin: 1.8rem 0;
+  padding: 1.25rem 1.4rem;
+  border-left: 6px solid var(--orange);
+  border-radius: 0 14px 14px 0;
+  background: rgba(255,248,232,.82);
+}
+.wide-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1.5rem auto .6rem;
+  border: 1px solid #3d3934;
+  border-radius: 14px;
+  box-shadow: 0 14px 35px rgba(40,33,24,.14);
+}
+.portrait-figure {
+  max-height: 48rem;
+  object-fit: contain;
+  object-position: top;
+  background: #fffaf0;
+}
+.zoom-link {
+  display: block;
+  cursor: zoom-in;
+}
+.zoom-hint {
+  margin: .45rem 0 0;
+  color: var(--muted);
+  font-size: .85rem;
+  text-align: center;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(10, 10, 9, .94);
+}
+.lightbox:target { display: flex; }
+.lightbox img {
+  display: block;
+  max-width: 97vw;
+  max-height: 94vh;
+  object-fit: contain;
+  border: 1px solid #655d51;
+  border-radius: 10px;
+}
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  width: 2.7rem;
+  height: 2.7rem;
+  color: var(--cream);
+  background: var(--coal);
+  border: 1px solid var(--cream);
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  text-align: center;
+  text-decoration: none;
+}
+figure { margin: 1.5rem 0; }
+figcaption { color: var(--muted); font-size: .86rem; line-height: 1.45; }
+blockquote {
+  margin: 1.7rem 0;
+  padding: 1rem 1.3rem;
+  color: #3a342e;
+  border-left: 5px solid var(--sage);
+  background: rgba(155,201,169,.17);
+}
+.references {
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.references li { margin: .55rem 0; }
+.small { color: var(--muted); font-size: .85rem; }
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+  main { width: min(100% - 1rem, 920px); }
+  header { border-radius: 16px; }
+}
+@media print {
+  body { background: white; font-size: 11pt; }
+  main { width: 100%; }
+  header { break-after: avoid; box-shadow: none; }
+  a { color: inherit; }
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">Fieldnote · AI infrastructure · standards</p>
+  <h1>And the Simpsons Already Did It</h1>
+  <p class="subtitle"><strong>A fieldnote on rediscovery, standardisation, and
+  HaaS in AI infrastructure.</strong></p>
+  <p class="byline">Julen Gamboa · 21 August 2026</p>
+</header>
+
+<article>
+<section>
+  <figure>
+    <img class="wide-figure" src="source_assets/simpsons-already-did-it.png"
+      alt="South Park meme referencing The Simpsons already did it">
+    <figcaption><em>South Park</em> meme reference.</figcaption>
+  </figure>
+
+  <p class="lead">Software engineering constantly reinvents old ideas. Fields
+  from philosophy, mathematics, biology, and early computing regularly
+  resurface under new marketing names.</p>
+
+  <p>That does not automatically make the new work dishonest or worthless. New
+  generations face similar problems, institutional memory is uneven, and new
+  hardware can make an old idea practical at a different scale.</p>
+
+</section>
+
+<section>
+  <h2>A tale as old as time itself</h2>
+
+  <p>Some familiar examples, stated as analogies rather than exact
+  equivalences:</p>
+
+  <ul>
+    <li>Microservices repackaged service-oriented architecture and older ideas
+    about modularity and small composable programs.</li>
+    <li>NoSQL revisited non-relational data models, denormalised storage, and
+    distributed systems trade-offs that predate the label.</li>
+    <li>Serverless brought a new developer experience to ideas related to
+    timesharing, utility computing, and remote execution.</li>
+    <li>Functional programming repeatedly repopularised ideas rooted in the
+    lambda calculus and early language research.</li>
+  </ul>
+
+  <p>The pattern has a few recurring causes:</p>
+
+  <ul>
+    <li><strong>Industry amnesia:</strong> people and organisations move on,
+    and institutional memory does not move cleanly with them.</li>
+    <li><strong>New hardware:</strong> a slow or expensive idea becomes fast
+    and cheap enough to use routinely.</li>
+    <li><strong>Rebranding:</strong> a familiar practice gets a sharper name,
+    a cleaner demo, and a market around it.</li>
+    <li><strong>Distribution:</strong> a large company can turn a scattered
+    practice into a product, standard, or ecosystem that many more people can
+    actually adopt.</li>
+  </ul>
+
+  <p>The last item is important. Distribution is real value. It is also
+  <strong>not the same thing as invention.</strong></p>
+</section>
+
+<section>
+  <h2>Novelty claims need to be assessed carefully</h2>
+
+  <p>Google's recent <a href="https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/">Agentic Resource Discovery</a>
+  proposal is a sensible proposition. Agents need a way to find capabilities
+  outside the registry or platform they started in, and they need to establish
+  who published a capability before connecting to it. ARD packages that problem
+  as a discovery layer: catalogs describe capabilities, registries index them,
+  domain ownership supplies an identity anchor, and trust metadata can be
+  checked before a connection is made.</p>
+
+  <p>That is useful standardisation work. It is also not the invention of zero
+  trust, service discovery, registries, signed metadata, domain-anchored
+  identity, least-privilege policy, or auditability. Those are older practices
+  from network security, distributed systems, identity infrastructure, package
+  ecosystems, and safety engineering. <a href="https://csrc.nist.gov/pubs/sp/800/207/final">NIST's Zero Trust Architecture</a>
+  publication alone predates the current agent vocabulary by years. Nonetheless,
+  some tech journalists love to conclude something that often is not in
+  Google's announcements, while other companies do tend to imply novelty where
+  there is not any.</p>
+
+  <p>The distinction matters because AI infrastructure repeatedly turns an
+  existing practice into a new category name. A large vendor gives it a
+  specification, a reference implementation, a product surface, and a
+  distribution channel. That can make the practice easier to adopt. It does
+  not move the origin of the underlying idea to the date of the announcement.</p>
+
+  <p>This is not an accusation of copying. Independent convergence is normal
+  when a new application area creates the same engineering needs. The concept
+  has an analogue in evolutionary biology too: convergent evolution. The useful
+  question is: what is new here — the primitive, the standard, the
+  implementation, or the reach?</p>
+</section>
+
+<section>
+  <h2>We all learn from prior art — very little out there is truly novel</h2>
+
+  <p>In May, I started building <a href="https://github.com/evoclock/testudo">Testudo</a>
+  to address some of the same broad trust concerns that ARD now makes visible
+  in an agent-discovery setting. I looked up prior art and built an execution
+  boundary from familiar primitives:</p>
+
+  <ul>
+    <li>declarative permissions;</li>
+    <li>append-only audit logs;</li>
+    <li>container isolation;</li>
+    <li>input and output sanitisation; and</li>
+    <li>read/write separation.</li>
+  </ul>
+
+  <p>The security model then grew in stages:</p>
+
+  <ul>
+    <li>HMAC-SHA256 receipts for local content integrity;</li>
+    <li>host-issued capability tokens for scoped permissions;</li>
+    <li>P-256/ES256 public-key signatures; and</li>
+    <li>runtime identity binding for each worker or agent.</li>
+  </ul>
+
+  <p>The overlap with ARD is partial convergence. Different needs can lead
+  different projects to use the same older ideas.</p>
+
+  <blockquote>
+    <p><strong>ARD asks:</strong> what resource exists, who claims it, and can
+    I verify it before invocation?</p>
+    <p><strong>Testudo asks:</strong> may this worker perform this scoped
+    operation, and can the operator prove what happened?</p>
+  </blockquote>
+
+  <p>Both systems use familiar primitives: identity, scope, authenticity,
+  freshness, and verification. Neither needs to claim that it invented them.
+  The novelty problem often enters through headlines and blog commentary. A
+  new AI-agent setting can make an old primitive look new even when it is not.</p>
+
+  <p>The new contribution may be the combination, the standard, the
+  enforcement, the evidence, or the distribution. It should not be described
+  as the invention of the underlying primitive unless it really is one.</p>
+</section>
+
+<section>
+  <h2>OKF is a format contribution, not the birth of agent-readable knowledge</h2>
+
+  <p>Google Cloud's <a href="https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing">Open Knowledge Format</a>
+  is another useful example. OKF defines a small, portable convention:
+  markdown files, YAML frontmatter, links, optional indexes, and metadata for
+  provenance, trust, lifecycle, and verification. A human can read it, an agent
+  can parse it, and a repository can version it.</p>
+
+  <p>That is a good interoperability target. It is also a formalisation of
+  patterns that were already widespread: git-backed documentation, wikis,
+  frontmatter, index files, linked notes, metadata-as-code, knowledge bases,
+  and the “LLM-wiki” pattern. Google's own announcement acknowledges the family
+  resemblance to tools and conventions such as Obsidian, Notion, Hugo, and
+  agent-oriented repository instruction files. The contribution is the attempt
+  to make the convention portable and interoperable, not the invention of
+  markdown, YAML, links, provenance, or graph traversal.</p>
+
+  <p>Unfortunately, attempts to introduce standard formats are often met with
+  variable success. It is not that standards are bad. It is that the proposed
+  “universal standard” often becomes standard number fifteen, as in Randall
+  Munroe's cartoon below.</p>
+
+  <p>Standardisation may be well intentioned, but the useful test is practical:
+  do independent tools implement the format? Is there a clear migration path?
+  Does it reduce work for users? Does it survive outside the organisation that
+  proposed it? The lineage statement should say “we are standardising and
+  extending an existing pattern,” not “we discovered the pattern.”</p>
+
+  <figure>
+    <img class="wide-figure" src="source_assets/xkcd-standards.png"
+      alt="XKCD cartoon about competing standards">
+    <figcaption>Randall Munroe, <a href="https://xkcd.com/927/">xkcd #927:
+    “Standards”</a>. Used with credit under the <a href="https://creativecommons.org/licenses/by-nc/2.5/">Creative Commons Attribution-NonCommercial 2.5 License</a>.</figcaption>
+  </figure>
+
+  <p>Computational biology has lived this joke for years. We have formats for
+  sequences, reads, alignments, variants, annotations, structures, and
+  single-cell matrices, to name a few. Each format solves a real problem. Each
+  also creates another converter, wrapper, schema, or import step. Meanwhile,
+  the field keeps moving forward, one perfectly reasonable format at a time.</p>
+
+  <p>It may well be that OKF will reduce friction between existing tools. It may
+  also add another layer. A format only helps when tools adopt it, preserve its
+  meaning, and work with it without extra translation. Otherwise it becomes
+  another file format, converter, and documentation task — the fifteenth
+  standard in the cartoon.</p>
+</section>
+
+<section>
+  <h2>Everybody does graphs</h2>
+
+  <p><a href="https://github.com/docling-project/docling-graph">Docling Graph</a>
+  is another example of a useful document-processing package. It converts
+  documents into validated structured objects, builds directed graphs with
+  explicit relationships, and records provenance back to source chunks and
+  pages. That is practical engineering, and the grounding and validation
+  details are valuable.</p>
+
+  <p>But the ingredients are not new in isolation. There may well be dozens, if
+  not more, packages that precede it — mine included — some better than others:
+  document parsing, schema-guided extraction, knowledge graphs, ontologies,
+  provenance ledgers, page-level grounding, graph visualisation, and queryable
+  relationships all predate this library. Its contribution is integration of
+  an already excellent document-processing product into a single workflow. To
+  reiterate the sentiment, a project does not need to invent the primitive to
+  be worth using.</p>
+
+  <p>The problem begins when the publicity language quietly shifts from “a good
+  implementation of an established pattern” to “the pattern has just been
+  invented.” The brand amplifies the announcement, and the amplification gets
+  remembered as origin.</p>
+</section>
+
+<section>
+  <h2>HaaS: hype as a service</h2>
+
+  <p>I sometimes think of this packaging layer as HaaS: <em>hype as a
+  service</em>. The formula is familiar:</p>
+
+  <blockquote>
+    <p>existing primitives + orchestration + a polished benchmark + a famous
+    brand = a new category in the public imagination.</p>
+  </blockquote>
+
+  <p>That is deliberately humorous, not a claim that the engineering is empty.
+  A managed service can add reliability, permissions, observability, lower
+  operational cost, and a much better developer experience. Those are
+  legitimate contributions. The question is which contribution is actually
+  being claimed.</p>
+
+  <p>The fair comparison is not “they copied it” versus “they invented it.” It
+  is:</p>
+
+  <ul>
+    <li>Is there a new algorithm or protocol?</li>
+    <li>Is there a better managed implementation of an established technique?</li>
+    <li>Is the real improvement governance, interoperability, latency, cost, or
+    operational reliability?</li>
+    <li>Can the claimed gain be reproduced outside the vendor's platform and
+    compared with credible open-source and historical baselines?</li>
+  </ul>
+
+  <p>The same questions apply to OpenAI, Google, Anthropic, Microsoft,
+  Databricks, and every other well-funded participant in the current agent
+  market. The larger the megaphone, the more important it is to separate the
+  primitive from the packaging.</p>
+</section>
+
+<section>
+  <h2>Dario sets out to save mankind — winds up saving his IPO instead?</h2>
+
+  <p>A recent <a href="https://www.anthropic.com/research/Claude-accelerates-protein-design">Anthropic announcement about Claude and de novo protein binders</a>
+  makes the distinction visible outside infrastructure. The reported result is
+  interesting: Claude worked from a human-written expert protocol, orchestrated
+  a specialist computational workflow, and produced candidates that partner
+  labs could build and test.</p>
+
+  <figure>
+    <a class="zoom-link" href="#protein-design-full">
+      <img class="wide-figure portrait-figure"
+        src="source_assets/ravid-shwartz-ziv-anthropic.jpg"
+        alt="Screenshot and commentary by Ravid Shwartz Ziv about the Anthropic protein-design announcement">
+    </a>
+    <p class="zoom-hint">Click to enlarge.</p>
+    <figcaption><strong>Screenshot credited to Ravid Shwartz Ziv</strong>,
+    shared in connection with the Anthropic protein-design announcement. It is
+    included as a prompt for critical reading, not as primary evidence.</figcaption>
+  </figure>
+
+  <p>The screenshot above is a useful prompt for the question, not a substitute
+  for the primary evidence. The result may be important evidence about agentic
+  orchestration. It is not, by itself, evidence that Claude invented de novo
+  protein design, the underlying generative models, or wet-lab validation.
+  Protein-design systems such as <a href="https://doi.org/10.1038/s41586-023-06415-8">RFdiffusion</a>
+  and <a href="https://github.com/martinmikl/BindCraft">BindCraft</a> already
+  embody substantial domain-specific work.</p>
+
+  <p>The stronger and more interesting claim is more specific: a frontier model
+  can operate an established design stack under an expert-specified protocol
+  and produce experimentally testable candidates with human intervention. To
+  establish a broader claim of scientific discovery, we would want ablations
+  for the expert prompt, the underlying tools, model-only versus tool-assisted
+  performance, compute-matched baselines, target selection, and independent
+  replication. The orchestration may be genuinely impressive while the novelty
+  still belongs to the system composition rather than to every component in
+  the system.</p>
+</section>
+
+<section>
+  <h2>A better way to talk about novelty</h2>
+
+  <p>When a new agent infrastructure or AI-for-science announcement arrives, I
+  find it useful to ask four questions:</p>
+
+  <ol>
+    <li>What old engineering problem is this addressing?</li>
+    <li>Which primitives and standards does it reuse?</li>
+    <li>What does the new work make interoperable, enforceable, measurable, or
+    easier to adopt?</li>
+    <li>What is genuinely new in the implementation or evidence?</li>
+  </ol>
+
+  <p>That framing gives credit in the right place. No description needs the
+  stronger claim that the underlying idea did not exist before. In fact,
+  acknowledging the lineage makes the new work more credible: it tells readers
+  whether to adopt a standard, reuse an implementation, compare architectures,
+  or investigate a genuinely new mechanism.</p>
+</section>
+
+<section>
+  <h2>The recurring cycle</h2>
+
+  <p>The cycle is now familiar:</p>
+
+  <ol>
+    <li>A long-standing practice is used in a new AI-shaped setting.</li>
+    <li>The practice receives a new name and a clean reference implementation.</li>
+    <li>A large vendor gives it a launch post and an ecosystem.</li>
+    <li>The surrounding discourse treats the launch as the beginning of the
+    idea.</li>
+  </ol>
+
+  <p>The answer is not cynicism. A standard that makes old ideas easier to
+  discover, implement, test, and exchange can be materially better than a dozen
+  incompatible local versions.</p>
+
+  <p>The answer is better attribution and more precise novelty claims. We should
+  be able to say both things at once: “this is useful work” and “the primitive
+  has a history.”</p>
+
+  <p>That is the boundary I want to keep clear in agent infrastructure. The
+  future will need better discovery, knowledge representation, graph retrieval,
+  and runtime trust boundaries. It will also need a memory longer than the last
+  vendor announcement.</p>
+
+  <p class="small"><strong>Small disclosure:</strong> To paraphrase <a href="https://teorth.github.io/tao-web/slides/age-of-ai-icm-2026.pdf">Terence Tao's recent slides</a>,
+  I do solemnly swear that any em dashes have been generated by me.</p>
+</section>
+
+<section class="references">
+  <h2>References</h2>
+  <ol>
+    <li><a href="https://csrc.nist.gov/pubs/sp/800/207/final">NIST SP
+    800-207: Zero Trust Architecture</a>.</li>
+    <li><a href="https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing">Google Cloud:
+    Introducing the Open Knowledge Format</a>.</li>
+    <li><a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md">OKF specification</a>.</li>
+    <li><a href="https://agenticresourcediscovery.org/">Agentic Resource
+    Discovery specification</a>.</li>
+    <li><a href="https://github.com/Agent-Card/ai-catalog">AI Catalog working
+    group</a>.</li>
+    <li><a href="https://github.com/docling-project/docling-graph">Docling
+    Graph</a>.</li>
+    <li><a href="https://github.com/evoclock/testudo">Testudo</a>.</li>
+    <li><a href="https://docs.databricks.com/aws/en/agents/">Databricks:
+    Build agents</a>.</li>
+    <li><a href="https://docs.databricks.com/aws/en/ai-search/retrieval-quality-eval">Databricks:
+    Evaluate AI Search retrieval quality</a>.</li>
+    <li><a href="https://www.anthropic.com/research/Claude-accelerates-protein-design">Anthropic:
+    Claude accelerates protein design</a>.</li>
+    <li><a href="https://doi.org/10.1038/s41586-023-06415-8">RFdiffusion</a>.</li>
+    <li><a href="https://github.com/martinmikl/BindCraft">BindCraft</a>.</li>
+    <li><a href="https://xkcd.com/927/">Randall Munroe, xkcd #927:
+    “Standards”</a>.</li>
+  </ol>
+</section>
+</article>
+</main>
+
+<div id="protein-design-full" class="lightbox">
+  <a class="lightbox-close" href="#protein-design-close"
+    aria-label="Close enlarged screenshot">×</a>
+  <img src="source_assets/ravid-shwartz-ziv-anthropic.jpg"
+    alt="Screenshot and commentary by Ravid Shwartz Ziv about the Anthropic protein-design announcement">
+</div>
+</body>
+</html>

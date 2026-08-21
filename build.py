@@ -31,6 +31,11 @@ TAGLINE = ("Writing and evidence: agent systems, models, evaluation and "
 # theme keys, ISO date, meta line, title, blurb, path, thumbnail, alt text.
 # An entry may carry several themes; it then appears under each of them.
 ENTRIES = [
+ (["agent-systems"], "2026-08-21", "Standards and prior art · 21 August 2026",
+  "And the Simpsons Already Did It",
+  "Why AI infrastructure keeps rediscovering established primitives, and how to distinguish useful standardisation from inflated novelty claims.",
+  "articles/primitives-were-already-there.html", "articles/source_assets/simpsons-already-did-it.png",
+  "South Park meme about familiar ideas returning under new names"),
  (["agent-systems"], "2026-07-30", "Multi-model systems · 30 July 2026",
   "Why I Started Building a Local Multi-Model Workforce, and Why the Industry May Be Heading There Too",
   "How a self-directed effort grew into a supervised multi-model architecture, a set of working products, and an emerging professional direction.",

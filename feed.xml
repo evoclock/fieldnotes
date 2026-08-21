@@ -6,8 +6,16 @@
     <link>https://evoclock.github.io/fieldnotes/</link>
     <description>Writing and evidence: agent systems, models, evaluation and computational biology.</description>
     <language>en-GB</language>
-    <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>And the Simpsons Already Did It</title>
+      <link>https://evoclock.github.io/fieldnotes/articles/primitives-were-already-there.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/articles/primitives-were-already-there.html</guid>
+      <pubDate>Fri, 21 Aug 2026 00:00:00 +0000</pubDate>
+      <description>Why AI infrastructure keeps rediscovering established primitives, and how to distinguish useful standardisation from inflated novelty claims.</description>
+      <category>agent-systems</category>
+    </item>
     <item>
       <title>Circadian ChIP-seq reproducibility audit</title>
       <link>https://evoclock.github.io/fieldnotes/compbio/circadian-chipseq-audit.html</link>
