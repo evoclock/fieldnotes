@@ -6,8 +6,17 @@
     <link>https://evoclock.github.io/fieldnotes/</link>
     <description>Writing and evidence: agent systems, models, evaluation and computational biology.</description>
     <language>en-GB</language>
-    <lastBuildDate>Fri, 21 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Wrangling Qwen&#x27;s Long Thinking Runs</title>
+      <link>https://evoclock.github.io/fieldnotes/articles/wrangling-qwens-long-thinking-runs.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/articles/wrangling-qwens-long-thinking-runs.html</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <description>How I manage Qwen&#x27;s tendency to go off on a long reasoning run, why completion limits are not enough, and where quantisation creates a second serving problem.</description>
+      <category>models</category>
+      <category>agent-systems</category>
+    </item>
     <item>
       <title>And the Simpsons Already Did It</title>
       <link>https://evoclock.github.io/fieldnotes/articles/primitives-were-already-there.html</link>

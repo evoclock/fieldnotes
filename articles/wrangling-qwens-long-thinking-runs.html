@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How I put limits on Qwen's reasoning phase, why completion limits are not enough, and where quantisation creates a second serving problem.">
+<title>Wrangling Qwen's Long Thinking Runs</title>
+<style>
+:root {
+  --ink: #23201d; --muted: #655f59; --paper: #f7f0df;
+  --coal: #171716; --orange: #ed7a3a; --teal: #2fb9b5;
+  --sage: #9bc9a9; --cream: #fff8e8; --line: #c9bfa9;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--ink);
+  background: radial-gradient(circle at 10% 0%, rgba(237,122,58,.12), transparent 34rem), radial-gradient(circle at 90% 14%, rgba(47,185,181,.12), transparent 30rem), var(--paper);
+  font: 18px/1.68 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+a { color: #086f71; text-underline-offset: .16em; }
+a:hover { color: #b84c1d; }
+main { width: min(100% - 2rem, 920px); margin: 0 auto; }
+header {
+  margin: 1.5rem 0 2.2rem; padding: clamp(2rem, 6vw, 4.5rem);
+  color: var(--cream); background: var(--coal); border: 1px solid #3b3833;
+  border-radius: 24px; box-shadow: 0 24px 70px rgba(43,35,25,.18);
+}
+.eyebrow { margin: 0 0 1rem; color: var(--teal); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1 { max-width: 17ch; margin: 0; font-size: clamp(2.35rem, 7vw, 4.8rem); line-height: .99; letter-spacing: -.045em; }
+.subtitle { max-width: 60ch; margin: 1.6rem 0 0; color: #dfd6c7; font-size: clamp(1.05rem, 2.4vw, 1.32rem); line-height: 1.5; }
+.byline { margin: 2rem 0 0; color: var(--sage); font-weight: 700; }
+article { padding-bottom: 5rem; }
+section { margin: 3.5rem 0; }
+h2 { margin: 0 0 1.1rem; font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.12; letter-spacing: -.025em; }
+p { margin: .85rem 0; }
+.lead { font-size: clamp(1.15rem, 2.6vw, 1.4rem); line-height: 1.58; }
+.callout { margin: 1.8rem 0; padding: 1.25rem 1.4rem; border-left: 6px solid var(--orange); border-radius: 0 14px 14px 0; background: rgba(255,248,232,.82); }
+.wide-figure { display: block; width: 100%; height: auto; margin: 1.5rem auto .6rem; border: 1px solid #3d3934; border-radius: 14px; box-shadow: 0 14px 35px rgba(40,33,24,.14); }
+.portrait-figure { max-height: 48rem; object-fit: contain; background: #fffaf0; }
+figure { margin: 1.5rem 0; }
+figcaption { color: var(--muted); font-size: .86rem; line-height: 1.45; }
+table { width: 100%; border-collapse: collapse; margin: 1.3rem 0; font-size: .94rem; }
+th, td { padding: .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+th { color: var(--cream); background: var(--coal); }
+td:last-child, th:last-child { text-align: right; }
+code { padding: .08rem .3rem; border-radius: 4px; background: rgba(23,23,22,.08); }
+blockquote { margin: 1.7rem 0; padding: 1rem 1.3rem; color: #3a342e; border-left: 5px solid var(--sage); background: rgba(155,201,169,.17); }
+.references { font-size: .9rem; line-height: 1.5; }
+.references li { margin: .55rem 0; }
+.small { color: var(--muted); font-size: .85rem; }
+@media (max-width: 720px) { body { font-size: 17px; } main { width: min(100% - 1rem, 920px); } header { border-radius: 16px; } table { display: block; overflow-x: auto; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">Local models · Qwen · inference operations</p>
+  <h1>Wrangling Qwen's Long Thinking Runs</h1>
+  <p class="subtitle"><strong>Reasoning and answering are different phases. Qwen servers work better when they are budgeted separately.</strong></p>
+  <p class="byline">Julen Gamboa · 26 August 2026</p>
+</header>
+
+<article>
+<section>
+  <p class="lead">A reasoning model can have enough tokens to answer a question and still take far too long to answer it. It may simply be allowed to spend nearly the whole response thinking.</p>
+
+  <p>Qwen3-family models usually put reasoning between <code>&lt;think&gt;</code> and <code>&lt;/think&gt;</code> before producing the visible answer. That gives the server a useful control point. I can limit how long the model thinks without applying the same limit to its final answer.</p>
+
+  <div class="callout"><strong>I put together a Qwen serving toolkit.</strong> It is a small, model-weight-free set of utilities for bounding the reasoning phase and operating local Qwen services. It sits alongside vLLM or SGLang. It does not replace either runtime, the GPU stack, or the model.</div>
+</section>
+
+<section>
+  <h2>Completion limits are not thinking limits</h2>
+
+  <p>Suppose a request allows 1,024 completion tokens. That ceiling applies to the whole completion. It does not stop a reasoning model from using most of those tokens inside <code>&lt;think&gt;</code>. The answer may arrive late, be truncated, or never get enough room.</p>
+
+  <p>The toolkit's vLLM adapter sets <code>request.thinking_token_budget</code>. The V1 sampler counts tokens while generation is inside the reasoning phase. When the budget is reached, it forces <code>&lt;/think&gt;</code> and lets the model continue with its answer. The model can always stop thinking earlier.</p>
+
+  <table>
+    <thead><tr><th>Requested effort</th><th>Action-seat budget</th></tr></thead>
+    <tbody>
+      <tr><td>none</td><td>0 tokens</td></tr>
+      <tr><td>minimal</td><td>128 tokens</td></tr>
+      <tr><td>low</td><td>256 tokens</td></tr>
+      <tr><td>medium</td><td>384 tokens</td></tr>
+      <tr><td>high / max</td><td>512 tokens</td></tr>
+    </tbody>
+  </table>
+
+  <p>The request can pass <code>reasoning_effort</code> or an explicit token budget. Explicit budgets are clamped to the selected profile's ceiling. I keep a separate corpus profile with larger budgets for collecting reasoning traces. Those are not sensible defaults for an interactive action seat.</p>
+
+  <p>This is a latency and verbosity control, not a quality guarantee. Some tasks benefit from more deliberation, so the limits need testing against the work the model is actually doing.</p>
+</section>
+
+<section>
+  <h2>Making the useful parts public</h2>
+
+  <p>After I described this approach online, <a href="https://www.linkedin.com/in/andrii-zavadskyi-185a6014">Andrii Zavadskyi</a> asked whether I could publish the parser and the effort levels. I obliged and made some of it public.</p>
+
+  <figure>
+    <img class="wide-figure portrait-figure" src="source_assets/qwen-thinking-budget-discussion.png" alt="LinkedIn discussion explaining how to bound the thinking phase of Qwen models">
+    <figcaption>The practical distinction is between a reasoning budget and a total response budget.</figcaption>
+  </figure>
+
+  <p>The repository contains:</p>
+
+  <ul>
+    <li>a pure-Python budget policy that can be tested without vLLM, CUDA, or a GPU;</li>
+    <li>a vLLM parser adapter registered as <code>qwen3_budgeted</code>;</li>
+    <li>action and corpus profiles, with request-level overrides and ceilings;</li>
+    <li>a conservative <code>modelctl</code> helper for systemd user services;</li>
+    <li>request, service, and alias examples; and</li>
+    <li>notes on thinking budgets and the several different things people call a cache.</li>
+  </ul>
+
+  <p>The Qwen3.8 SGLang/DFlash2 route is separate. It uses the runtime's strict-thinking support and a global maximum-thinking setting rather than the vLLM plugin.</p>
+</section>
+
+<section>
+  <h2>Precision creates another problem</h2>
+
+  <p>Long thinking runs are one source of malformed or truncated outputs. Quantisation is another. This matters if the model has to fit on a 24GB card.</p>
+
+  <p>A <a href="https://www.techdeveloper.in/blog/qwen38-27b-scored-52-on-artificial-analysis-heres-what-happened-when-i-ran-it-on-a-single-4090">TechDeveloper report on running Qwen3.8-27B on a single RTX 4090</a> compared four precision levels on the same hardware and agentic tasks. These are the author's measurements, not mine:</p>
+
+  <table>
+    <thead>
+      <tr><th>Precision</th><th>Weights only</th><th>24GB card with 32k context?</th><th>Malformed calls / 20</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>BF16</td><td>~52 GiB</td><td>No</td><td>0</td></tr>
+      <tr><td>Q6_K</td><td>~22–23 GiB</td><td>Barely, no headroom</td><td>1</td></tr>
+      <tr><td>Q5_K_M</td><td>~19 GiB</td><td>Yes</td><td>2</td></tr>
+      <tr><td>Q4_K_M</td><td>~16–17 GiB</td><td>Yes, comfortably</td><td>5</td></tr>
+    </tbody>
+  </table>
+
+  <p>This is easy to miss in benchmark summaries. A failed problem may not mean that the model could not solve it. The model may have used the context on its thinking phase, truncated the answer, or emitted a malformed tool call. Those failures are still real when the model occupies an agent seat, but they point to serving and output-control problems rather than one undifferentiated measure of capability.</p>
+
+  <p>The toolkit's current examples do not tackle BF16 serving. That is something I intend to address next, but a roughly 52 GiB weights-only footprint makes BF16 a non-starter on 24GB unified memory. If Q5, Q4, or a similar quant is required, malformed calls need to be detected and managed rather than ignored as benchmark noise.</p>
+</section>
+
+<section>
+  <h2>Throughput is a different serving issue</h2>
+
+  <p>Thinking budgets do not solve every performance problem. In a separate discussion, someone was trying to get about 30 visible tokens per second from Qwen3.8-27B on a DGX Spark. I reported 33.1 tokens per second median with normal thinking and 31.9 with thinking disabled. Across the end-to-end workflow, including tool calls, turns, and reasoning, the median was 33.6.</p>
+
+  <p>This tells us about that model, runtime, hardware, and workload. It does not tell us which thinking budget is best, nor does a thinking budget turn a slow runtime into a fast one.</p>
+</section>
+
+<section>
+  <h2>Cache clearing should be boring</h2>
+
+  <p>A local model server can hold loaded weights, attention KV, reusable prompt prefixes, recurrent state, CUDA graphs, and compiled kernels. Calling all of this “the cache” hides important differences.</p>
+
+  <p>The example <code>modelctl clear-cache</code> command first checks that the expected model owns the endpoint. It reads the runtime metrics and refuses to continue if requests are running or queued. It then restarts the service and waits for the same model to become ready.</p>
+
+  <p>It does not pretend that vLLM and SGLang share a universal cache-flush endpoint. It also does not reset a shared service while another client is using it.</p>
+</section>
+
+<section>
+  <h2>What this is for</h2>
+
+  <p>The toolkit is for people already serving Qwen3-family models who want direct control over reasoning length and a few conservative service operations. It is most useful for interactive assistants, tool-using agents, and multi-model systems where a local model has a defined job and latency budget.</p>
+
+  <p>What I am contributing here is not a giant serving framework. It is a small collection of behaviour that I wanted to reuse: separate thinking from answering, expose the distinction as policy, test the policy without a GPU, and refuse unsafe service resets.</p>
+
+  <p>The vLLM adapter uses extension APIs that should be version-pinned and smoke-tested. The effort levels are defaults, not universal constants. The repository contains no model weights.</p>
+
+  <p class="small">All em dashes were generated by me and used liberally wherever I saw fit.</p>
+</section>
+
+<section class="references">
+  <h2>Repository and references</h2>
+  <ol>
+    <li><a href="https://github.com/evoclock/qwen-serving-toolkit">Qwen serving toolkit</a>.</li>
+    <li><a href="https://www.techdeveloper.in/blog/qwen38-27b-scored-52-on-artificial-analysis-heres-what-happened-when-i-ran-it-on-a-single-4090">TechDeveloper: Qwen3.8-27B on a single RTX 4090</a>.</li>
+    <li><a href="https://docs.vllm.ai/">vLLM documentation</a>.</li>
+    <li><a href="https://docs.sglang.ai/">SGLang documentation</a>.</li>
+  </ol>
+</section>
+</article>
+</main>
+</body>
+</html>

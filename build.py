@@ -31,6 +31,11 @@ TAGLINE = ("Writing and evidence: agent systems, models, evaluation and "
 # theme keys, ISO date, meta line, title, blurb, path, thumbnail, alt text.
 # An entry may carry several themes; it then appears under each of them.
 ENTRIES = [
+ (["models", "agent-systems"], "2026-08-26", "Qwen serving · 26 August 2026",
+  "Wrangling Qwen's Long Thinking Runs",
+  "How I manage Qwen's tendency to go off on a long reasoning run, why completion limits are not enough, and where quantisation creates a second serving problem.",
+  "articles/wrangling-qwens-long-thinking-runs.html", "articles/source_assets/qwen-model-landscape.png",
+  "Open-weight and proprietary models in the Artificial Analysis model landscape"),
  (["agent-systems"], "2026-08-21", "Standards and prior art · 21 August 2026",
   "And the Simpsons Already Did It",
   "Why AI infrastructure keeps rediscovering established primitives, and how to distinguish useful standardisation from inflated novelty claims.",
