@@ -197,4 +197,4 @@ That combination is what makes natural-language multi-agent orchestration useful
 1. [Herdr: Agent automation](https://herdr.dev/docs/agent-automation/)
 2. [Herdr CLI reference](https://herdr.dev/docs/cli-reference/)
 3. [Herdr v0.8.2](https://github.com/herdrdev/herdr/releases/tag/v0.8.2)
-4. [Agentic Driver](https://github.com/evoclock/agentic-driver)
+4. [Agentic Driver](https://github.com/evoclock/pi-agentic-driver)
