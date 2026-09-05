@@ -89,7 +89,7 @@ blockquote { margin: 1.7rem 0; padding: 1rem 1.3rem; color: #3a342e;
 <header>
   <p class="eyebrow">Fieldnote · agent systems · orchestration</p>
   <h1>Dispatching a Multi-Model Workforce from Anywhere</h1>
-  <p class="subtitle"><strong>How the Agentic Driver extension set uses Herdr and Pi to route tasks by role, model and machine—and keep persistent sessions within reach from a laptop, phone or remote terminal.</strong></p>
+  <p class="subtitle"><strong>How the Agentic Driver extension set uses Herdr and Pi to route tasks by role, model and machine, while keeping persistent sessions within reach from a laptop, phone or remote terminal.</strong></p>
   <p class="byline">Julen Gamboa · 5 September 2026</p>
 </header>
 <article>
@@ -205,7 +205,7 @@ herdr agent read reviewer \
 <li>check whether the worker is active, idle or blocked; and</li>
 <li>read the result without reconstructing the local desktop layout.</li>
 </ul>
-<p>The machines can have different jobs. How I currently use it is as follows: I run a mac mini as an interactive control plane. A Linux workstation with substantial RAM, GPU and enough cores is my bioinformatics/computational genomics workhorse. A DGX Spark host my local models and provides a CUDA environment where I can also fine tune some models. The same basic worker vocabulary—role, model, task, repository and placement—can be used across them. When I am not at my desk I user termius (moshi is good too) as an ssh client and then simply connect and have access to the same sessions I have on any of my machines with more control and less latency than Claude Code remote-control or Codex affords me, I can have a quick peek to see how things are going, troubleshoot issues or dispatch new tasks, etc.</p>
+<p>The machines can have different jobs. How I currently use it is as follows: I run a mac mini as an interactive control plane. A Linux workstation with substantial RAM, GPU and enough cores is my bioinformatics/computational genomics workhorse. A DGX Spark host my local models and provides a CUDA environment where I can also fine tune some models. The same basic worker vocabulary (role, model, task, repository and placement) can be used across them. When I am not at my desk I user termius (moshi is good too) as an ssh client and then simply connect and have access to the same sessions I have on any of my machines with more control and less latency than Claude Code remote-control or Codex affords me, I can have a quick peek to see how things are going, troubleshoot issues or dispatch new tasks, etc.</p>
 <p>The point is not remote automation for its own sake. It is continuity. Work can keep running on the machine suited to it, while the human retains a practical way to inspect and steer that work from another device.</p>
 <h2>Communication after dispatch</h2>
 <p>Creating a worker is only the first half of the workflow. The <code>herdr-communication.ts</code> extension handles the next step without opening a general terminal-control surface.</p>
