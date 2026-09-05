@@ -31,6 +31,11 @@ TAGLINE = ("Writing and evidence: agent systems, models, evaluation and "
 # theme keys, ISO date, meta line, title, blurb, path, thumbnail, alt text.
 # An entry may carry several themes; it then appears under each of them.
 ENTRIES = [
+ (["agent-systems"], "2026-09-05", "Agent automation · 5 September 2026",
+  "Dispatching a Multi-Model Workforce from Anywhere",
+  "How the Agentic Driver extension set uses Herdr and Pi to route tasks by role, model and machine—and keep persistent sessions within reach from a laptop, phone or remote terminal.",
+  "articles/herdr-natural-language-agent-automation.html", "articles/source_assets/herdr-right-pane.png",
+  "Pi spawning a named reviewer in a right-hand Herdr pane"),
  (["models", "agent-systems"], "2026-08-26", "Qwen serving · 26 August 2026",
   "Wrangling Qwen's Long Thinking Runs",
   "How I manage Qwen's tendency to go off on a long reasoning run, why completion limits are not enough, and where quantisation creates a second serving problem.",

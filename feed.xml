@@ -6,8 +6,16 @@
     <link>https://evoclock.github.io/fieldnotes/</link>
     <description>Writing and evidence: agent systems, models, evaluation and computational biology.</description>
     <language>en-GB</language>
-    <lastBuildDate>Wed, 26 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 Sep 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Dispatching a Multi-Model Workforce from Anywhere</title>
+      <link>https://evoclock.github.io/fieldnotes/articles/herdr-natural-language-agent-automation.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/articles/herdr-natural-language-agent-automation.html</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
+      <description>How the Agentic Driver extension set uses Herdr and Pi to route tasks by role, model and machine—and keep persistent sessions within reach from a laptop, phone or remote terminal.</description>
+      <category>agent-systems</category>
+    </item>
     <item>
       <title>Wrangling Qwen&#x27;s Long Thinking Runs</title>
       <link>https://evoclock.github.io/fieldnotes/articles/wrangling-qwens-long-thinking-runs.html</link>
