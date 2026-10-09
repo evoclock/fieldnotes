@@ -150,9 +150,8 @@ blockquote { margin: 1.7rem 0; padding: 1rem 1.3rem; color: #3a342e;
 
 <p>For an interactive workload, the input length, output length, concurrency, and how often tool turns interrupt generation decide which recipe fits, and one bar cannot stand in for that workload. A fast-decoding recipe with a slow first token suits queued analysis and long generations. A fast-first-token recipe with lower throughput and shorter answers suits interactive probes. Neither is "the fastest"; they are fast at different things.</p>
 <figure>
-  <img class="wide-figure" src="source_assets/slow-is-smooth-jim-carrey.jpeg"
+  <img class="wide-figure" style="width:auto;max-width:100%" src="source_assets/slow-is-smooth-jim-carrey.jpeg"
     alt="Meme of Jim Carrey replying to a child: slow is smooth and smooth is fast is just something slow people say">
-  <figcaption><em>Jim Carrey meme.</em></figcaption>
 </figure>
 <p><strong>None of the four measured configurations simultaneously provides proven C=4 throughput, the stronger Tool Eval scores, and freedom from DFlash2 restrictions.</strong> For an open-source, DFlash2-free project, TensorFold MTP is the best <em>research starting point</em>: it scores with fc5/fnc7 and avoids the drafter licence, but its fixed profile serves only C=1, and enabling concurrency needs implementation, validation, and rebenchmarking. SparkGLM's measured advantages do not solve the DFlash2 constraint (its engine is additionally AGPL-3.0-only), and no speed difference here isolates NVFP4 versus EXL3, because the checkpoints and runtimes differ too.</p>
 <p>On licensing: DFlash2 is CC BY-NC-ND 4.0. The licensor's written reply to me covers individual personal experimentation at this stage, not products, hosted services, or company deployment. Audit runtime, checkpoint, drafter and dependency rights separately before any release or service. This is not legal advice.</p>
