@@ -6,8 +6,17 @@
     <link>https://evoclock.github.io/fieldnotes/</link>
     <description>Writing and evidence: agent systems, models, evaluation and computational biology.</description>
     <language>en-GB</language>
-    <lastBuildDate>Sat, 05 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Is fast decoding the be all and end all?</title>
+      <link>https://evoclock.github.io/fieldnotes/articles/is-fast-decoding-the-be-all-and-end-all.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/articles/is-fast-decoding-the-be-all-and-end-all.html</guid>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 +0000</pubDate>
+      <description>Four serving recipes for GLM-5.3-Flash on two DGX Sparks. The recipe that answers fastest is not the one that generates fastest, and none of the four escapes the constraints that matter for real agent work.</description>
+      <category>models</category>
+      <category>evaluation</category>
+    </item>
     <item>
       <title>Dispatching a Multi-Model Workforce from Anywhere</title>
       <link>https://evoclock.github.io/fieldnotes/articles/herdr-natural-language-agent-automation.html</link>

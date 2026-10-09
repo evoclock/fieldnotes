@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" role="img" aria-label="Four serving recipes for GLM-5.3-Flash: SparkGLM answers first at 32k; TensorFold decodes fastest at C=4">
+  <rect width="800" height="450" fill="#151719"/>
+  <rect x="16" y="16" width="768" height="418" rx="14" fill="#222629"/>
+  <text x="48" y="72" font-size="30" font-weight="700" fill="#f0f2f1">Is fast decoding the be all and end all?</text>
+  <text x="48" y="102" font-size="17" fill="#b8c0bd">Four serving recipes for GLM-5.3-Flash on two DGX Sparks</text>
+
+  <text x="48" y="150" font-size="15" font-weight="700" fill="#b8c0bd">First output token, 32k prompt, C=1</text>
+  <g font-size="14" fill="#f0f2f1">
+    <rect x="238" y="138" width="118" height="16" rx="4" fill="#e77843"/>
+    <text x="362" y="151">SparkGLM 13.1 s</text>
+    <rect x="238" y="160" width="157" height="16" rx="4" fill="#3fbec1"/>
+    <text x="401" y="173">TensorFold 17.4-17.8 s</text>
+  </g>
+
+  <text x="48" y="225" font-size="15" font-weight="700" fill="#b8c0bd">Sustained decode, 32k, C=4</text>
+  <g font-size="14" fill="#f0f2f1">
+    <rect x="308" y="213" width="390" height="16" rx="4" fill="#3fbec1"/>
+    <text x="704" y="226">TensorFold 182.6 tok/s</text>
+    <rect x="308" y="235" width="347" height="16" rx="4" fill="#3fbec1"/>
+    <text x="661" y="248">TensorFold 162.8 tok/s</text>
+    <rect x="308" y="257" width="152" height="16" rx="4" fill="#e77843"/>
+    <text x="466" y="270">SparkGLM 71.3 tok/s</text>
+  </g>
+
+  <text x="48" y="330" font-size="15" fill="#b8c0bd">All twelve C=1 Tool Eval runs failed the TC-51</text>
+  <text x="48" y="350" font-size="15" fill="#b8c0bd">planning-order safety gate.</text>
+  <text x="48" y="400" font-size="13" fill="#797f7c">The recipe that answers fastest is not the one that generates fastest.</text>
+</svg>

@@ -31,6 +31,11 @@ TAGLINE = ("Writing and evidence: agent systems, models, evaluation and "
 # theme keys, ISO date, meta line, title, blurb, path, thumbnail, alt text.
 # An entry may carry several themes; it then appears under each of them.
 ENTRIES = [
+ (["models", "evaluation"], "2026-10-09", "GLM-5.3-Flash serving · 9 October 2026",
+  "Is fast decoding the be all and end all?",
+  "Four serving recipes for GLM-5.3-Flash on two DGX Sparks. The recipe that answers fastest is not the one that generates fastest, and none of the four escapes the constraints that matter for real agent work.",
+  "articles/is-fast-decoding-the-be-all-and-end-all.html", "articles/source_assets/slow-is-smooth-jim-carrey.jpeg",
+  "Jim Carrey meme: slow is smooth and smooth is fast is just something slow people say"),
  (["agent-systems"], "2026-09-05", "Agent automation · 5 September 2026",
   "Dispatching a Multi-Model Workforce from Anywhere",
   "How the Agentic Driver extension set uses Herdr and Pi to route tasks by role, model and machine—and keep persistent sessions within reach from a laptop, phone or remote terminal.",
