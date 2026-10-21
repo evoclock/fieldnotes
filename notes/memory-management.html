@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Parametric state, chain-of-thought, flat RAG and graph-RAG are four different answers to the same question, and the partitioning algorithm is what separates the principled tools from the rest.">
-<title>Memory management for LLM-on-corpus</title>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where should an agent keep its memory?</title>
+<meta name="description" content="Model state, session history and external retrieval belong to different parts of the agent system.">
+<link rel="canonical" href="https://evoclock.github.io/fieldnotes/notes/memory-management.html">
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="../feed.xml">
 <style>
 :root {
   --coal: #151719;
@@ -70,45 +70,24 @@ footer {
   border-top: 1px solid rgba(240,242,241,.14);
   font-size: .95rem;
 }
-</style>
-</head>
-<body>
-<main>
-  <a class="back" href="../index.html">&larr; fieldnotes</a>
-  <p class="eyebrow">Note &middot; Agent systems</p>
-  <h1>Memory management for LLM-on-corpus</h1>
-  <p class="byline">Julen Gamboa &middot; 9 August 2026</p>
-
-  <p>Not an exhaustive list, but these are the areas I have been experimenting
-  on or validating against.</p>
+</style><link rel="stylesheet" href="../assets/fieldnote.css"><script defer src="../assets/tables.js"></script></head>
+<body class="fieldnote-page"><main>
+<nav class="fieldnote-nav" aria-label="Site navigation"><a href="../index.html">Back to fieldnotes</a> · <a href="../subscribe.html">Subscribe</a></nav>
+<header><p class="eyebrow">Note · Fieldnote</p>
+<h1>Where should an agent keep its memory?</h1><p class="subtitle">Model state, session history and external retrieval belong to different parts of the agent system.</p>
+<p class="byline">Julen Gamboa · 9 August 2026</p></header>
+<article><p>When I use an agent over a collection of documents, I have to decide where useful context should live and who maintains it. The model, the session and the harness do different jobs. These are approaches I have been experimenting with or checking against, not four interchangeable kinds of memory inside the model.</p>
 
   <ul>
-    <li><strong>Parametric.</strong> Mamba, SSMs and Jamba hybrids
-    (<a href="https://arxiv.org/abs/2312.00752">Gu and Dao, 2023</a>) compress
-    context into a bounded recurrent state during inference. Deterministic for a
-    given input, ephemeral across calls.</li>
-    <li><strong>Chain-of-thought.</strong> The model's own scratchpad. It pays
-    tokens for working memory on every call, which is poor return for the cost
-    and the overhead.</li>
-    <li><strong>External flat RAG.</strong> Vector similarity and BM25. Memory
-    lives in an index, freshness wins, and recall is bounded by embedding
-    quality.</li>
-    <li><strong>Graph-RAG.</strong> The same external memory with structure:
-    nodes, edges, communities. The partitioning algorithm is what separates the
-    principled tools from the embedding-only ones. Microsoft's GraphRAG uses
-    <a href="https://arxiv.org/abs/2404.16130">Leiden community detection</a>;
-    <a href="https://github.com/evoclock/nuthatch">nuthatch</a> is the
-    SBM-based entry in this space.</li>
+    <li><strong>Recurrent inference state.</strong> Mamba, state-space models and hybrids compress context into a bounded state during inference. That state belongs to the model’s execution. Whether a serving system retains or reuses it across requests is a separate runtime decision; it is not automatically a durable document store. <a href="https://arxiv.org/abs/2312.00752">Gu and Dao’s Mamba paper</a> describes one such architecture.</li>
+    <li><strong>Reasoning text.</strong> The model generates a scratchpad while working through a question. The harness decides whether to keep that text in session history or supply it again later. Paying for those tokens is different from maintaining a persistent, source-backed corpus.</li>
+    <li><strong>Flat retrieval.</strong> Vector similarity and BM25 keep memory in an external index. I can update the source collection without retraining the model. Retrieval still depends on the index and the quality of the representation; storing a document does not guarantee finding the relevant part.</li>
+    <li><strong>Graph retrieval.</strong> Nodes, edges and communities add structure to external memory. The partitioning method matters because it determines which groups and relationships retrieval can follow. Microsoft's GraphRAG uses Leiden community detection; Nuthatch takes a stochastic block model (SBM) approach. Those choices are part of the method, not an interchangeable graph-shaped decoration. <a href="https://arxiv.org/abs/2404.16130">Leiden community detection</a> <a href="https://github.com/evoclock/nuthatch">nuthatch</a></li>
   </ul>
 
-  <p>Worth saying why frontier labs might not be in a hurry to solve this. The
-  more rounds it takes to solve a problem, the more tokens get burned, and that
-  is ultimately in their commercial interest.</p>
+  <p>There is also a commercial incentive worth questioning. More rounds of work mean more tokens sold. That does not establish why any particular laboratory chooses a memory design, but it is a reason not to assume that my preferred cost and persistence trade-offs are the provider's priorities.</p>
 
   <footer>
-    <p>A note rather than an article: an argument worth writing down, without
-    the length to justify more.</p>
+    <p>The session carries the conversation between calls. The harness manages what is persisted, retrieved, summarised and sent back to the model. The agent is the larger arrangement that uses those facilities. Asking where the agent should keep memory is therefore more useful here than treating it all as a property of the model.</p>
   </footer>
-</main>
-</body>
-</html>
+<aside class="entry-takeaway"><h2>One-line takeaway</h2><p>Agent memory spans inference state, session history and harness-managed retrieval, and each needs its own persistence and context policy.</p></aside></article></main></body></html>

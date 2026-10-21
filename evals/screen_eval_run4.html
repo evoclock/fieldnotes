@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Capability-grade Screen — Run 4 (Qwen3.6-35B, local vLLM)</title>
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Does the reasoning manual help Qwen catch mistakes?</title>
+<meta name="description" content="Run 4: Qwen created a little headroom during calibration, but all three arms passed the follow-up test.">
+<link rel="canonical" href="https://evoclock.github.io/fieldnotes/evals/screen_eval_run4.html">
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="../feed.xml">
 <style>
   :root {
     --paper: #1a1816;
@@ -138,39 +140,36 @@
   .takeaway p { margin: 0; font-size: 1.05rem; color: var(--ink); max-width: 62ch; }
 
   footer { margin-top: 2.5rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); line-height: 1.8; }
-</style>
-</head>
-<body>
-
-<div class="wrap">
-  <p class="eyebrow">Capability-grade screen · Qwen3.6-35B (local vLLM) · 2026-07-08</p>
-  <h1>The gate opened for the first time — and the manual still moved <em>nothing</em>.</h1>
-  <p class="standfirst">Run&nbsp;4 changes the regime: a weaker base model (Qwen3.6-35B served locally via vLLM, thinking off, temp&nbsp;0.7) plus a new harder trap, so the manual finally has room to flip an outcome. The hard Simpson's tier calibrated into the pre-registered 25–75% band. Then the real 3-arm test ran on it.</p>
-
-  <div class="verdict">
-    <p><strong>Outcome: H0 — no capability effect, even with headroom.</strong> Control, sham, and manual all passed 8/8 on the calibrated hard tier. The 25% control-fail rate that opened the gate in calibration did not reproduce in the arm run's control draw (0/8) — within n=8, temp&nbsp;0.7 sampling noise. The headroom was marginal, not durable, so there were no control failures for the manual to flip. All three arms tied.</p>
+</style><link rel="stylesheet" href="../assets/fieldnote.css"><script defer src="../assets/tables.js"></script></head>
+<body class="fieldnote-page"><main>
+<nav class="fieldnote-nav" aria-label="Site navigation"><a href="../index.html">Back to fieldnotes</a> · <a href="../subscribe.html">Subscribe</a></nav>
+<header><p class="eyebrow">Capability screen · Fieldnote</p>
+<h1>Does the reasoning manual help Qwen catch mistakes?</h1><p class="subtitle">Run 4: Qwen created a little headroom during calibration, but all three arms passed the follow-up test.</p>
+<p class="byline">Julen Gamboa · 8 July 2026</p></header>
+<article><div class="verdict">
+    <p><strong>No correctness gain was detected.</strong> Control, sham and manual each passed 8/8 on the calibrated hard tier. The calibration control had failed at 25%, but the fresh arm-run control failed 0/8. At n=8 and temperature 0.7, that leaves too little evidence to treat the calibration headroom as durable. The three arms tied.</p>
   </div>
 
-  <div class="stats">
+  <div class="stats source-results" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--sham: #b09080;--sham-soft: #2f2b28;--pass: #79c39e;--pass-soft: #263d32;--fail: #e77843;--fail-soft: #44261d;--band: #3a6b8a;--band-soft: #dde6ee;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--result-text:#ead1b5;--result-bg:#383431;--result-rule:#5c564f">
     <div class="stat">
       <p class="k">Pass rate (H tier, per arm)</p>
       <p class="v tri"><span class="ctrl">8/8</span><span class="sep">·</span><span class="sham">8/8</span><span class="sep">·</span><span class="man">8/8</span></p>
-      <p class="note">Control · Sham · Manual, n=8 each. No separation on correctness.</p>
+      <p class="note">Control, sham and manual, n=8 each. None separated on correctness.</p>
     </div>
     <div class="stat">
       <p class="k">Calibration (control fail)</p>
       <p class="v with-tag"><span class="ctrl" style="color:var(--band)">H 25%</span><span class="tag band">IN BAND</span></p>
-      <p class="note">First tier in any run to enter the 25–75% headroom band. New trap X saturated at 0%.</p>
+      <p class="note">The hard tier entered the 25–75% calibration band. The new X trap had a 0% failure rate in that draw.</p>
     </div>
     <div class="stat">
       <p class="k">Verdict</p>
       <p class="v with-tag" style="font-size:1.5rem"><span class="tag h0" style="font-size:.66rem">H0</span></p>
-      <p class="note">All arms tie. Manual = sham = control. No capability effect detected.</p>
+      <p class="note">All three arms tied. This run did not detect a capability effect.</p>
     </div>
   </div>
 
   <p class="section-label">Tier scorecard</p>
-  <div class="legend">
+  <div class="legend source-results" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--sham: #b09080;--sham-soft: #2f2b28;--pass: #79c39e;--pass-soft: #263d32;--fail: #e77843;--fail-soft: #44261d;--band: #3a6b8a;--band-soft: #dde6ee;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--result-text:#ead1b5;--result-bg:#383431;--result-rule:#5c564f">
     <span><i class="swatch ctrl"></i> Control</span>
     <span><i class="swatch sham"></i> Sham</span>
     <span><i class="swatch man"></i> Manual</span>
@@ -178,7 +177,9 @@
   </div>
 
   <div class="table-scroll">
-    <table>
+    <div class="review-table" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--sham: #b09080;--sham-soft: #2f2b28;--pass: #79c39e;--pass-soft: #263d32;--fail: #e77843;--fail-soft: #44261d;--band: #3a6b8a;--band-soft: #dde6ee;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--table-text:#ead1b5;--table-bg:#383431;--table-rule:#5c564f;--table-link:#79c39e;--table-columns:6;--table-min-width:1080px">
+<div class="table-tools"><span>Scroll sideways to read the full table.</span><button class="table-expand" type="button" aria-expanded="false" hidden>Expand table</button></div>
+<div class="table-viewport" role="region" aria-label="Scrollable table" tabindex="0"><table>
       <thead>
         <tr>
           <th>Tier</th>
@@ -190,39 +191,33 @@
         </tr>
       </thead>
       <tbody id="rows"></tbody>
-    </table>
+    </table></div></div>
   </div>
 
   <div class="prose">
-    <p class="section-label">Reading the result</p>
-    <h3>For the first time, a tier entered the headroom band.</h3>
-    <p>Runs 1–3 saturated at 0% control fail on every tier — no headroom, nothing for the manual to flip, uninformative about capability by design. Run&nbsp;4 drops to Qwen3.6-35B and the hard Simpson's reversal (A wins both device segments; B's overall lead is a traffic-mix artifact) calibrated at <strong>2/8 control fail = 25%</strong>. That brushes the bottom of the pre-registered 25–75% gate. The new, harder "X" trap — a 90-day retention budget where the worksheet used days-in-month (30) instead of retention (90), understating steady-state storage and cost by 3× — saturated at <strong>0/8</strong>: Qwen catches it every time.</p>
-    <h3>The headroom didn't hold under re-sampling.</h3>
-    <p>The gate opening was real but thin. Calibration drew 2 control fails out of 8; the 3-arm run's independent control draw produced <strong>0 fails out of 8</strong>. At n=8 and temp&nbsp;0.7 that gap is sampling noise, not a contradiction — but it means the arm run had no control failures to flip. Sham passed 8/8, manual passed 8/8, control passed 8/8. The pre-registered decision rule calls this <strong>H0</strong>: all arms within 15pp, no capability effect even with headroom present.</p>
-    <h3>A weaker model is necessary but not sufficient.</h3>
-    <p>Qwen3.6-35B did create the first headroom signal (H at 25%), where Sonnet and mistral-nemo sat at 0% and 0% respectively. But 25% is the edge of the band, and a single n=8 draw is high-variance — the true control fail rate on H is plausibly ~10–30%, straddling the gate. To run an informative 3-arm, the base rate needs to sit comfortably mid-band (≈30–50%) so the manual has durable failures to flip, not a coin-flip's worth. Two routes: a still-weaker model (Nemotron-30B, queued), or a different task family.</p>
-    <h3>Single-turn traps still aren't the right regime.</h3>
-    <p>Four runs now converge: Sonnet (runs 1–3) saturates, mistral-nemo floors, and Qwen3.6-35B (run 4) brushes the band on one tier but can't sustain it. The single-turn <em>verify-an-artifact</em> family — one clean right answer, no tools, no chain — lets a competent model pattern-match to the catch, and lets a less-competent one either see it or not, with little in between for an intervention to act on. Detecting a capability effect needs tasks where re-derivation or self-attack actually <em>flips</em> an answer:</p>
+    <p class="section-label">What I can take from the result</p>
+    <h3>The hard tier just reached the calibration band</h3>
+    <p>Runs 1–3 reported 0% control failure on every tier. In Run 4, I used Qwen3.6-35B and a hard Simpson's reversal: A wins in both device segments, while traffic mix gives B the overall lead. The control failed 2/8, or 25%, just inside the pre-registered 25–75% gate. The new X trap used a 90-day retention period but a 30-day storage calculation, understating cost by 3×. Qwen failed 0/8 on that trap in calibration.</p>
+    <h3>A fresh control draw caught every trap</h3>
+    <p>The follow-up control failed 0 out of 8, rather than the 2 out of 8 seen during calibration. With n=8 and temperature 0.7, that difference is compatible with sampling variation. Control, sham and manual all passed 8/8. The decision rule labels a difference within 15pp as H0, but this particular draw had no control failures for the intervention to repair.</p>
+    <h3>A smaller model did not guarantee useful headroom</h3>
+    <p>Qwen3.6-35B produced a calibration signal at 25%, where the earlier Sonnet and mistral-nemo comparisons reported 0% and 0%. But one n=8 draw is a thin basis for selecting the task. The original design anticipated roughly 10–30% true failure on H and wanted a more durable 30–50% region for an informative three-arm test. That calls for more calibration, a still-weaker model such as the queued Nemotron-30B, or a different task family.</p>
+    <h3>The task family may matter as much as the model</h3>
+    <p>The series has struggled to find a useful middle ground. Sonnet saturated the tasks; Qwen touched the band but did not sustain failures in the next draw. A single-turn artifact check gives a capable model a clean answer to recognise. I want tasks where an independent re-derivation can change the result, not just the explanation:</p>
     <ol>
-      <li>Multi-step / long-horizon tasks with a subtle mid-chain error the model must catch by re-deriving through an independent route.</li>
-      <li>A still-weaker base model that fails H ~30–50% of the time, reusing this exact battery + sham design.</li>
+      <li>A multi-step task with a subtle error partway through, requiring a genuinely independent calculation to catch it.</li>
+      <li>The same battery and sham control with a weaker model that reliably fails H around 30–50% of the time.</li>
     </ol>
-    <h3>Grading note — buried reversals.</h3>
-    <p>Qwen3.6-35B sometimes opens with the wrong verdict then self-corrects mid-answer: "Yes, the math checks out. [re-derives…] <strong>Conclusion: Do not sign off yet.</strong>" or "Yes, ship Variant B. […analysis…] <strong>Bottom line: Ship A.</strong>" A naive "first word = verdict" grader marks these wrong; the correct catch is buried after a labelled Conclusion/Recommendation section. The grader verdicts the labelled conclusion (falling back to the opening only when there is no label) and strips markdown emphasis so <code>do **not** ship</code> still reads as a negation. Every graded row was eyeballed against the full answer; the only FAILs are genuine ships-of-B.</p>
-    <h3>Honest confounds.</h3>
-    <p>n=8/arm is a screen, not a powered test — a 25% vs 0% control difference across two independent draws is within noise, which is exactly why the arm result is uninformative rather than negative. The calibration and arm control draws are independent samples from the same temp=0.7 distribution; the gap reflects variance, not a bug. The manual and sham prompts are longer and both say "apply this to your answer," which itself primes care — the sham arm exists to absorb that. And every task is single-turn, no tools — the regime where pattern-matching to the catch is easiest.</p>
+    <h3>Grade the conclusion, not only the opening word</h3>
+    <p>Qwen sometimes started with the wrong verdict and corrected itself later: "Yes, the math checks out" followed by "Conclusion: Do not sign off yet", or "Yes, ship Variant B" followed by "Bottom line: Ship A". The grader uses a labelled conclusion where one exists and falls back to the opening otherwise. It strips Markdown emphasis so <code>do **not** ship</code> remains a negation. The original run record says every graded row was checked against the full answer and the remaining failures really did ship B.</p>
+    <h3>What the screen cannot establish</h3>
+    <p>At n=8 per arm, this is a screen rather than a powered test. The 25% versus 0% control difference comes from independent draws at temperature 0.7. Longer manual and sham prompts also ask the model to apply the text to its answer, which can prime care; that is why the sham matters. All tasks are single-turn and tool-free. These conditions limit what I can infer about longer agent workflows.</p>
   </div>
 
-  <div class="takeaway">
-    <p class="k">One-line takeaway</p>
-    <p>Dropping to Qwen3.6-35B opened the calibration gate for the first time (hard Simpson's tier, 25% control fail) — but the headroom was marginal sampling noise, not a durable base failure, and the 3-arm run tied 8/8 across control, sham, and manual. In the single-turn verify-an-artifact family the manual still changes no outcomes. A capability signal needs either a still-weaker model that fails H ~30–50% reliably, or a multi-step task family where re-derivation has room to flip an answer.</p>
-  </div>
+  <aside class="entry-takeaway"><h2>One-line takeaway</h2><p>Calibration exposed some Qwen failures, but all three follow-up arms passed 8/8, leaving this run unable to measure a correctness gain.</p></aside>
 
-  <footer>
-    Sources: screen_run4_vllm_calib_qwen3.6-35b.json · screen_run4_vllm_arm_H_qwen3.6-35b.json · vllm_screen.py · screen_run3_prompts.txt (E/M/H/X) · harder_battery_design.md · sham_manual.md<br>
-    Model: Qwen3.6-35B · local vLLM · thinking off · temp 0.7 · n=8/arm · control = brass · sham = slate · manual = teal · both themes supported
-  </footer>
-</div>
+
+
 
 <script>
   const tiers = [
@@ -240,6 +235,4 @@
            <td class="cell-pass"><span class="pass">${t[5]}</span></td>
            <td class="cell-pass"><span class="pass">${t[6]}</span></td>`}
     </tr>`).join("");
-</script>
-</body>
-</html>
+</script><section class="run-context"><h2>Test conditions</h2><p>Qwen3.6-35B was served locally through vLLM with thinking disabled and temperature 0.7. The follow-up comparison used eight samples per arm on the hard tier; calibration and arm-run control samples were independent draws.</p></section></article></main></body></html>

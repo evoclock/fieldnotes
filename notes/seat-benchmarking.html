@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="A leaderboard averages over the wrong axis. What I want to know is which model wins which seat, on what evidence, and which rung of the intervention ladder a failure points at.">
-<title>Which model holds the seat</title>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Which local model is right for the job?</title>
+<meta name="description" content="Choosing a model for a specific job, and deciding what to change when it fails.">
+<link rel="canonical" href="https://evoclock.github.io/fieldnotes/notes/seat-benchmarking.html">
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="../feed.xml">
 <style>
 :root {
   --coal: #151719;
@@ -70,54 +70,31 @@ footer {
   border-top: 1px solid rgba(240,242,241,.14);
   font-size: .95rem;
 }
-</style>
-</head>
-<body>
-<main>
-  <a class="back" href="../index.html">&larr; fieldnotes</a>
-  <p class="eyebrow">Note &middot; Evaluation methodology</p>
-  <h1>Which model holds the seat, and what to do when it does not</h1>
-  <p class="byline">Julen Gamboa &middot; 9 August 2026</p>
+</style><link rel="stylesheet" href="../assets/fieldnote.css"><script defer src="../assets/tables.js"></script></head>
+<body class="fieldnote-page"><main>
+<nav class="fieldnote-nav" aria-label="Site navigation"><a href="../index.html">Back to fieldnotes</a> · <a href="../subscribe.html">Subscribe</a></nav>
+<header><p class="eyebrow">Note · Fieldnote</p>
+<h1>Which local model is right for the job?</h1><p class="subtitle">Choosing a model for a specific job, and deciding what to change when it fails.</p>
+<p class="byline">Julen Gamboa · 9 August 2026</p></header>
+<article><p>I have a DGX Spark at home and more ideas than time to test them. The question I keep coming back to is not which model is generally smarter. It is which model can do the particular job I need done. I think of that job as a seat: planner, retriever, implementer or critic. If a model cannot hold the seat, I want to know why before I decide what to change.</p>
 
-  <p>A DGX Spark at home, more ideas than time, and one use case pulling harder
-  than the others. The question I keep coming back to is not which model is
-  generally smarter. It is which model holds the <em>seat</em> I need it to
-  hold, and what I do when it does not.</p>
-
-  <p>That decomposes into three things I want a battery to actually
-  measure.</p>
+  <p>That gives me three things to ask of a benchmark.</p>
 
   <ul>
-    <li><strong>Per-model failure modes.</strong> What does this model get
-    wrong, and under what conditions? Authority pressure, buried ledes,
-    re-derivation, drift over a long context. The things a leaderboard score
-    does not surface.</li>
-    <li><strong>Per-seat benchmarking.</strong> Different roles in an agentic
-    setup, planner, retriever, executor, critic, need different strengths. A
-    general benchmark averages over the wrong axis. I want to know which model
-    wins which seat, and on what evidence.</li>
-    <li><strong>Intervention levels.</strong> When a model fails, the fix lives
-    at one of several levels: fine-tuning, harness engineering, prompt and
-    context distillation, or OPRO and promptbreeding-style search. Different
-    failures want different fixes, and conflating them is the expensive
-    mistake.</li>
+    <li><strong>What fails, and when?</strong> A model may defer to authority, bury the important finding, fail to re-derive a result or drift over a long context. I want those failure modes made visible, not folded into a single score.</li>
+    <li><strong>Which model fits the job?</strong> Planning, retrieval, execution and review need different strengths. An overall leaderboard does not tell me which model I should put in each seat. A role-specific comparison needs evidence from the work that role will actually do.</li>
+    <li><strong>Where does the remedy belong?</strong> Fine-tuning, harness engineering, prompt and context distillation, and OPRO or promptbreeding-style search address different problems. Treating them as interchangeable is an expensive way to avoid diagnosing the failure.</li>
   </ul>
 
-  <h2>What I want from a benchmark</h2>
+  <h2>What I want the result to tell me</h2>
 
   <ul>
-    <li>A pass or fail signal on the thing the model is actually being asked to
-    do, not a composite score.</li>
-    <li>A way to see which failure mode fired, not just that it failed.</li>
-    <li>A methodology that points at which rung of the intervention ladder the
-    result wants, based on what the eval surfaced rather than what was assumed
-    going in.</li>
+    <li>Whether the model passed the task it was actually given, rather than where it landed on a composite score.</li>
+    <li>Which failure occurred, and the evidence that distinguishes it from the alternatives.</li>
+    <li>What the result suggests changing next. The remedy should follow the observed failure, not the intervention I happened to want to try.</li>
   </ul>
 
   <footer>
-    <p>A note rather than an article: an argument worth writing down, without
-    the length to justify more.</p>
+    <p>This is the evaluation question behind the rest of my local-model work. A model does not need to win every benchmark to be useful, but I do need to know the conditions under which I can use it.</p>
   </footer>
-</main>
-</body>
-</html>
+<aside class="entry-takeaway"><h2>One-line takeaway</h2><p>Choose a model for a defined job, then diagnose its failures before deciding whether to change the model, prompt or harness.</p></aside></article></main></body></html>

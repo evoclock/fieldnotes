@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Manual vs Control — Trap Battery Evaluation</title>
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The reasoning manual changed the explanation, not the outcome</title>
+<meta name="description" content="Run 2: holding the model constant separated presentation changes from trap detection.">
+<link rel="canonical" href="https://evoclock.github.io/fieldnotes/evals/trap_eval.html">
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="../feed.xml">
 <style>
   :root {
     --paper: #1a1816;
@@ -120,44 +122,45 @@
   .takeaway p { margin: 0; font-size: 1.05rem; color: var(--ink); max-width: 62ch; }
 
   footer { margin-top: 2.5rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); line-height: 1.8; }
-</style>
-
-<div class="wrap">
-  <p class="eyebrow">A/B Evaluation · Sonnet 5 · 2026-07-07</p>
-  <h1>The manual didn't change <em>what</em> Sonnet caught — only how plainly it showed its work.</h1>
-  <p class="standfirst">Does a reasoning "operating manual" written by Fable&nbsp;5 change how Opus/Sonnet handle traps? Model held constant, one arm reads the manual, one doesn't. Nine traps built to fire specific failure modes.</p>
-
-  <div class="verdict">
-    <p><strong>Outcome: 9/9 pass, both arms.</strong> Every trap was caught with or without the manual — including the authority-pushback follow-up, which both arms held. The manual's measurable effect is on epistemic transparency, not on whether the failure mode fired.</p>
+</style><link rel="stylesheet" href="../assets/fieldnote.css"><script defer src="../assets/tables.js"></script></head>
+<body class="fieldnote-page"><main>
+<nav class="fieldnote-nav" aria-label="Site navigation"><a href="../index.html">Back to fieldnotes</a> · <a href="../subscribe.html">Subscribe</a></nav>
+<header><p class="eyebrow">Trap battery · Fieldnote</p>
+<h1>The reasoning manual changed the explanation, not the outcome</h1><p class="subtitle">Run 2: holding the model constant separated presentation changes from trap detection.</p>
+<p class="byline">Julen Gamboa · 7 July 2026</p></header>
+<article><div class="verdict">
+    <p><strong>The report records 9/9 passes in each arm.</strong> Sonnet caught the traps with and without the manual, including the authority-pushback follow-up. The measured difference was how explicitly it showed its checks, not whether it reached the right verdict.</p>
   </div>
 
-  <div class="stats">
+  <div class="stats source-results" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--pass: #79c39e;--pass-soft: #263d32;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--result-text:#ead1b5;--result-bg:#383431;--result-rule:#5c564f">
     <div class="stat">
       <p class="k">Pass rate</p>
       <p class="v dual"><span class="ctrl">9/9</span><span class="sep">vs</span><span class="man">9/9</span></p>
-      <p class="note">Control vs Manual. No difference — the trap battery saturates for a capable model.</p>
+      <p class="note">Control and manual tied in the reported score. This battery did not leave observed failures for the manual to repair.</p>
     </div>
     <div class="stat">
       <p class="k">Fingerprint avg (0–5)</p>
       <p class="v dual"><span class="ctrl">3.6</span><span class="sep">→</span><span class="man">4.9</span></p>
-      <p class="note">Manual-style markers: provenance labels, stated re-derivation, explicit risk. +1.3 with the manual.</p>
+      <p class="note">Provenance labels, stated re-derivation and explicit risk. The manual increased the recorded fingerprint average by +1.3.</p>
     </div>
     <div class="stat">
       <p class="k">What moved</p>
       <p class="v" style="font-size:1.25rem; font-family:var(--sans); font-weight:600;">Presentation, not capability</p>
-      <p class="note">§4-stated · §5 provenance · §7 risk-last — how the answer is framed, not the verdict.</p>
+      <p class="note">Stated re-derivation (§4), provenance (§5) and risk (§7) changed the explanation, not the verdict.</p>
     </div>
   </div>
 
   <p class="section-label">Per-trap scorecard</p>
-  <div class="legend">
+  <div class="legend source-results" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--pass: #79c39e;--pass-soft: #263d32;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--result-text:#ead1b5;--result-bg:#383431;--result-rule:#5c564f">
     <span><i class="swatch ctrl"></i> Control fingerprints</span>
     <span><i class="swatch man"></i> Manual fingerprints</span>
     <span>Outcome measures whether the failure mode fired; fingerprints measure epistemic transparency.</span>
   </div>
 
   <div class="table-scroll">
-    <table>
+    <div class="review-table" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--pass: #79c39e;--pass-soft: #263d32;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--table-text:#ead1b5;--table-bg:#383431;--table-rule:#5c564f;--table-link:#79c39e;--table-columns:6;--table-min-width:1080px">
+<div class="table-tools"><span>Scroll sideways to read the full table.</span><button class="table-expand" type="button" aria-expanded="false" hidden>Expand table</button></div>
+<div class="table-viewport" role="region" aria-label="Scrollable table" tabindex="0"><table>
       <thead>
         <tr>
           <th>Trap</th>
@@ -169,36 +172,30 @@
         </tr>
       </thead>
       <tbody id="rows"></tbody>
-    </table>
+    </table></div></div>
   </div>
 
   <div class="prose">
-    <p class="section-label">Reading the result</p>
-    <h3>The battery saturates for a capable model.</h3>
-    <p>Sonnet&nbsp;5 already applies the manual's <strong>substance</strong> unaided — it challenges the premise, re-derives the number, leads with the bad news, refuses the false attribution, and holds under authority pressure. Single-turn traps with one clean right answer can't separate "has the discipline" from "read the manual," because the discipline is already in the base model.</p>
-    <h3>What the manual reliably changes is the framing.</h3>
-    <p>Every manual-arm answer that could carry a provenance label did — <strong>Observed / Derived / Recalled / Assumed</strong> appear verbatim — stated its verification as re-derivation by an independent route, and closed with an actionable risk line. Consistent across all nine traps (≈ +1.3 fingerprint points), but a communication-discipline effect, not a capability one.</p>
-    <h3>This is the honest inversion of run&nbsp;1.</h3>
-    <p>Run&nbsp;1 compared Opus control against a <em>placebo</em> manual arm (the agents never actually read the file) and couldn't attribute the result. Run&nbsp;2 holds the model constant and gives the manual arm the real text inline — and lands the same way: <strong>the ceiling is the model, not the manual.</strong></p>
-    <h3>To detect a capability effect, the traps must be harder.</h3>
-    <p>Measuring whether the manual changes <em>outcomes</em> needs tasks where the base model sometimes fails — where the "re-derive, don't recognize" or "attack your own conclusion" step actually flips the answer, not just its wording:</p>
+    <p class="section-label">What actually changed</p>
+    <h3>The control already caught the errors</h3>
+    <p>Sonnet 5 challenged the premise, re-derived the number, led with the problem, rejected false attribution and held under authority pressure without reading the manual. On these single-turn tasks, the correct verdict did not distinguish the intervention from the control.</p>
+    <h3>The manual made the checks more visible</h3>
+    <p>Where a provenance label applied, the manual-arm answer included it: <strong>Observed, Derived, Recalled or Assumed</strong>. It described an independent verification route and ended with an actionable risk line. The original report records an average increase of about +1.3 fingerprint points across nine traps. That measures communication discipline here, not a corrected failure.</p>
+    <h3>Holding the model constant fixed an earlier confound</h3>
+    <p>Run 1 compared an Opus control with a supposed manual arm whose agents never read the file. I could not attribute that result to the manual. Run 2 held the model constant and supplied the real text inline. Correctness still reached the ceiling in both conditions.</p>
+    <h3>The next test needs something to repair</h3>
+    <p>To measure an outcome change, I need a task the base model sometimes gets wrong, where an independent calculation or an attempt to disprove its conclusion changes the answer. Possibilities include:</p>
     <ol>
-      <li>Multi-step tasks with a subtle mid-chain error the model must catch by re-deriving.</li>
-      <li>A long-horizon agentic task where risk-triage changes what gets done first.</li>
-      <li>A genuinely ambiguous request where mode-classification changes the deliverable itself.</li>
+      <li>A multi-step task with a subtle error in the middle of the reasoning.</li>
+      <li>A longer agent workflow where prioritising a risk changes what is done first.</li>
+      <li>An ambiguous request where choosing the right mode changes the actual deliverable.</li>
     </ol>
   </div>
 
-  <div class="takeaway">
-    <p class="k">One-line takeaway</p>
-    <p>With the model held constant, the Fable operating manual made Sonnet&nbsp;5's answers more epistemically transparent — provenance labels, stated re-derivation, explicit risk — but did not change whether it caught any trap. It's a communication-discipline intervention here, not a capability one.</p>
-  </div>
+  <aside class="entry-takeaway"><h2>One-line takeaway</h2><p>Sonnet reached the same reported trap outcomes with and without the manual; what changed was how explicitly it conveyed its checks.</p></aside>
 
-  <footer>
-    Sources: trap_answers_sonnet_run2.md · trap_evaluation.md · trap_rubric.md<br>
-    Design: control = brass, manual = teal · both themes supported
-  </footer>
-</div>
+
+
 
 <script>
   const traps = [
@@ -228,6 +225,4 @@
       <td class="fp-cell">${pips(t[3], "on-ctrl")}</td>
       <td class="fp-cell">${pips(t[4], "on-man")}</td>
     </tr>`).join("");
-</script>
-</body>
-</html>
+</script><section class="run-context"><h2>Test conditions</h2><p>Sonnet 5 was held constant between the control and manual conditions. The comparison measured trap outcomes separately from presentation markers: provenance labels, independent verification and explicit risk.</p></section></article></main></body></html>
