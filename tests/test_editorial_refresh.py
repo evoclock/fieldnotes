@@ -10,6 +10,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import build
+from evals import thumbnails
 
 # Original URLs and dates, with the owner-approved titles.
 REVISIONS = [
@@ -62,6 +63,36 @@ class EditorialRefreshTests(unittest.TestCase):
                     link = urlsplit(html.unescape(value))
                     if link.path and not link.scheme and not link.netloc and not value.startswith('/'):
                         self.assertTrue((ROOT / path).parent.joinpath(unquote(link.path)).exists(), value)
+
+    def test_thumbnails_use_complete_current_metadata_and_reproduce_exactly(self):
+        namespace = {'svg': 'http://www.w3.org/2000/svg'}
+        for path, title, _ in REVISIONS:
+            with self.subTest(page=path):
+                entry = next(e for e in build.ENTRIES if e[5] == path)
+                self.assertEqual(entry[6], f'assets/thumbnails/{Path(path).stem}.svg')
+                source = (ROOT / entry[6]).read_text()
+                svg = ET.fromstring(source)
+                self.assertEqual(svg.findtext('svg:title', namespaces=namespace), title)
+                self.assertEqual(svg.findtext('svg:desc', namespaces=namespace), entry[4])
+                headline = svg.find('svg:text[@class="headline"]', namespace)
+                self.assertEqual(' '.join(headline.itertext()), title)
+                self.assertEqual(source, thumbnails.card(entry))
+
+    def test_homepage_tagline_has_no_artificial_width_cap(self):
+        page = (ROOT / 'index.html').read_text()
+        for selector in ('header', r'\.intro'):
+            rule = re.search(selector + r'\s*\{(.*?)\}', page, re.S)[1]
+            self.assertIn('max-width: none;', rule)
+            self.assertNotIn('white-space: nowrap', rule)
+
+    def test_thumbnail_counts_and_power_ratings_stay_explicit(self):
+        granite = (ROOT / 'assets/thumbnails/fable-run5-granite.svg').read_text()
+        for label in ('control 8/24', 'sham 7/24', 'manual 16/24'):
+            self.assertIn(label, granite)
+        cooling = (ROOT / 'assets/thumbnails/watts-per-token.svg').read_text()
+        self.assertIn('desk fan 35 W', cooling)
+        self.assertIn('NF-A14 iPPC 6.6 W', cooling)
+        self.assertIn('not a matched-airflow test', cooling)
 
     def test_cruxeval_scorecards_keep_the_original_values_attached_to_labels(self):
         page = (ROOT / 'evals/cruxeval-o-ab-184.html').read_text()
