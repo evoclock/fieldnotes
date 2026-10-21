@@ -1,37 +1,35 @@
 #!/usr/bin/env python3
-"""Render index thumbnails for the evaluation write-ups.
+"""Render dedicated index thumbnails from the current public entry metadata.
 
-One SVG per write-up, sized for the card grid on the site index. Everything
-shown here is taken from the page it links to: the figures are the published
-result, not a summary invented for the picture.
-
-No dependencies. The SVG is written directly, as in ``diagrams/``.
-
-    python3 thumbnails.py
+Reuses the SVG card renderer; never rewrites article figures or legacy assets.
+No dependencies. Run from the repository root: python3 evals/thumbnails.py
 """
-
 from __future__ import annotations
 
 import html
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from build import ENTRIES
 
 W, H = 800, 450
-COAL, PANEL, PAPER = "#151719", "#222629", "#f0f2f1"
-MUTED, ORANGE, SAGE, TEAL = "#b8c0bd", "#e77843", "#79c39e", "#3fbec1"
+COAL, PANEL, PAPER = '#171716', '#36322e', '#fff8e8'
+MUTED, ORANGE, SAGE, TEAL = '#dfd6c7', '#ed7a3a', '#9bc9a9', '#2fb9b5'
 FONT = "system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
-HERE = Path(__file__).resolve().parent
 
 
 def esc(value: str) -> str:
     return html.escape(value, quote=False)
 
 
-def wrap(text: str, width: int) -> list[str]:
-    """Greedy wrap on whole words."""
-    lines: list[str] = []
-    line = ""
-    for word in text.split():
-        candidate = f"{line} {word}".strip()
+def wrap(content: str, width: int) -> list[str]:
+    """Wrap whole words, without silently dropping any part of a title."""
+    lines = []
+    line = ''
+    for word in content.split():
+        candidate = f'{line} {word}'.strip()
         if len(candidate) > width and line:
             lines.append(line)
             line = word
@@ -42,134 +40,62 @@ def wrap(text: str, width: int) -> list[str]:
     return lines
 
 
-def text(x, y, content, size, fill, weight=600, anchor="start", spacing=1.3):
+def text(x, y, content, size, fill, weight=600, anchor='start', spacing=1.25, css_class=''):
     lines = content if isinstance(content, list) else [content]
-    step = size * spacing
-    spans = "".join(
-        f'<tspan x="{x}" y="{y + i * step:.0f}">{esc(line)}</tspan>'
-        for i, line in enumerate(lines)
-    )
-    return (
-        f'<text text-anchor="{anchor}" font-family="{FONT}" font-size="{size}" '
-        f'font-weight="{weight}" fill="{fill}">{spans}</text>'
-    )
+    spans = ''.join(f'<tspan x="{x}" y="{y + i * size * spacing:.0f}">{esc(line)}</tspan>' for i, line in enumerate(lines))
+    return f'<text class="{css_class}" text-anchor="{anchor}" font-family="{FONT}" font-size="{size}" font-weight="{weight}" fill="{fill}">{spans}</text>'
 
 
-def bars(x, y, width, series, accent):
-    """A small comparison bar set. `series` is [(label, value, maximum), ...]."""
+def bars(x, y, width, series, accent, unit=''):
+    """Keep the published counts/ratings, with their units stated explicitly."""
     out = []
-    gap, bar_h = 34, 16
-    longest = max(value / maximum for _, value, maximum in series) or 1
     for i, (label, value, maximum) in enumerate(series):
-        top = y + i * gap
-        frac = (value / maximum) / longest
-        colour = accent if i == len(series) - 1 else PANEL
-        out.append(f'<rect x="{x}" y="{top}" width="{width}" height="{bar_h}" rx="3" fill="{PANEL}"/>')
-        out.append(
-            f'<rect x="{x}" y="{top}" width="{width * frac:.0f}" height="{bar_h}" rx="3" fill="{colour}"/>'
-        )
-        out.append(text(x + width + 14, top + 13, f"{label} {value}/{maximum}", 15, MUTED, 500))
-    return "".join(out)
+        top = y + i * 29
+        colour = accent if i == len(series) - 1 else MUTED
+        out.append(f'<rect x="{x}" y="{top}" width="{width}" height="14" rx="3" fill="{PANEL}"/>')
+        out.append(f'<rect x="{x}" y="{top}" width="{width * value / maximum:.1f}" height="14" rx="3" fill="{colour}"/>')
+        result = f'{value:g} {unit}' if unit else f'{value:g}/{maximum:g}'
+        out.append(text(x + width + 18, top + 14, f'{label} {result}', 18, MUTED, 500))
+    return ''.join(out)
 
 
-def card(eyebrow: str, headline: str, footer: str, accent: str, body: str = "") -> str:
-    head = wrap(headline, 30)[:3]
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img">
-<rect width="{W}" height="{H}" fill="{COAL}"/>
-<rect x="0" y="0" width="{W}" height="6" fill="{accent}"/>
-{text(56, 74, eyebrow.upper(), 16, accent, 700)}
-{text(56, 138, head, 34, PAPER, 700, spacing=1.25)}
+def card(entry) -> str:
+    themes, _, meta, title, blurb, source, _, _ = entry
+    headline = wrap(title, 31)
+    if len(headline) > 3:
+        raise ValueError(f'Title needs a larger layout, not truncation: {title}')
+    accent = TEAL if 'evaluation' in themes else ORANGE if 'agent-systems' in themes else SAGE
+    category = ' / '.join(theme.replace('agent-systems', 'agent systems').upper() for theme in themes)
+    body = text(56, 280, wrap(blurb, 56), 20, MUTED, 400)
+    if source == 'evals/fable-run5-granite.html':
+        body = bars(56, 278, 350, [('control', 8, 24), ('sham', 7, 24), ('manual', 16, 24)], SAGE)
+    elif source == 'notes/watts-per-token.html':
+        body = text(56, 270, 'Rated fan draw, not a matched-airflow test.', 18, MUTED, 400)
+        body += bars(56, 294, 350, [('desk fan', 35, 35), ('NF-A14 iPPC', 6.6, 35)], ORANGE, 'W')
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-labelledby="title description">
+<title id="title">{esc(title)}</title><desc id="description">{esc(blurb)}</desc>
+<rect width="{W}" height="{H}" fill="#f7f0df"/>
+<rect x="16" y="16" width="768" height="418" rx="20" fill="{COAL}"/>
+<rect x="44" y="53" width="5" height="24" rx="2" fill="{accent}"/>
+{text(62, 73, category, 18, accent, 700)}
+{text(744, 73, 'FIELDNOTES', 18, MUTED, 600, anchor='end')}
+{text(56, 132, headline, 40, PAPER, 700, spacing=1.12, css_class='headline')}
 {body}
-{text(56, H - 44, footer, 16, MUTED, 500)}
+<path d="M56 376H744" stroke="{PANEL}"/>
+{text(56, 407, meta, 18, MUTED, 400)}
 </svg>
-"""
-
-
-# Each entry mirrors the page it links to. Figures come from the published
-# result; where a write-up reports no effect, the thumbnail says so rather than
-# manufacturing a chart out of nothing.
-THUMBNAILS = {
-    "fable-run5-granite": card(
-        "Operating manual · run 5",
-        "A reasoning manual helped a small model catch the trap",
-        "granite-4.0-h-small-FP8 · n=24 per arm · temperature 0.7",
-        SAGE,
-        bars(56, 210, 340, [("control", 8, 24), ("sham", 7, 24), ("manual", 16, 24)], SAGE),
-    ),
-    "cruxeval-o-ab-184": card(
-        "CRUXEval-O · A/B",
-        "The prompt is not the model",
-        "7 models · 184 problems · one attempt each · temperature 0",
-        TEAL,
-        text(56, 250, ["The headline change is meaningless on its own.", "The effect is bimodal. The signal is the floor."], 19, MUTED, 500),
-    ),
-    "cruxeval-o-results": card(
-        "CRUXEval-O · reviewer seat",
-        "Seven local models on output prediction",
-        "100 problems · Pass@1 · prompt, infra and harness failures excluded",
-        TEAL,
-        text(56, 250, ["A reviewer-seat battery across the local roster,", "graded strictly and reported with its failures."], 19, MUTED, 500),
-    ),
-    "screen_eval_run4": card(
-        "Capability screen · run 4",
-        "The gate opened, and the manual still moved nothing",
-        "Qwen3.6-35B · local vLLM · thinking off · temperature 0.7",
-        ORANGE,
-        text(56, 250, ["A weaker base model and a harder trap gave the", "manual room to show an effect. It did not."], 19, MUTED, 500),
-    ),
-    "screen_eval": card(
-        "Capability screen · run 3",
-        "The manual moved only the labels",
-        "Sonnet 5 · three arms · three tiers · 27 agents",
-        ORANGE,
-        text(56, 250, ["A sham arm and a difficulty ladder, so a real", "capability effect would have had room to appear."], 19, MUTED, 500),
-    ),
-    "trap_eval": card(
-        "Trap battery · A/B",
-        "It changed how the work was shown, not what was caught",
-        "Sonnet 5 · nine traps · model held constant",
-        ORANGE,
-        text(56, 258, ["One arm reads the operating manual, one does not."], 19, MUTED, 500),
-    ),
-}
-
-
-# Notes get the same treatment, written to notes/ rather than here.
-NOTE_THUMBNAILS = {
-    "seat-benchmarking": card(
-        "Note \u00b7 evaluation methodology",
-        "Which model holds the seat, and what to do when it does not",
-        "Per-model failure modes \u00b7 per-seat benchmarking \u00b7 intervention levels",
-        SAGE,
-        text(56, 250, ["A leaderboard averages over the wrong axis.", "Which model wins which seat, on what evidence?"], 19, MUTED, 500),
-    ),
-    "memory-management": card(
-        "Note \u00b7 agent systems",
-        "Memory management for LLM-on-corpus",
-        "Parametric \u00b7 chain-of-thought \u00b7 flat RAG \u00b7 graph-RAG",
-        TEAL,
-        text(56, 250, ["Four answers to the same question. The", "partitioning algorithm separates them."], 19, MUTED, 500),
-    ),
-    "watts-per-token": card(
-        "Note \u00b7 running the hardware",
-        "6.6W versus 35W, and a desk-scale PUE argument",
-        "Sustained eval workloads are watts-bound",
-        ORANGE,
-        bars(56, 210, 300, [("desk fan", 35, 35), ("NF-A14 iPPC", 7, 35)], ORANGE),
-    ),
-}
+'''
 
 
 def main() -> None:
-    for name, svg in NOTE_THUMBNAILS.items():
-        path = HERE.parent / "notes" / f"{name}.svg"
-        path.write_text(svg, encoding="utf-8")
-        print(f"  wrote notes/{path.name}")
-    for name, svg in THUMBNAILS.items():
-        path = HERE / f"{name}.svg"
-        path.write_text(svg, encoding="utf-8")
-        print(f"  wrote {path.name}")
+    for entry in ENTRIES:
+        if not entry[6].startswith('assets/thumbnails/'):
+            continue
+        target = ROOT / entry[6]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(card(entry), encoding='utf-8')
+        print(f'  wrote {entry[6]}')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

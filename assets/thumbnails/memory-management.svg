@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-labelledby="title description">
+<title id="title">Where should an agent keep its memory?</title><desc id="description">Model state, session history and external retrieval belong to different parts of the agent system.</desc>
+<rect width="800" height="450" fill="#f7f0df"/>
+<rect x="16" y="16" width="768" height="418" rx="20" fill="#171716"/>
+<rect x="44" y="53" width="5" height="24" rx="2" fill="#ed7a3a"/>
+<text class="" text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#ed7a3a"><tspan x="62" y="73">AGENT SYSTEMS</tspan></text>
+<text class="" text-anchor="end" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="18" font-weight="600" fill="#dfd6c7"><tspan x="744" y="73">FIELDNOTES</tspan></text>
+<text class="headline" text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#fff8e8"><tspan x="56" y="132">Where should an agent keep its</tspan><tspan x="56" y="177">memory?</tspan></text>
+<text class="" text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#dfd6c7"><tspan x="56" y="280">Model state, session history and external retrieval</tspan><tspan x="56" y="305">belong to different parts of the agent system.</tspan></text>
+<path d="M56 376H744" stroke="#36322e"/>
+<text class="" text-anchor="start" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#dfd6c7"><tspan x="56" y="407">Note · agent systems · 9 August 2026</tspan></text>
+</svg>
