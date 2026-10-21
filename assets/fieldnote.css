@@ -1,0 +1,143 @@
+/* Shared Fieldnotes skin, based on the Herdr fieldnote. */
+:root {
+  --ink:#23201d; --muted:#655f59; --paper:#f7f0df; --coal:#171716;
+  --orange:#ed7a3a; --teal:#2fb9b5; --sage:#9bc9a9; --cream:#fff8e8; --line:#c9bfa9;
+  /* Legacy report aliases. Figure-specific variables stay on the evidence wrapper. */
+  --bg:#f7f0df; --surface:#fff8e8; --panel:#eee2c8; --boost:#c9bfa9; --text:#23201d;
+  --soft:#655f59; --primary:#086f71; --secondary:#a83e12; --accent:#086f71;
+  --ink-soft:#655f59; --ink-faint:#655f59; --card:#fff8e8; --rule:#c9bfa9;
+  --rust:#a83e12; --peach:#a83e12; --pass:#086f71; --fail:#a83e12; --control:#a83e12;
+  --sham:#655f59; --accent-soft:#e3eee2; --pass-soft:#e3eee2; --fail-soft:#f5e1d0;
+  --band:#086f71; --band-soft:#e3eee2; --shadow:none;
+  --serif:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+html {font-size:18px; scroll-behavior:smooth; background:var(--paper)}
+* {box-sizing:border-box}
+body.fieldnote-page {
+  max-width:none; min-height:100vh; margin:0; padding:0; box-shadow:none; color:var(--ink);
+  background:radial-gradient(circle at 10% 0%,rgba(237,122,58,.12),transparent 34rem),radial-gradient(circle at 90% 14%,rgba(47,185,181,.12),transparent 30rem),var(--paper);
+  font:18px/1.68 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.fieldnote-page main {width:min(100% - 2rem,920px); max-width:920px; margin:0 auto; padding:0}
+.fieldnote-page a {color:#086f71; text-underline-offset:.16em}
+.fieldnote-page a:hover {color:#b84c1d}
+.fieldnote-page .fieldnote-nav {display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 0 0; font-size:18px}
+.fieldnote-page header {
+  margin:1.5rem 0 2.2rem; padding:clamp(2rem,6vw,4.5rem); color:var(--cream); background:var(--coal);
+  border:1px solid #3b3833; border-radius:24px; box-shadow:0 24px 70px rgba(43,35,25,.18);
+}
+.fieldnote-page header .eyebrow {margin:0 0 1rem; color:var(--teal); font:800 18px/1.4 var(--sans); letter-spacing:.12em; text-transform:uppercase}
+.fieldnote-page header h1 {max-width:19ch; margin:0; color:var(--cream); font:750 clamp(2.1rem,6vw,4.25rem)/1.04 var(--sans); letter-spacing:-.045em; text-wrap:pretty}
+.fieldnote-page header .subtitle {max-width:60ch; margin:1.6rem 0 0; color:#dfd6c7; font:400 clamp(1.05rem,2.4vw,1.32rem)/1.5 var(--sans)}
+.fieldnote-page header .byline {margin:2rem 0 0; color:var(--sage); font:700 18px/1.5 var(--sans)}
+.fieldnote-page main>article {padding:0 0 5rem; margin:0; color:var(--ink)}
+.fieldnote-page article h2 {margin:2.5rem 0 1.1rem; padding:0; border:0; color:var(--ink); font:700 clamp(1.65rem,4vw,2.45rem)/1.12 var(--sans); letter-spacing:-.025em; text-transform:none}
+.fieldnote-page article h3 {margin:1.8rem 0 .6rem; color:var(--ink); font:700 1.25rem/1.25 var(--sans)}
+.fieldnote-page article p {max-width:none; margin:.85rem 0; color:inherit; font-size:18px; line-height:1.68}
+.fieldnote-page article .lede,.fieldnote-page article .lead {font-size:clamp(1.15rem,2.6vw,1.4rem); line-height:1.58; max-width:none; margin:1.3rem 0}
+.fieldnote-page article li {margin:.6rem 0; font-size:18px; line-height:1.68}
+.fieldnote-page article ul,.fieldnote-page article ol {max-width:none; padding-left:1.4rem; margin:1rem 0}
+.fieldnote-page article strong,.fieldnote-page article b {color:inherit}
+.fieldnote-page article .prose {max-width:none; color:inherit; margin:1rem 0; font-size:18px; line-height:1.68}
+.fieldnote-page article .cta {color:#fff8e8; background:#171716}
+.fieldnote-page article .cta p {color:#fff8e8}
+.fieldnote-page article .cta h2 {color:#ed7a3a}
+.fieldnote-page article .cta a {color:#81d9d3}
+.fieldnote-page article .cta a:hover {color:#fff8e8}
+.fieldnote-page article section {margin:2.5rem 0}
+.fieldnote-page article :is(.callout,.verdict,.takeaway,.entry-takeaway,.notes,.gloss) {padding:1.25rem 1.4rem; margin:1.8rem 0; border:1px solid var(--line); border-left:5px solid var(--orange); border-radius:0 14px 14px 0; background:rgba(255,248,232,.82); color:var(--ink); box-shadow:none; font-size:18px}
+.fieldnote-page article :is(.section-label,.small,.generated,footer,.note,.k,.metric-label,.card-kicker,.card-idsub,.card-idsub,.card-toggle,.pill,.mono,.badge,.id-cell,.group-sub,.grp-sub,.mf,.mn,.tier-tag,.probe,.expect,.trap-tag,.trap-desc,.fp-num,.legend,.cell-na,.tag,.sep,.denom,.card-sub,.card-toggle,.card-title) {font-size:18px; line-height:1.5}
+.fieldnote-page article .section-label {text-transform:none; letter-spacing:0; color:var(--ink); font-family:var(--sans); font-weight:700}
+.fieldnote-page article :is(.stat,.metric,.group,.grp,.card) {min-width:0; background:rgba(255,255,255,.35); color:var(--ink); border:1px solid var(--line); border-radius:14px; box-shadow:none}
+.fieldnote-page article :is(.stats,.metric-grid,.groups,.grouping,.cards) {grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:1rem; margin:1.5rem 0}
+.fieldnote-page article .source-results {color:var(--result-text)}
+.fieldnote-page article .source-results :is(.stat,.metric,.group,.grp,.card) {background:var(--result-bg); color:var(--result-text); border-color:var(--result-rule)}
+.fieldnote-page article .source-results :is(h3,.card-title) {color:var(--result-text)}
+.fieldnote-page article :is(.source-results.legend,.source-results>.grp-foot) {background:var(--result-bg); color:var(--result-text); padding:1rem; border-radius:10px}
+.fieldnote-page article .source-results :is(.group.good,.grp.g-better) {border-top:4px solid var(--primary,#79c39e)}
+.fieldnote-page article .source-results :is(.group.bad,.grp.g-worse) {border-top:4px solid var(--secondary,#e77843)}
+.fieldnote-page article .source-results :is(.group.neutral,.grp.g-same) {border-top:4px solid var(--muted,#b09080)}
+.fieldnote-page article .grouping:has(.outcome-group) {grid-template-columns:1fr; gap:.75rem}
+.fieldnote-page article .source-results .outcome-group {margin:0; padding:0}
+.fieldnote-page article .outcome-group summary {display:flex; align-items:center; gap:1rem; padding:1rem 1.2rem; font-size:1.1rem; font-weight:700; list-style:none}
+.fieldnote-page article .outcome-group summary::-webkit-details-marker {display:none}
+.fieldnote-page article .outcome-group summary::after {content:'+'; margin-left:auto; font-size:1.4rem}
+.fieldnote-page article .outcome-group[open] summary::after {content:'−'}
+.fieldnote-page article .outcome-count {font-size:18px; font-weight:400; white-space:nowrap}
+.fieldnote-page article .outcome-body {padding:0 1.2rem 1.2rem}
+.fieldnote-page article details.glossary-disclosure {padding:0}
+.fieldnote-page article .glossary-disclosure summary {font-size:1.1rem; font-weight:700; padding:1rem 1.2rem}
+.fieldnote-page article .glossary-body {padding:0 1.2rem 1.2rem}
+.fieldnote-page article .outcome-body ul {padding:0; list-style:none}
+.fieldnote-page article .outcome-body li {padding:.8rem 0; border-bottom:1px solid var(--result-rule)}
+.fieldnote-page article .outcome-body li:last-child {border:0}
+.fieldnote-page article .outcome-body li strong {display:block; margin-bottom:.35rem}
+.fieldnote-page article .cards:has(.scorecard-head) {grid-template-columns:1fr}
+.fieldnote-page article .scorecard-head {cursor:default}
+.fieldnote-page article .scorecard-head .card-title {margin:0 0 .8rem; overflow-wrap:anywhere}
+.fieldnote-page article :is(.score-summary,.outcome-counts) {display:grid; gap:.5rem; margin:0 0 .8rem}
+.fieldnote-page article .score-summary {grid-template-columns:repeat(3,minmax(0,1fr))}
+.fieldnote-page article .outcome-counts {grid-template-columns:repeat(4,minmax(0,1fr))}
+.fieldnote-page article :is(.score-summary,.outcome-counts)>div {min-width:0; padding:.55rem .7rem; border:1px solid var(--result-rule); border-radius:8px}
+.fieldnote-page article :is(.score-summary,.outcome-counts) dt {font:400 18px/1.5 var(--sans); color:var(--result-text)}
+.fieldnote-page article :is(.score-summary,.outcome-counts) dd {margin:0; font:700 1.5rem/1.5 var(--sans); font-variant-numeric:tabular-nums}
+.fieldnote-page article .score-summary .denom {font-weight:400; white-space:nowrap}
+.fieldnote-page article .outcome-counts dd {font-size:1.1rem}
+.fieldnote-page article .outcome-counts .fixed {border-top:3px solid var(--primary)}
+.fieldnote-page article .outcome-counts .broken {border-top:3px solid var(--secondary)}
+.fieldnote-page article .scorecard-head .card-toggle {display:block; margin:0; padding:.5rem .8rem; border:1px solid var(--result-rule); border-radius:8px; color:var(--result-text); background:transparent; font:600 18px/1.5 var(--sans); text-align:left; cursor:pointer}
+.fieldnote-page article .scorecard-head .card-toggle:hover {background:var(--boost)}
+.fieldnote-page article .card.open {grid-column:1/-1}
+.fieldnote-page article .card-head {padding:1.1rem}
+.fieldnote-page article .card-body {padding:0; max-width:100%}
+.fieldnote-page article .card.open .card-body {display:block}
+.fieldnote-page article :is(.stat .v,.metric-value,.card-score,.sc-n) {font-family:var(--sans); font-size:2rem}
+.fieldnote-page article :is(.stat .v.tri,.stat .v.dual,.chg) {font-size:1.4rem}
+.fieldnote-page article :is(.grp-foot,.sc-d,.pass,.fail) {font-size:18px}
+.fieldnote-page article .stat .v .sep {font-size:18px}
+.fieldnote-page article .tag {font-size:18px !important}
+/* Tables retain the source page's palette, independent of the paper prose. */
+.fieldnote-page article .review-table {max-width:100%; min-width:0; margin:1.3rem 0; border:1px solid var(--table-rule); border-radius:10px; background:var(--table-bg); color:var(--table-text); overflow:hidden}
+.fieldnote-page article .table-tools {display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.8rem; padding:.8rem 1rem; font:18px/1.5 var(--sans); color:var(--table-text); border-bottom:1px solid var(--table-rule)}
+.fieldnote-page article .table-viewport {max-width:100%; overflow:auto; overscroll-behavior-x:contain}
+.fieldnote-page article .review-table table {width:max-content; min-width:max(100%,var(--table-min-width)); table-layout:auto; margin:0; border-collapse:collapse; border:0; background:var(--table-bg); color:var(--table-text); font-size:18px; line-height:1.5; overflow:visible}
+.fieldnote-page article .review-table :is(th,td) {font-size:18px; line-height:1.5; padding:.8rem 1rem; min-width:8ch; max-width:64ch; vertical-align:top; text-transform:none; letter-spacing:0}
+.fieldnote-page article .review-table :is(th,.num,.cell-pass,.cell-na,.fp-cell,.model) {white-space:nowrap}
+.fieldnote-page article .review-table a {color:var(--table-link)}
+.fieldnote-page article .review-table code {font-size:18px; color:inherit; overflow-wrap:normal}
+.fieldnote-page article :is(.table-expand,.table-close) {font:600 18px/1.5 var(--sans); padding:.5rem .9rem; border:1px solid #9bc9a9; border-radius:8px; color:#fff8e8; background:#222629; cursor:pointer}
+.fieldnote-page article .entry-takeaway h2 {margin:0 0 .6rem; font-size:1.25rem}
+.fieldnote-page article .entry-takeaway p {margin:0}
+.fieldnote-page article .table-dialog {width:calc(100vw - 2rem); max-width:none; height:calc(100dvh - 2rem); max-height:none; margin:auto; padding:1rem; border:1px solid #655f59; border-radius:14px; background:#171716; color:#fff8e8}
+.fieldnote-page article .table-dialog[open] {display:flex; flex-direction:column; gap:1rem}
+.fieldnote-page article .table-dialog::backdrop {background:rgba(10,10,9,.85)}
+.fieldnote-page article .table-dialog-bar {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem; flex:none}
+.fieldnote-page article .table-dialog-bar h2 {font-size:1.4rem; margin:0; color:#fff8e8}
+.fieldnote-page article p.table-dialog-hint {margin:0; color:#dfd6c7; font-size:18px}
+.fieldnote-page article .table-dialog-content {min-height:0; flex:1; overflow:hidden; display:flex; flex-direction:column}
+.fieldnote-page article .table-dialog .review-table {min-height:0; margin:0; display:flex; flex-direction:column}
+.fieldnote-page article .table-dialog .table-viewport {min-height:0; overflow:auto}
+.fieldnote-page article .table-dialog .table-tools {display:none}
+.fieldnote-page article code {font:18px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; padding:.08rem .3rem; border:0; border-radius:4px; background:rgba(23,23,22,.08); color:inherit; overflow-wrap:anywhere}
+.fieldnote-page article summary {font-size:18px; cursor:pointer; padding:.9rem 1rem; color:inherit}
+.fieldnote-page article details.visual-disclosure {border:1px solid var(--line); background:var(--cream); border-radius:14px; margin:1.5rem 0}
+.fieldnote-page article .evidence {max-width:100%; overflow-x:auto; margin:1.5rem 0; background:#171716; border:1px solid #3d3934; border-radius:14px}
+.fieldnote-page article .evidence figure {margin:0; padding:1rem; color:#fff8e8}
+.fieldnote-page article .evidence figcaption {font-size:18px; line-height:1.5; color:#dfd6c7; text-align:left; margin-top:.75rem}
+.fieldnote-page article .evidence a {color:#9bc9a9}
+.fieldnote-page article .evidence img {display:block; max-width:100%; height:auto; margin:0 auto}
+.fieldnote-page article .evidence .visual-canvas {overflow:auto}
+.fieldnote-page article img {max-width:100%; height:auto}
+.fieldnote-page article footer {padding-top:1.5rem; border-top:1px solid var(--line); overflow-wrap:anywhere}
+.fieldnote-page :focus-visible {outline:3px solid #b84c1d; outline-offset:4px}
+@media(max-width:720px) {
+ .fieldnote-page main {width:min(100% - 1.5rem,920px)}
+ .fieldnote-page header {border-radius:16px; padding:1.6rem}
+ .fieldnote-page article .gloss dl {grid-template-columns:1fr}
+ .fieldnote-page article .scorecard-head {padding:.8rem}
+ .fieldnote-page article .score-summary .denom {display:block}
+ .fieldnote-page article .outcome-counts {grid-template-columns:repeat(2,minmax(0,1fr))}
+ .fieldnote-page article :is(.score-summary,.outcome-counts)>div {padding:.45rem .5rem}
+}
+@media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto}}

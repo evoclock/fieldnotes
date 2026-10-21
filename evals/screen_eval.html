@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Capability-grade Screen — Run 3 Evaluation</title>
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Does a reasoning manual improve how Anthropic&#x27;s Sonnet tackles error detection?</title>
+<meta name="description" content="Sonnet 5, three prompt conditions, three difficulty levels and 27 responses: testing error detection separately from presentation.">
+<link rel="canonical" href="https://evoclock.github.io/fieldnotes/evals/screen_eval.html">
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="../feed.xml">
 <style>
   :root {
     --paper: #1a1816;
@@ -128,20 +130,17 @@
   .takeaway p { margin: 0; font-size: 1.05rem; color: var(--ink); max-width: 62ch; }
 
   footer { margin-top: 2.5rem; font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); line-height: 1.8; }
-</style>
-</head>
-<body>
-
-<div class="wrap">
-  <p class="eyebrow">Capability-grade screen · Sonnet 5 · 2026-07-07</p>
-  <h1>Three arms, three tiers, twenty-seven agents — and the manual still moved only the <em>labels</em>.</h1>
-  <p class="standfirst">Does the operating manual change outcomes, not just framing? Run&nbsp;3 adds a sham-arm control and a difficulty ladder so a capability effect has room to appear. Control / sham / real manual × easy / medium / hard × n=3, single-turn, model held constant.</p>
-
-  <div class="verdict">
-    <p><strong>Outcome: 27/27 pass — control, sham, and manual all correct at every tier, including hard.</strong> The pre-registered calibration gate fired as designed: control must fail 25–75% to give the manual headroom, and it failed 0%, so by the rule all three tasks are cut. With no failures to flip, this run is <strong>uninformative about capability</strong> — not evidence the manual doesn't help, just evidence this task family can't test it at Sonnet tier.</p>
+</style><link rel="stylesheet" href="../assets/fieldnote.css"><script defer src="../assets/tables.js"></script></head>
+<body class="fieldnote-page"><main>
+<nav class="fieldnote-nav" aria-label="Site navigation"><a href="../index.html">Back to fieldnotes</a> · <a href="../subscribe.html">Subscribe</a></nav>
+<header><p class="eyebrow">Capability screen · Fieldnote</p>
+<h1>Does a reasoning manual improve how Anthropic&#x27;s Sonnet tackles error detection?</h1><p class="subtitle">Sonnet 5, three prompt conditions, three difficulty levels and 27 responses: testing error detection separately from presentation.</p>
+<p class="byline">Julen Gamboa · 7 July 2026</p></header>
+<article><div class="verdict">
+    <p><strong>All 27 agents passed.</strong> Control, sham and manual were correct at every tier. The design required 25–75% control failure before a task could measure improvement; the observed failure rate was 0%. The gate therefore excluded all three tasks. This run cannot establish that the manual improves correctness, but it also does not establish that the manual could never help.</p>
   </div>
 
-  <div class="stats">
+  <div class="stats source-results" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--sham: #b09080;--sham-soft: #2f2b28;--pass: #79c39e;--pass-soft: #263d32;--fail: #e77843;--fail-soft: #44261d;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--result-text:#ead1b5;--result-bg:#383431;--result-rule:#5c564f">
     <div class="stat">
       <p class="k">Pass rate (per arm)</p>
       <p class="v tri"><span class="ctrl">9/9</span><span class="sep">·</span><span class="sham">9/9</span><span class="sep">·</span><span class="man">9/9</span></p>
@@ -150,17 +149,17 @@
     <div class="stat">
       <p class="k">Calibration gate</p>
       <p class="v with-tag"><span class="ctrl">0%</span><span class="tag">NO HEADROOM</span></p>
-      <p class="note">Control fail rate vs the pre-registered 25–75% band. Saturation, not a test failure — by the rule these tasks can't measure a capability effect.</p>
+      <p class="note">The observed control-failure rate was below the pre-registered 25–75% band, leaving no headroom to measure a correctness gain.</p>
     </div>
     <div class="stat">
       <p class="k">Manual-unique markers</p>
       <p class="v tri"><span class="ctrl">0/9</span><span class="sep">·</span><span class="sham">0/9</span><span class="sep">·</span><span class="man">9/9</span></p>
-      <p class="note">Provenance grades, named disconfirming test, independent re-derivation — only the manual arm.</p>
+      <p class="note">Provenance grades, a named disconfirming test and an independent re-derivation appeared only in the manual arm.</p>
     </div>
   </div>
 
   <p class="section-label">Tier scorecard</p>
-  <div class="legend">
+  <div class="legend source-results" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--sham: #b09080;--sham-soft: #2f2b28;--pass: #79c39e;--pass-soft: #263d32;--fail: #e77843;--fail-soft: #44261d;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--result-text:#ead1b5;--result-bg:#383431;--result-rule:#5c564f">
     <span><i class="swatch ctrl"></i> Control</span>
     <span><i class="swatch sham"></i> Sham</span>
     <span><i class="swatch man"></i> Manual</span>
@@ -168,7 +167,9 @@
   </div>
 
   <div class="table-scroll">
-    <table>
+    <div class="review-table" style="--paper: #1a1816;--card: #383431;--ink: #ead1b5;--ink-soft: #c9ad91;--ink-faint: #b09080;--line: #5c564f;--accent: #79c39e;--accent-soft: #24352c;--control: #ee9b69;--control-soft: #3b3028;--sham: #b09080;--sham-soft: #2f2b28;--pass: #79c39e;--pass-soft: #263d32;--fail: #e77843;--fail-soft: #44261d;--pip-off: #5c564f;--shadow: 0 1px 2px rgba(0,0,0,.28), 0 10px 30px rgba(0,0,0,.35);--serif: &quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, Georgia, serif;--sans: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, sans-serif;--mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;--table-text:#ead1b5;--table-bg:#383431;--table-rule:#5c564f;--table-link:#79c39e;--table-columns:6;--table-min-width:1080px">
+<div class="table-tools"><span>Scroll sideways to read the full table.</span><button class="table-expand" type="button" aria-expanded="false" hidden>Expand table</button></div>
+<div class="table-viewport" role="region" aria-label="Scrollable table" tabindex="0"><table>
       <thead>
         <tr>
           <th>Tier</th>
@@ -180,37 +181,31 @@
         </tr>
       </thead>
       <tbody id="rows"></tbody>
-    </table>
+    </table></div></div>
   </div>
 
   <div class="prose">
-    <p class="section-label">Reading the result</p>
-    <h3>The calibration gate is the whole test — and it failed.</h3>
-    <p>The design pre-registered a gate: a task only counts if control fails it 25–75% of the time, so the manual has <strong>headroom</strong> to move the pass rate. Control failed <strong>0%</strong> on all three tiers, including the hard Simpson's reversal (A wins both device segments; B's overall lead is a traffic-mix artifact) and the medium cost sheet (the worksheet used the event count, not events × 3 invocations — a 3× understatement). By the pre-registered rule, all three tasks are cut. Where the base model never fails, no intervention can be credited with success.</p>
-    <h3>The sham arm did its job — and the style effect is mostly priming.</h3>
-    <p>Run&nbsp;2 couldn't separate "the manual's content" from "any careful-sounding preamble." Run&nbsp;3's sham manual (<code>sham_manual.md</code>) is length- and structure-matched, same eight headings, filled with truisms — "be thorough, check your work, reconsider" — and zero specific procedures. On correctness, sham = manual = control = 100%. On style, the arms order manual &gt; sham &gt; control — but the sham closed most of the verbosity-and-care gap on its own. The markers <em>unique</em> to the real manual (provenance grades, a named disconfirming test, an explicit independent re-derivation route) appear only in the manual arm; the shared "careful-sounding prose" is priming the sham reproduces too.</p>
-    <h3>This is the third run at the same wall.</h3>
-    <p>Run&nbsp;1 compared Opus control against a <em>placebo</em> manual arm (the agents never read the file) and couldn't attribute the result. Run&nbsp;2 held the model constant and embedded the real manual — same ceiling. Run&nbsp;3 added the sham control and a hard tier, and the ceiling held at every tier. Three converging runs: <strong>the ceiling is the model, not the manual.</strong></p>
-    <h3>To detect a capability effect, change the regime or the model.</h3>
-    <p>Measuring whether the manual changes <em>outcomes</em> needs tasks where the base model sometimes fails — where re-derivation or self-attack actually flips the answer, not just its wording:</p>
+    <p class="section-label">What this comparison tells me</p>
+    <h3>The tasks did not pass the calibration gate</h3>
+    <p>I pre-registered a simple gate: the control must fail 25–75% of the time for a task to count as a capability test. It failed 0% on all three tiers. Even the hard Simpson's reversal and the medium cost sheet, which omitted events × 3 invocations and understated cost by 3×, were caught. The gate did its job by excluding tasks on which the intervention had no observed failure to repair.</p>
+    <h3>The sham explains much of the careful tone</h3>
+    <p>Run 2 could not separate the manual's procedures from the effect of a careful-sounding preamble. In Run 3, the sham prompt used the same eight headings and matched length and structure, but replaced the procedures with truisms such as "be thorough" and "check your work". Correctness was 100% in all arms. The style ordering was manual &gt; sham &gt; control. Most of the verbosity-and-care gap could therefore be reproduced without the procedures. Provenance grades, a named disconfirming test and an explicit independent re-derivation appeared only with the real manual.</p>
+    <h3>The same ceiling appeared in three runs</h3>
+    <p>Run 1 could not attribute the result because the supposed manual arm never read the file. Run 2 held the model constant and embedded the real text, but still reached the same correctness ceiling. Run 3 added the sham and harder tasks. In each case the model was already catching the errors the intervention was supposed to help with.</p>
+    <h3>Change the test before claiming a capability effect</h3>
+    <p>I need tasks where the base model sometimes fails, so that re-derivation or self-attack can change the answer rather than decorate it. Two routes are worth testing:</p>
     <ol>
-      <li>Multi-step / long-horizon tasks with a subtle mid-chain error the model must catch by re-deriving.</li>
-      <li>A weaker base model that fails these single-turn traps ~30–50% of the time, reusing the whole battery + sham design unchanged.</li>
+      <li>A multi-step task containing a subtle error that requires an independent re-derivation to uncover.</li>
+      <li>A weaker model that misses these single-turn traps around 30–50% of the time, with the same battery and sham design.</li>
     </ol>
-    <h3>Honest confounds.</h3>
-    <p>The manual and sham prompts are longer and both say "apply this to your answer," which itself primes length and care — so part of the manual-vs-control style gap is <em>any preamble</em>, and the sham arm exists precisely to expose that (it does). n=3 per cell is a screen, not proof, but 27/27 across three structurally different traps is not small-sample noise. And every task is single-turn, no tools — exactly the regime where a strong base model pattern-matches to correct, which is the wall all three runs hit.</p>
+    <h3>What remains uncertain</h3>
+    <p>Both the manual and sham add text and say "apply this to your answer". That can prime length and care independently of the actual procedures. With n=3 per cell, this remains a screen, not a powered estimate of benefit or repeatability. The 27/27 result establishes the observed ceiling in this run. All tasks were single-turn and tool-free, so it does not settle what the manual would do in a longer workflow.</p>
   </div>
 
-  <div class="takeaway">
-    <p class="k">One-line takeaway</p>
-    <p>Across three arms and three difficulty tiers, every Sonnet agent caught every trap. The manual's specific procedures appear only in the manual arm — but they label work that's already correct, not work they fixed. In the single-turn verify-an-artifact family at Sonnet tier, the manual is communication-discipline (and mostly priming), not capability. Detecting a capability effect needs a harder regime or a weaker model.</p>
-  </div>
+  <aside class="entry-takeaway"><h2>One-line takeaway</h2><p>All 27 Sonnet responses were already correct, so this run showed presentation changes but could not establish a correctness uplift.</p></aside>
 
-  <footer>
-    Sources: screen_run3_answers.txt · screen_run3_evaluation.md · harder_battery_design.md · sham_manual.md<br>
-    Design: control = brass · sham = slate · manual = teal · both themes supported
-  </footer>
-</div>
+
+
 
 <script>
   const tiers = [
@@ -227,6 +222,4 @@
       <td class="cell-pass"><span class="pass">PASS ×3</span></td>
       <td class="cell-pass"><span class="pass">PASS ×3</span></td>
     </tr>`).join("");
-</script>
-</body>
-</html>
+</script><section class="run-context"><h2>Test conditions</h2><p>The same Sonnet 5 model was used for control, a same-length generic carefulness prompt and the reasoning manual. Three difficulty tiers and three responses per arm/tier produced 27 single-turn, tool-free responses.</p></section></article></main></body></html>

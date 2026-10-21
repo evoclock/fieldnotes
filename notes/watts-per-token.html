@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sustained eval workloads are watts-bound on a desk-scale box, and the fan you use to move air through a hot chassis is a bigger share of that than it looks.">
-<title>Watts per token, at desk scale</title>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Is cooling part of the inference budget?</title>
+<meta name="description" content="A 6.6 W fan, a 35 W desk fan, and the cost of keeping a model running.">
+<link rel="canonical" href="https://evoclock.github.io/fieldnotes/notes/watts-per-token.html">
+<link rel="alternate" type="application/rss+xml" title="fieldnotes" href="../feed.xml">
 <style>
 :root {
   --coal: #151719;
@@ -70,34 +70,19 @@ footer {
   border-top: 1px solid rgba(240,242,241,.14);
   font-size: .95rem;
 }
-</style>
-</head>
-<body>
-<main>
-  <a class="back" href="../index.html">&larr; fieldnotes</a>
-  <p class="eyebrow">Note &middot; Running the hardware</p>
-  <h1>6.6W versus 35W, and a desk-scale PUE argument</h1>
-  <p class="byline">Julen Gamboa &middot; 9 August 2026</p>
+</style><link rel="stylesheet" href="../assets/fieldnote.css"><script defer src="../assets/tables.js"></script></head>
+<body class="fieldnote-page"><main>
+<nav class="fieldnote-nav" aria-label="Site navigation"><a href="../index.html">Back to fieldnotes</a> · <a href="../subscribe.html">Subscribe</a></nav>
+<header><p class="eyebrow">Note · Fieldnote</p>
+<h1>Is cooling part of the inference budget?</h1><p class="subtitle">A 6.6 W fan, a 35 W desk fan, and the cost of keeping a model running.</p>
+<p class="byline">Julen Gamboa · 9 August 2026</p></header>
+<article><p>When I run evaluations for hours at a time, the power budget is not just the model. It includes whatever keeps the machine able to produce tokens throughout the run. Cooling belongs in that accounting, even at the scale of one desk.</p>
 
-  <p>Sustained eval workloads are watts-bound on a desk-scale box. Not
-  thermally bound, though that comes into it, but bound by what the whole
-  machine draws to keep producing tokens for hours.</p>
+  <p>The comparison that prompted this note was an external Noctua NF-A14 industrialPPC-3000, rated at 6.6 W, against a desk fan drawing around 35 W. Both were being used to move air through a hot chassis. The original comparison treated them as moving roughly the same air; that is an operating observation here, not a matched airflow benchmark. The difference matters for every hour the evaluation runs.</p>
 
-  <p>An external Noctua NF-A14 industrialPPC-3000 draws 6.6W to move air
-  through a hot chassis. A desk fan pulls around 35W to move roughly the same
-  air. That difference runs for the entire length of every eval, so it lands in
-  watts per token rather than in a peak figure nobody measures.</p>
-
-  <p>It saves on power and it prolongs the hardware, but the watts-per-token
-  argument is the one that matters. It is the same reasoning behind power usage
-  effectiveness in a datacenter, applied at the scale of one desk: the useful
-  work is the tokens, and everything else spent keeping the box able to produce
-  them is overhead worth measuring.</p>
+  <p>This is the intuition behind power usage effectiveness (PUE) in a data centre, brought down to one desk. I am not claiming a measured PUE value for the setup. I want to include the overhead of keeping inference running when I compare the energy used to produce tokens, rather than report a favourable component figure and leave the cooling out.</p>
 
   <footer>
-    <p>A note rather than an article: an argument worth writing down, without
-    the length to justify more.</p>
+    <p>Cooling may also help the hardware, but this note does not measure its lifetime. The narrower argument is enough: if I need a fan to sustain a run, the fan belongs in the run's energy budget.</p>
   </footer>
-</main>
-</body>
-</html>
+<aside class="entry-takeaway"><h2>One-line takeaway</h2><p>Cooling needed to sustain a run belongs in its energy budget, even though fan ratings alone do not measure energy per token.</p></aside></article></main></body></html>
