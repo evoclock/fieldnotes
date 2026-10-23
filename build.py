@@ -31,6 +31,11 @@ TAGLINE = ("Writing and evidence: agent systems, models, evaluation and "
 # theme keys, ISO date, meta line, title, blurb, path, thumbnail, alt text.
 # An entry may carry several themes; it then appears under each of them.
 ENTRIES = [
+ (["comp-bio", "evaluation"], "2026-10-23", "Circadian ChIP-seq · 23 October 2026",
+  "60% of the time, it works every time",
+  "Is published research data ready to train models? I revisit four circadian ChIP-seq studies and what their raw data can support under consistent reanalysis.",
+  "articles/60-percent-of-the-time-it-works-every-time.html", "articles/source_assets/anchorman.jpg",
+  "Anchorman meme: 60% of the time, it works every time"),
  (["models", "evaluation"], "2026-10-09", "GLM-5.3-Flash serving · 9 October 2026",
   "Is fast decoding the be all and end all?",
   "Four serving recipes for GLM-5.3-Flash on two DGX Sparks. The recipe that answers fastest is not the one that generates fastest, and none of the four escapes the constraints that matter for real agent work.",

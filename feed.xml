@@ -6,8 +6,17 @@
     <link>https://evoclock.github.io/fieldnotes/</link>
     <description>Writing and evidence: agent systems, models, evaluation and computational biology.</description>
     <language>en-GB</language>
-    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://evoclock.github.io/fieldnotes/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>60% of the time, it works every time</title>
+      <link>https://evoclock.github.io/fieldnotes/articles/60-percent-of-the-time-it-works-every-time.html</link>
+      <guid isPermaLink="true">https://evoclock.github.io/fieldnotes/articles/60-percent-of-the-time-it-works-every-time.html</guid>
+      <pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate>
+      <description>Is published research data ready to train models? I revisit four circadian ChIP-seq studies and what their raw data can support under consistent reanalysis.</description>
+      <category>comp-bio</category>
+      <category>evaluation</category>
+    </item>
     <item>
       <title>Is fast decoding the be all and end all?</title>
       <link>https://evoclock.github.io/fieldnotes/articles/is-fast-decoding-the-be-all-and-end-all.html</link>

@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2001 1436" width="2001" height="1436" role="img" aria-labelledby="bb-t bb-d">
+<title id="bb-t">Transcription factor ChIP-seq</title><desc id="bb-d">ENCODE pipeline ENCPL138KID · replicated</desc>
+<style>
+text{font-family:Geist,"Geist Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums}
+.bb-title{font-size:36px;font-weight:300;letter-spacing:-.015em}
+.bb-subtitle{font-size:14px;font-weight:400}
+.bb-kicker-top{font-size:10.5px;font-weight:500;letter-spacing:2.6px}
+.bb-meta{font-size:11px;font-weight:400;letter-spacing:.03em}
+.bb-meter-big{font-size:42px;font-weight:300;letter-spacing:-.02em}
+.bb-meter-unit{font-size:17px;font-weight:300}
+.bb-meter-track{stroke-width:1;fill:none}
+.bb-meter-solid,.bb-meter-part{stroke-width:3;fill:none}
+.bb-meter-part{stroke-dasharray:2 3}
+.bb-rule{stroke-width:1;fill:none}
+.bb-zone{stroke-width:1}
+.bb-zone-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.6px}
+.bb-zone-title{font-size:21px;font-weight:400;letter-spacing:-.005em}
+.bb-zone-sub{font-size:11.5px}
+.bb-node-box{stroke-width:1}
+.bb-node.status-planned .bb-node-box{stroke-dasharray:4 4}
+.bb-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.4px}
+.bb-node-title{font-size:17px;font-weight:500;letter-spacing:-.005em}
+.bb-copy{font-size:13.5px;font-weight:400}
+.bb-hint{font-size:11.5px;font-weight:400;letter-spacing:.02em}
+.bb-status-text{font-size:9.5px;font-weight:600;letter-spacing:1.9px}
+.bb-dot{stroke-width:1.1;fill:none}
+.bb-edge{fill:none;stroke-width:1.25;stroke-linejoin:round;stroke-linecap:round}
+.bb-edge.control{stroke-dasharray:3 4}
+.bb-edge.failure{stroke-dasharray:.1 4.5;stroke-width:1.8}
+.bb-edge.is-planned{opacity:.4}
+.bb-label{font-size:11.5px;font-weight:500;letter-spacing:.02em;paint-order:stroke;stroke-width:6px;stroke-linejoin:round}
+.bb-legend-text{font-size:12px;font-weight:400}
+.bb-finding-text{font-size:9px;font-weight:600;letter-spacing:1.6px}
+.iso-face{stroke-width:.8;stroke-linejoin:round}
+.bb-node.status-planned .iso-face{fill:none;stroke-dasharray:4 4;stroke-width:1}
+.iso-hatch line{stroke-width:.8;opacity:.45}
+.iso-label-knockout{paint-order:stroke;stroke-width:6px;stroke-linejoin:round}
+.bb-canvas{fill:#fbf9f6}
+.bb-title,.bb-zone-title,.bb-node-title,.bb-meter-big,.bb-meter-unit{fill:#2f2a27}
+.bb-subtitle,.bb-copy,.bb-hint,.bb-legend-text,.bb-meta,.bb-kicker,.bb-zone-kicker,.bb-kicker-top,.bb-zone-sub{fill:#716961}
+.bb-rule,.bb-meter-track{stroke:#dcdad7}
+.bb-meter-solid{stroke:#2f2a27}
+.bb-meter-part{stroke:#716961}
+.bb-zone{fill:#f5f3f0;stroke:#dcdad7}
+.bb-node-box{fill:#fffdfa;stroke:#dcdad7}
+.bb-node.status-planned .bb-node-box{fill:none;stroke:#c2bfbc}
+.bb-node.status-planned .bb-node-title{fill:#716961}
+.bb-status-text{fill:#716961}
+.bb-status.is-implemented .bb-status-text{fill:#716961}
+.bb-dot{stroke:#716961}
+.bb-dot-fill{fill:#716961}
+.bb-status.is-implemented .bb-dot{stroke:#2f2a27}
+.bb-status.is-implemented .bb-dot-fill{fill:#2f2a27}
+.bb-edge.data{stroke:#888079}
+.bb-edge.control{stroke:#747c86}
+.bb-edge.failure{stroke:#9b4a36}
+.bb-arrow.data{fill:#888079}
+.bb-arrow.control{fill:#747c86}
+.bb-arrow.failure{fill:#9b4a36}
+.bb-label,.iso-label-knockout{stroke:#fbf9f6}
+.bb-label.data{fill:#716961}
+.bb-label.control{fill:#4c535c}
+.bb-label.failure{fill:#9b4a36}
+.bb-flow{stroke:#2f2a27;stroke-opacity:.55}
+.bb-finding-text,.bb-finding-inline{fill:#9b4a36}
+.bb-node.has-finding .bb-node-box{stroke:#9b4a36}
+.bb-pseudo-fill{fill:#2f2a27}
+.bb-pseudo-ring{fill:#fbf9f6;stroke:#2f2a27;stroke-width:1.3}
+.bb-pseudo-choice{fill:#fffdfa}
+.bb-node.is-selected .bb-node-box,.bb-node[tabindex]:focus .bb-node-box{stroke:#2f2a27}
+.cat-slate .bb-mark,.bb-mark.cat-slate{fill:#4a5c73}
+.cat-slate .bb-kicker,.cat-slate .bb-zone-kicker{fill:#4e5d71}
+.cat-slate .bb-node-box{fill:#ebebeb;stroke:#bac0c7}
+.cat-slate.status-planned .bb-node-box{fill:none;stroke:#a3abb5}
+.bb-zone.cat-slate{fill:#f0f0ee;stroke:#c2c7cc}
+.cat-peach .bb-mark,.bb-mark.cat-peach{fill:#a76644}
+.cat-peach .bb-kicker,.cat-peach .bb-zone-kicker{fill:#a26647}
+.cat-peach .bb-node-box{fill:#f5ece6;stroke:#dec4b5}
+.cat-peach.status-planned .bb-node-box{fill:none;stroke:#d1b09d}
+.bb-zone.cat-peach{fill:#f6f0eb;stroke:#e0cabd}
+.cat-mauve .bb-mark,.bb-mark.cat-mauve{fill:#7b4e6d}
+.cat-mauve .bb-kicker,.cat-mauve .bb-zone-kicker{fill:#7a516c}
+.cat-mauve .bb-node-box{fill:#f0eaea;stroke:#cdbbc4}
+.cat-mauve.status-planned .bb-node-box{fill:none;stroke:#bba4b2}
+.bb-zone.cat-mauve{fill:#f3efee;stroke:#d2c2ca}
+.cat-sage .bb-mark,.bb-mark.cat-sage{fill:#427f61}
+.cat-sage .bb-kicker,.cat-sage .bb-zone-kicker{fill:#477d61}
+.cat-sage .bb-node-box{fill:#eaefe9;stroke:#b7cdc0}
+.cat-sage.status-planned .bb-node-box{fill:none;stroke:#9fbcac}
+.bb-zone.cat-sage{fill:#f0f2ed;stroke:#c0d2c6}
+.bb-flow{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:.1 28;animation:bb-flow 2.6s linear infinite}
+@keyframes bb-flow{to{stroke-dashoffset:-28.1}}
+@media (prefers-reduced-motion:reduce){.bb-flow{animation:none;opacity:0}}
+</style>
+<defs><marker id="bb-arrow-data" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="bb-arrow data" d="M 0 1 L 10 5 L 0 9 z"/></marker><marker id="bb-arrow-control" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="bb-arrow control" d="M 0 1 L 10 5 L 0 9 z"/></marker><marker id="bb-arrow-failure" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="bb-arrow failure" d="M 0 1 L 10 5 L 0 9 z"/></marker></defs>
+<rect class="bb-canvas" x="0" y="0" width="2001" height="1436"/>
+<text class="bb-title" x="40" y="100">Transcription factor ChIP-seq</text>
+<text class="bb-subtitle" x="40" y="130">ENCODE pipeline ENCPL138KID · replicated</text>
+<g class="bb-edges">
+<path class="bb-edge data map-item" d="M 361 587.5 L 395 587.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="align-peaks" data-to="spp"/>
+<path class="bb-flow map-item" d="M 361 587.5 L 395 587.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 681 587.5 L 715 587.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="spp" data-to="peaks"/>
+<path class="bb-flow map-item" d="M 681 587.5 L 715 587.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1001 566.4 L 1015 566.4 Q 1021 566.4 1021 560.4 L 1021 243.5 Q 1021 237.5 1027 237.5 L 1035 237.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="peaks" data-to="idr"/>
+<path class="bb-flow map-item" d="M 1001 566.4 L 1015 566.4 Q 1021 566.4 1021 560.4 L 1021 243.5 Q 1021 237.5 1027 237.5 L 1035 237.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1321 209.3 L 1335 209.3 Q 1341 209.3 1341 215.3 L 1341 231.5 Q 1341 237.5 1347 237.5 L 1355 237.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="idr" data-to="optimal"/>
+<path class="bb-flow map-item" d="M 1321 209.3 L 1335 209.3 Q 1341 209.3 1341 215.3 L 1341 231.5 Q 1341 237.5 1347 237.5 L 1355 237.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1321 237.5 L 1335 237.5 Q 1341 237.5 1341 243.5 L 1341 406.5 Q 1341 412.5 1347 412.5 L 1355 412.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="idr" data-to="conservative"/>
+<path class="bb-flow map-item" d="M 1321 237.5 L 1335 237.5 Q 1341 237.5 1341 243.5 L 1341 406.5 Q 1341 412.5 1347 412.5 L 1355 412.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1001 608.7 L 1015 608.7 Q 1021 608.7 1021 614.7 L 1021 756.5 Q 1021 762.5 1027 762.5 L 1035 762.5" marker-end="url(#bb-arrow-data)" data-from="peaks" data-to="convert-peaks"/>
+<path class="bb-flow map-item" d="M 1001 608.7 L 1015 608.7 Q 1021 608.7 1021 614.7 L 1021 756.5 Q 1021 762.5 1027 762.5 L 1035 762.5"/>
+<path class="bb-edge data map-item" d="M 1321 762.5 L 1355 762.5" marker-end="url(#bb-arrow-data)" data-from="convert-peaks" data-to="bigbed-peaks"/>
+<path class="bb-flow map-item" d="M 1321 762.5 L 1355 762.5"/>
+<path class="bb-edge data map-item" d="M 361 1112.5 L 395 1112.5" marker-end="url(#bb-arrow-data)" data-traces="signal" data-from="align-signal" data-to="macs"/>
+<path class="bb-flow map-item" d="M 361 1112.5 L 395 1112.5" data-traces="signal"/>
+<path class="bb-edge data map-item" d="M 681 1091.4 L 695 1091.4 Q 701 1091.4 701 1085.4 L 701 943.5 Q 701 937.5 707 937.5 L 715 937.5" marker-end="url(#bb-arrow-data)" data-traces="signal" data-from="macs" data-to="fold"/>
+<path class="bb-flow map-item" d="M 681 1091.4 L 695 1091.4 Q 701 1091.4 701 1085.4 L 701 943.5 Q 701 937.5 707 937.5 L 715 937.5" data-traces="signal"/>
+<path class="bb-edge data map-item" d="M 681 1133.7 L 695 1133.7 Q 701 1133.7 701 1139.7 L 701 1281.5 Q 701 1287.5 707 1287.5 L 715 1287.5" marker-end="url(#bb-arrow-data)" data-traces="signal" data-from="macs" data-to="pvalue"/>
+<path class="bb-flow map-item" d="M 681 1133.7 L 695 1133.7 Q 701 1133.7 701 1139.7 L 701 1281.5 Q 701 1287.5 707 1287.5 L 715 1287.5" data-traces="signal"/>
+<path class="bb-edge data map-item" d="M 1321 265.7 L 1332 265.7 Q 1338 265.7 1338 271.7 L 1338 1085.4 Q 1338 1091.4 1344 1091.4 L 1355 1091.4" marker-end="url(#bb-arrow-data)" data-from="idr" data-to="convert-idr"/>
+<path class="bb-flow map-item" d="M 1321 265.7 L 1332 265.7 Q 1338 265.7 1338 271.7 L 1338 1085.4 Q 1338 1091.4 1344 1091.4 L 1355 1091.4"/>
+<path class="bb-edge data map-item" d="M 1321 1112.5 L 1335 1112.5 Q 1341 1112.5 1341 1118.5 L 1341 1127.7 Q 1341 1133.7 1347 1133.7 L 1355 1133.7" marker-end="url(#bb-arrow-data)" data-from="idr-peaks" data-to="convert-idr"/>
+<path class="bb-flow map-item" d="M 1321 1112.5 L 1335 1112.5 Q 1341 1112.5 1341 1118.5 L 1341 1127.7 Q 1341 1133.7 1347 1133.7 L 1355 1133.7"/>
+<path class="bb-edge data map-item" d="M 1641 1112.5 L 1675 1112.5" marker-end="url(#bb-arrow-data)" data-from="convert-idr" data-to="bigbed-idr"/>
+<path class="bb-flow map-item" d="M 1641 1112.5 L 1675 1112.5"/>
+</g>
+<g class="bb-node map-item cat-slate" data-id="align-peaks" data-traces="peaks">
+<rect class="bb-node-box" x="75" y="517" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="101" cy="543" r="4"/>
+<text class="bb-kicker" x="112" y="547">FILE TYPE</text>
+<text class="bb-node-title" x="97" y="575">alignments</text>
+<text class="bb-copy" x="97" y="600">ChIP-seq mapping output</text>
+</g>
+<g class="bb-node map-item cat-peach" data-id="spp" data-traces="peaks">
+<rect class="bb-node-box" x="395" y="517" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="421" cy="543" r="4"/>
+<text class="bb-kicker" x="432" y="547">PEAK CALLING</text>
+<text class="bb-node-title" x="417" y="575">peak calling</text>
+<text class="bb-copy" x="417" y="600">Phantompeakqualtools, SPP</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="peaks" data-traces="peaks">
+<rect class="bb-node-box" x="715" y="517" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="741" cy="543" r="4"/>
+<text class="bb-kicker" x="752" y="547">FILE TYPE</text>
+<text class="bb-node-title" x="737" y="575">peaks</text>
+<text class="bb-copy" x="737" y="600">relaxed calls</text>
+</g>
+<g class="bb-node map-item cat-mauve" data-id="idr" data-traces="peaks">
+<rect class="bb-node-box" x="1035" y="167" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1061" cy="193" r="4"/>
+<text class="bb-kicker" x="1072" y="197">IDR</text>
+<text class="bb-node-title" x="1057" y="225">IDR</text>
+<text class="bb-copy" x="1057" y="250">Irreproducible</text>
+<text class="bb-copy" x="1057" y="270">Discovery Rate</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="optimal" data-traces="peaks">
+<rect class="bb-node-box" x="1355" y="167" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1381" cy="193" r="4"/>
+<text class="bb-kicker" x="1392" y="197">FILE TYPE</text>
+<text class="bb-node-title" x="1377" y="225">optimal IDR peaks</text>
+<text class="bb-copy" x="1377" y="250">thresholded peaks</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="conservative" data-traces="peaks">
+<rect class="bb-node-box" x="1355" y="342" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1381" cy="368" r="4"/>
+<text class="bb-kicker" x="1392" y="372">FILE TYPE</text>
+<text class="bb-node-title" x="1377" y="400">conservative IDR</text>
+<text class="bb-copy" x="1377" y="425">thresholded peaks</text>
+</g>
+<g class="bb-node map-item cat-peach" data-id="convert-peaks">
+<rect class="bb-node-box" x="1035" y="692" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1061" cy="718" r="4"/>
+<text class="bb-kicker" x="1072" y="722">FILE FORMAT CONVERSION</text>
+<text class="bb-node-title" x="1057" y="750">bedToBigBed</text>
+<text class="bb-copy" x="1057" y="775">peak conversion</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="bigbed-peaks">
+<rect class="bb-node-box" x="1355" y="692" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1381" cy="718" r="4"/>
+<text class="bb-kicker" x="1392" y="722">FILE TYPE</text>
+<text class="bb-node-title" x="1377" y="750">bigBed</text>
+<text class="bb-copy" x="1377" y="775">converted peak file</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="align-signal" data-traces="signal">
+<rect class="bb-node-box" x="75" y="1042" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="101" cy="1068" r="4"/>
+<text class="bb-kicker" x="112" y="1072">FILE TYPE</text>
+<text class="bb-node-title" x="97" y="1100">alignments</text>
+<text class="bb-copy" x="97" y="1125">signal input</text>
+</g>
+<g class="bb-node map-item cat-sage" data-id="macs" data-traces="signal">
+<rect class="bb-node-box" x="395" y="1042" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="421" cy="1068" r="4"/>
+<text class="bb-kicker" x="432" y="1072">SIGNAL GENERATION</text>
+<text class="bb-node-title" x="417" y="1100">signal generation</text>
+<text class="bb-copy" x="417" y="1125">MACS</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="fold" data-traces="signal">
+<rect class="bb-node-box" x="715" y="867" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="741" cy="893" r="4"/>
+<text class="bb-kicker" x="752" y="897">FILE TYPE</text>
+<text class="bb-node-title" x="737" y="925">fold change</text>
+<text class="bb-copy" x="737" y="950">over control</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="pvalue" data-traces="signal">
+<rect class="bb-node-box" x="715" y="1217" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="741" cy="1243" r="4"/>
+<text class="bb-kicker" x="752" y="1247">FILE TYPE</text>
+<text class="bb-node-title" x="737" y="1275">signal p-value</text>
+<text class="bb-copy" x="737" y="1300">signal output</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="idr-peaks">
+<rect class="bb-node-box" x="1035" y="1042" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1061" cy="1068" r="4"/>
+<text class="bb-kicker" x="1072" y="1072">FILE TYPE</text>
+<text class="bb-node-title" x="1057" y="1100">peaks</text>
+<text class="bb-copy" x="1057" y="1125">conversion input</text>
+</g>
+<g class="bb-node map-item cat-peach" data-id="convert-idr">
+<rect class="bb-node-box" x="1355" y="1042" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1381" cy="1068" r="4"/>
+<text class="bb-kicker" x="1392" y="1072">FILE FORMAT CONVERSION</text>
+<text class="bb-node-title" x="1377" y="1100">bedToBigBed</text>
+<text class="bb-copy" x="1377" y="1125">IDR peak conversion</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="bigbed-idr">
+<rect class="bb-node-box" x="1675" y="1042" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1701" cy="1068" r="4"/>
+<text class="bb-kicker" x="1712" y="1072">FILE TYPE</text>
+<text class="bb-node-title" x="1697" y="1100">bigBed</text>
+<text class="bb-copy" x="1697" y="1125">converted IDR file</text>
+</g>
+<g class="bb-legend" aria-label="Legend"><path class="bb-rule" d="M 40 1384 H 1961"/><circle class="bb-mark cat-slate" cx="44" cy="1402" r="4"/><text class="bb-legend-text" x="56" y="1406">Input and output</text><circle class="bb-mark cat-peach" cx="179.2" cy="1402" r="4"/><text class="bb-legend-text" x="191.2" y="1406">Analysis step</text><circle class="bb-mark cat-mauve" cx="295.42499999999995" cy="1402" r="4"/><text class="bb-legend-text" x="307.42499999999995" y="1406">IDR</text><circle class="bb-mark cat-sage" cx="348.4" cy="1402" r="4"/><text class="bb-legend-text" x="360.4" y="1406">Signal generation</text><path class="bb-edge data" d="M 485.92499999999995 1402 L 507.92499999999995 1402"/><text class="bb-legend-text" x="515.925" y="1406">Data flow</text></g>
+</svg>
