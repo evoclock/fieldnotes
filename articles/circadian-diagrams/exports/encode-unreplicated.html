@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en" data-theme="dark" class="motion">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transcription factor ChIP-seq (unreplicated)</title>
+<meta name="description" content="ENCODE pipeline ENCPL493SGC · pseudoreplicate IDR">
+<meta name="generator" content="bowerbird">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+html[data-theme=dark]{--bg:#1a1816;--panel:#272421;--line:#35302b;--ink:#ead1b5;--muted:#b09080;--accent:#79c39e}
+html[data-theme=light]{--bg:#fbf9f6;--panel:#fffdfa;--line:#dcdad7;--ink:#2f2a27;--muted:#716961;--accent:#3d8461}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-decoration-color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.22em}
+a:hover{color:var(--accent)}
+code{font:.84em ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+.page{width:min(1680px,calc(100% - 48px));margin:0 auto}
+.caps{font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.toolbar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;padding:14px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.toolbar .group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.toolbar label{margin-right:4px}
+button,select{min-height:32px;padding:4px 12px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink);font:inherit;font-size:.68rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+button:hover,select:hover{border-color:var(--muted)}
+button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+select option{background:var(--bg);color:var(--ink);text-transform:none;letter-spacing:0}
+:focus-visible{outline:1.5px solid var(--accent);outline-offset:3px}
+.stage{position:relative;height:min(82vh,1100px);margin:24px 0;overflow:hidden;overflow:clip;border:1px solid var(--line);border-radius:6px;background:var(--bg);cursor:grab;touch-action:none;user-select:none}
+.stage.panning{cursor:grabbing}
+.stage:focus-visible{outline-offset:-2px}
+.stage:fullscreen{height:100vh;border:0;border-radius:0}
+.viewport{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.viewport svg{display:block}
+.nav{position:absolute;top:12px;right:12px;z-index:2;display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.nav button{min-width:34px;min-height:30px;padding:0 9px;border-color:transparent;letter-spacing:.06em}
+.nav button:hover{border-color:var(--line)}
+.nav #zoom-level{min-width:58px;font-variant-numeric:tabular-nums}
+.minimap{position:absolute;right:12px;bottom:12px;z-index:2;width:clamp(140px,16vw,220px);overflow:hidden;border:1px solid var(--line);border-radius:4px;background:var(--bg);cursor:crosshair;transition:opacity .25s ease}
+.minimap img{display:block;width:100%;height:auto;pointer-events:none}
+.minimap-frame{position:absolute;border:1.5px solid var(--accent);border-radius:2px;box-shadow:0 0 0 999px rgb(0 0 0 / 22%);pointer-events:none}
+.stage.at-fit .minimap{opacity:0;pointer-events:none}
+.stage-hint{position:absolute;left:14px;bottom:10px;z-index:2;margin:0;pointer-events:none;opacity:.8}
+.stage:not(.at-fit) .stage-hint{opacity:0}
+.bb-node[tabindex]{cursor:pointer}
+.bb-node[tabindex]:hover .bb-node-box,.bb-node[tabindex]:focus .bb-node-box{stroke-width:1.6}
+.bb-node.is-selected .bb-node-box{stroke-width:2}
+.map-item{transition:opacity .25s ease}
+.map-item.is-dimmed{opacity:.12}
+html:not(.motion) .bb-flow{display:none}
+.motion .bb-node{animation:bb-enter .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes bb-enter{from{opacity:0}}
+.drawer[hidden]{display:none}
+.drawer{position:fixed;z-index:20;top:80px;right:24px;bottom:24px;display:flex;flex-direction:column;width:min(420px,calc(100vw - 48px));border:1px solid var(--line);border-radius:6px;background:var(--bg);box-shadow:0 24px 60px rgb(0 0 0 / 22%)}
+.drawer.from-left{right:auto;left:24px}
+.drawer-head{display:flex;gap:12px;justify-content:space-between;align-items:start;padding:20px 22px 16px;border-bottom:1px solid var(--line)}
+.drawer-head p{margin:0 0 6px}
+.drawer-head h2{margin:0;font-size:1.35rem;font-weight:400;letter-spacing:-.01em}
+.drawer-head button{min-height:28px;padding:0 9px;letter-spacing:0;font-size:1rem}
+.drawer-body{overflow:auto;padding:14px 22px 22px;font-size:.9rem}
+.drawer-body h4,.detail h4{margin:18px 0 6px;color:var(--muted);font-size:.66rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.drawer-body ul,.detail ul{margin:6px 0;padding-left:16px}
+.evidence-list{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:.84rem}
+.evidence-list b{display:block;margin-bottom:4px;color:var(--muted);font-size:.66rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.details{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:0 32px;margin:40px 0 56px}
+.details>h2{grid-column:1/-1;margin:0 0 12px;font-size:1.5rem;font-weight:300;letter-spacing:-.01em}
+details.card{border-top:1px solid var(--line)}
+details.card summary{padding:14px 0;cursor:pointer;font-weight:500;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.card summary::-webkit-details-marker{display:none}
+details.card summary .st{margin-left:auto}
+details.card .detail{padding:0 0 18px;font-size:.9rem;color:var(--ink)}
+footer{padding:18px 0 32px;border-top:1px solid var(--line)}
+@media (max-width:760px){.drawer,.drawer.from-left{top:auto;left:12px;right:12px;bottom:12px;width:auto;max-height:66vh}}
+@media (prefers-reduced-motion:reduce){.map-item{transition:none}.motion .bb-node{animation:none}}
+@media print{.toolbar,.drawer{display:none}details.card>*:not(summary){display:block!important}}
+</style>
+</head>
+<body data-basename="encode-unreplicated">
+<div class="page">
+<div class="toolbar"><div class="group"><label class="caps" for="trace">Trace</label><select id="trace"><option value="all">Show everything</option><option value="peaks">Peak and pseudoreplicate branches</option><option value="signal">Signal branch</option></select></div>
+<div class="group"><button id="motion" type="button" aria-pressed="true" title="Toggle flow animation (M)">Motion</button><button id="theme" type="button" title="Toggle theme (T)">Light</button>
+<select id="export" aria-label="Export diagram"><option value="">Export…</option><option value="svg">SVG</option><option value="png">PNG (2×)</option><option value="webp">WebP (2×)</option></select></div></div>
+<div class="stage at-fit" id="stage" tabindex="0" aria-label="Diagram canvas. Drag to pan, Ctrl or Cmd plus scroll to zoom, F to fit.">
+<div class="viewport" id="viewport"><svg viewBox="0 0 2321 1261" role="group" aria-labelledby="bb-t" xmlns="http://www.w3.org/2000/svg"><title id="bb-t">Transcription factor ChIP-seq (unreplicated)</title><style>
+text{font-family:Geist,"Geist Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums}
+.bb-title{font-size:36px;font-weight:300;letter-spacing:-.015em}
+.bb-subtitle{font-size:14px;font-weight:400}
+.bb-kicker-top{font-size:10.5px;font-weight:500;letter-spacing:2.6px}
+.bb-meta{font-size:11px;font-weight:400;letter-spacing:.03em}
+.bb-meter-big{font-size:42px;font-weight:300;letter-spacing:-.02em}
+.bb-meter-unit{font-size:17px;font-weight:300}
+.bb-meter-track{stroke-width:1;fill:none}
+.bb-meter-solid,.bb-meter-part{stroke-width:3;fill:none}
+.bb-meter-part{stroke-dasharray:2 3}
+.bb-rule{stroke-width:1;fill:none}
+.bb-zone{stroke-width:1}
+.bb-zone-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.6px}
+.bb-zone-title{font-size:21px;font-weight:400;letter-spacing:-.005em}
+.bb-zone-sub{font-size:11.5px}
+.bb-node-box{stroke-width:1}
+.bb-node.status-planned .bb-node-box{stroke-dasharray:4 4}
+.bb-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.4px}
+.bb-node-title{font-size:17px;font-weight:500;letter-spacing:-.005em}
+.bb-copy{font-size:13.5px;font-weight:400}
+.bb-hint{font-size:11.5px;font-weight:400;letter-spacing:.02em}
+.bb-status-text{font-size:9.5px;font-weight:600;letter-spacing:1.9px}
+.bb-dot{stroke-width:1.1;fill:none}
+.bb-edge{fill:none;stroke-width:1.25;stroke-linejoin:round;stroke-linecap:round}
+.bb-edge.control{stroke-dasharray:3 4}
+.bb-edge.failure{stroke-dasharray:.1 4.5;stroke-width:1.8}
+.bb-edge.is-planned{opacity:.4}
+.bb-label{font-size:11.5px;font-weight:500;letter-spacing:.02em;paint-order:stroke;stroke-width:6px;stroke-linejoin:round}
+.bb-legend-text{font-size:12px;font-weight:400}
+.bb-finding-text{font-size:9px;font-weight:600;letter-spacing:1.6px}
+.iso-face{stroke-width:.8;stroke-linejoin:round}
+.bb-node.status-planned .iso-face{fill:none;stroke-dasharray:4 4;stroke-width:1}
+.iso-hatch line{stroke-width:.8;opacity:.45}
+.iso-label-knockout{paint-order:stroke;stroke-width:6px;stroke-linejoin:round}
+html[data-theme=dark] .bb-canvas{fill:#1a1816}
+html[data-theme=dark] .bb-title,html[data-theme=dark] .bb-zone-title,html[data-theme=dark] .bb-node-title,html[data-theme=dark] .bb-meter-big,html[data-theme=dark] .bb-meter-unit{fill:#ead1b5}
+html[data-theme=dark] .bb-subtitle,html[data-theme=dark] .bb-copy,html[data-theme=dark] .bb-hint,html[data-theme=dark] .bb-legend-text,html[data-theme=dark] .bb-meta,html[data-theme=dark] .bb-kicker,html[data-theme=dark] .bb-zone-kicker,html[data-theme=dark] .bb-kicker-top,html[data-theme=dark] .bb-zone-sub{fill:#b09080}
+html[data-theme=dark] .bb-rule,html[data-theme=dark] .bb-meter-track{stroke:#35302b}
+html[data-theme=dark] .bb-meter-solid{stroke:#ead1b5}
+html[data-theme=dark] .bb-meter-part{stroke:#b09080}
+html[data-theme=dark] .bb-zone{fill:#1f1c19;stroke:#35302b}
+html[data-theme=dark] .bb-node-box{fill:#272421;stroke:#35302b}
+html[data-theme=dark] .bb-node.status-planned .bb-node-box{fill:none;stroke:#4c443c}
+html[data-theme=dark] .bb-node.status-planned .bb-node-title{fill:#b09080}
+html[data-theme=dark] .bb-status-text{fill:#b09080}
+html[data-theme=dark] .bb-status.is-implemented .bb-status-text{fill:#b09080}
+html[data-theme=dark] .bb-dot{stroke:#b09080}
+html[data-theme=dark] .bb-dot-fill{fill:#b09080}
+html[data-theme=dark] .bb-status.is-implemented .bb-dot{stroke:#ead1b5}
+html[data-theme=dark] .bb-status.is-implemented .bb-dot-fill{fill:#ead1b5}
+html[data-theme=dark] .bb-edge.data{stroke:#958574}
+html[data-theme=dark] .bb-edge.control{stroke:#6b737e}
+html[data-theme=dark] .bb-edge.failure{stroke:#c27a5c}
+html[data-theme=dark] .bb-arrow.data{fill:#958574}
+html[data-theme=dark] .bb-arrow.control{fill:#6b737e}
+html[data-theme=dark] .bb-arrow.failure{fill:#c27a5c}
+html[data-theme=dark] .bb-label,html[data-theme=dark] .iso-label-knockout{stroke:#1a1816}
+html[data-theme=dark] .bb-label.data{fill:#b09080}
+html[data-theme=dark] .bb-label.control{fill:#a4a8ae}
+html[data-theme=dark] .bb-label.failure{fill:#c27a5c}
+html[data-theme=dark] .bb-flow{stroke:#ead1b5;stroke-opacity:.55}
+html[data-theme=dark] .bb-finding-text,html[data-theme=dark] .bb-finding-inline{fill:#c27a5c}
+html[data-theme=dark] .bb-node.has-finding .bb-node-box{stroke:#c27a5c}
+html[data-theme=dark] .bb-pseudo-fill{fill:#ead1b5}
+html[data-theme=dark] .bb-pseudo-ring{fill:#1a1816;stroke:#ead1b5;stroke-width:1.3}
+html[data-theme=dark] .bb-pseudo-choice{fill:#272421}
+html[data-theme=dark] .bb-node.is-selected .bb-node-box,html[data-theme=dark] .bb-node[tabindex]:focus .bb-node-box{stroke:#ead1b5}
+html[data-theme=dark] .cat-slate .bb-mark,html[data-theme=dark] .bb-mark.cat-slate{fill:#7a92ae}
+html[data-theme=dark] .cat-slate .bb-kicker,html[data-theme=dark] .cat-slate .bb-zone-kicker{fill:#8592a5}
+html[data-theme=dark] .cat-slate .bb-node-box{fill:#343638;stroke:#454c54}
+html[data-theme=dark] .cat-slate.status-planned .bb-node-box{fill:none;stroke:#454f5a}
+html[data-theme=dark] .bb-zone.cat-slate{fill:#212121;stroke:#33383e}
+html[data-theme=dark] .cat-peach .bb-mark,html[data-theme=dark] .bb-mark.cat-peach{fill:#ca9a7d}
+html[data-theme=dark] .cat-peach .bb-kicker,html[data-theme=dark] .cat-peach .bb-zone-kicker{fill:#c5987e}
+html[data-theme=dark] .cat-peach .bb-node-box{fill:#413730;stroke:#624e42}
+html[data-theme=dark] .cat-peach.status-planned .bb-node-box{fill:none;stroke:#695344}
+html[data-theme=dark] .bb-zone.cat-peach{fill:#26211d;stroke:#483a31}
+html[data-theme=dark] .cat-mauve .bb-mark,html[data-theme=dark] .bb-mark.cat-mauve{fill:#ae7a9d}
+html[data-theme=dark] .cat-mauve .bb-kicker,html[data-theme=dark] .cat-mauve .bb-zone-kicker{fill:#ae7e97}
+html[data-theme=dark] .cat-mauve .bb-node-box{fill:#3d3235;stroke:#58434e}
+html[data-theme=dark] .cat-mauve.status-planned .bb-node-box{fill:none;stroke:#5d4453}
+html[data-theme=dark] .bb-zone.cat-mauve{fill:#241f1f;stroke:#403139}
+html[data-theme=dark] .cat-sage .bb-mark,html[data-theme=dark] .bb-mark.cat-sage{fill:#7fbd9e}
+html[data-theme=dark] .cat-sage .bb-kicker,html[data-theme=dark] .cat-sage .bb-zone-kicker{fill:#89b498}
+html[data-theme=dark] .cat-sage .bb-node-box{fill:#353c35;stroke:#475b4e}
+html[data-theme=dark] .cat-sage.status-planned .bb-node-box{fill:none;stroke:#476253}
+html[data-theme=dark] .bb-zone.cat-sage{fill:#212420;stroke:#344339}html[data-theme=light] .bb-canvas{fill:#fbf9f6}
+html[data-theme=light] .bb-title,html[data-theme=light] .bb-zone-title,html[data-theme=light] .bb-node-title,html[data-theme=light] .bb-meter-big,html[data-theme=light] .bb-meter-unit{fill:#2f2a27}
+html[data-theme=light] .bb-subtitle,html[data-theme=light] .bb-copy,html[data-theme=light] .bb-hint,html[data-theme=light] .bb-legend-text,html[data-theme=light] .bb-meta,html[data-theme=light] .bb-kicker,html[data-theme=light] .bb-zone-kicker,html[data-theme=light] .bb-kicker-top,html[data-theme=light] .bb-zone-sub{fill:#716961}
+html[data-theme=light] .bb-rule,html[data-theme=light] .bb-meter-track{stroke:#dcdad7}
+html[data-theme=light] .bb-meter-solid{stroke:#2f2a27}
+html[data-theme=light] .bb-meter-part{stroke:#716961}
+html[data-theme=light] .bb-zone{fill:#f5f3f0;stroke:#dcdad7}
+html[data-theme=light] .bb-node-box{fill:#fffdfa;stroke:#dcdad7}
+html[data-theme=light] .bb-node.status-planned .bb-node-box{fill:none;stroke:#c2bfbc}
+html[data-theme=light] .bb-node.status-planned .bb-node-title{fill:#716961}
+html[data-theme=light] .bb-status-text{fill:#716961}
+html[data-theme=light] .bb-status.is-implemented .bb-status-text{fill:#716961}
+html[data-theme=light] .bb-dot{stroke:#716961}
+html[data-theme=light] .bb-dot-fill{fill:#716961}
+html[data-theme=light] .bb-status.is-implemented .bb-dot{stroke:#2f2a27}
+html[data-theme=light] .bb-status.is-implemented .bb-dot-fill{fill:#2f2a27}
+html[data-theme=light] .bb-edge.data{stroke:#888079}
+html[data-theme=light] .bb-edge.control{stroke:#747c86}
+html[data-theme=light] .bb-edge.failure{stroke:#9b4a36}
+html[data-theme=light] .bb-arrow.data{fill:#888079}
+html[data-theme=light] .bb-arrow.control{fill:#747c86}
+html[data-theme=light] .bb-arrow.failure{fill:#9b4a36}
+html[data-theme=light] .bb-label,html[data-theme=light] .iso-label-knockout{stroke:#fbf9f6}
+html[data-theme=light] .bb-label.data{fill:#716961}
+html[data-theme=light] .bb-label.control{fill:#4c535c}
+html[data-theme=light] .bb-label.failure{fill:#9b4a36}
+html[data-theme=light] .bb-flow{stroke:#2f2a27;stroke-opacity:.55}
+html[data-theme=light] .bb-finding-text,html[data-theme=light] .bb-finding-inline{fill:#9b4a36}
+html[data-theme=light] .bb-node.has-finding .bb-node-box{stroke:#9b4a36}
+html[data-theme=light] .bb-pseudo-fill{fill:#2f2a27}
+html[data-theme=light] .bb-pseudo-ring{fill:#fbf9f6;stroke:#2f2a27;stroke-width:1.3}
+html[data-theme=light] .bb-pseudo-choice{fill:#fffdfa}
+html[data-theme=light] .bb-node.is-selected .bb-node-box,html[data-theme=light] .bb-node[tabindex]:focus .bb-node-box{stroke:#2f2a27}
+html[data-theme=light] .cat-slate .bb-mark,html[data-theme=light] .bb-mark.cat-slate{fill:#4a5c73}
+html[data-theme=light] .cat-slate .bb-kicker,html[data-theme=light] .cat-slate .bb-zone-kicker{fill:#4e5d71}
+html[data-theme=light] .cat-slate .bb-node-box{fill:#ebebeb;stroke:#bac0c7}
+html[data-theme=light] .cat-slate.status-planned .bb-node-box{fill:none;stroke:#a3abb5}
+html[data-theme=light] .bb-zone.cat-slate{fill:#f0f0ee;stroke:#c2c7cc}
+html[data-theme=light] .cat-peach .bb-mark,html[data-theme=light] .bb-mark.cat-peach{fill:#a76644}
+html[data-theme=light] .cat-peach .bb-kicker,html[data-theme=light] .cat-peach .bb-zone-kicker{fill:#a26647}
+html[data-theme=light] .cat-peach .bb-node-box{fill:#f5ece6;stroke:#dec4b5}
+html[data-theme=light] .cat-peach.status-planned .bb-node-box{fill:none;stroke:#d1b09d}
+html[data-theme=light] .bb-zone.cat-peach{fill:#f6f0eb;stroke:#e0cabd}
+html[data-theme=light] .cat-mauve .bb-mark,html[data-theme=light] .bb-mark.cat-mauve{fill:#7b4e6d}
+html[data-theme=light] .cat-mauve .bb-kicker,html[data-theme=light] .cat-mauve .bb-zone-kicker{fill:#7a516c}
+html[data-theme=light] .cat-mauve .bb-node-box{fill:#f0eaea;stroke:#cdbbc4}
+html[data-theme=light] .cat-mauve.status-planned .bb-node-box{fill:none;stroke:#bba4b2}
+html[data-theme=light] .bb-zone.cat-mauve{fill:#f3efee;stroke:#d2c2ca}
+html[data-theme=light] .cat-sage .bb-mark,html[data-theme=light] .bb-mark.cat-sage{fill:#427f61}
+html[data-theme=light] .cat-sage .bb-kicker,html[data-theme=light] .cat-sage .bb-zone-kicker{fill:#477d61}
+html[data-theme=light] .cat-sage .bb-node-box{fill:#eaefe9;stroke:#b7cdc0}
+html[data-theme=light] .cat-sage.status-planned .bb-node-box{fill:none;stroke:#9fbcac}
+html[data-theme=light] .bb-zone.cat-sage{fill:#f0f2ed;stroke:#c0d2c6}
+.bb-flow{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:.1 28;animation:bb-flow 2.6s linear infinite}
+@keyframes bb-flow{to{stroke-dashoffset:-28.1}}
+@media (prefers-reduced-motion:reduce){.bb-flow{animation:none;opacity:0}}
+</style><defs><marker id="bb-arrow-data" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="bb-arrow data" d="M 0 1 L 10 5 L 0 9 z"/></marker><marker id="bb-arrow-control" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="bb-arrow control" d="M 0 1 L 10 5 L 0 9 z"/></marker><marker id="bb-arrow-failure" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="bb-arrow failure" d="M 0 1 L 10 5 L 0 9 z"/></marker></defs><rect class="bb-canvas" x="0" y="0" width="2321" height="1261"/>
+<text class="bb-title" x="40" y="100">Transcription factor ChIP-seq (unreplicated)</text>
+<text class="bb-subtitle" x="40" y="130">ENCODE pipeline ENCPL493SGC · pseudoreplicate IDR</text>
+<g class="bb-edges">
+<path class="bb-edge data map-item" d="M 361 412.5 L 395 412.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="align-peaks" data-to="spp"/>
+<path class="bb-flow map-item" d="M 361 412.5 L 395 412.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 681 412.5 L 715 412.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="spp" data-to="peaks"/>
+<path class="bb-flow map-item" d="M 681 412.5 L 715 412.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1001 391.4 L 1015 391.4 Q 1021 391.4 1021 385.4 L 1021 243.5 Q 1021 237.5 1027 237.5 L 1035 237.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="peaks" data-to="idr"/>
+<path class="bb-flow map-item" d="M 1001 391.4 L 1015 391.4 Q 1021 391.4 1021 385.4 L 1021 243.5 Q 1021 237.5 1027 237.5 L 1035 237.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1321 237.5 L 1355 237.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="idr" data-to="pseudo"/>
+<path class="bb-flow map-item" d="M 1321 237.5 L 1355 237.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1641 237.5 L 1675 237.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="pseudo" data-to="convert-idr"/>
+<path class="bb-flow map-item" d="M 1641 237.5 L 1675 237.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1961 237.5 L 1995 237.5" marker-end="url(#bb-arrow-data)" data-traces="peaks" data-from="convert-idr" data-to="bigbed-idr"/>
+<path class="bb-flow map-item" d="M 1961 237.5 L 1995 237.5" data-traces="peaks"/>
+<path class="bb-edge data map-item" d="M 1001 433.7 L 1015 433.7 Q 1021 433.7 1021 439.7 L 1021 581.5 Q 1021 587.5 1027 587.5 L 1035 587.5" marker-end="url(#bb-arrow-data)" data-from="peaks" data-to="convert-peaks"/>
+<path class="bb-flow map-item" d="M 1001 433.7 L 1015 433.7 Q 1021 433.7 1021 439.7 L 1021 581.5 Q 1021 587.5 1027 587.5 L 1035 587.5"/>
+<path class="bb-edge data map-item" d="M 1321 587.5 L 1355 587.5" marker-end="url(#bb-arrow-data)" data-from="convert-peaks" data-to="bigbed-peaks"/>
+<path class="bb-flow map-item" d="M 1321 587.5 L 1355 587.5"/>
+<path class="bb-edge data map-item" d="M 361 937.5 L 395 937.5" marker-end="url(#bb-arrow-data)" data-traces="signal" data-from="align-signal" data-to="macs"/>
+<path class="bb-flow map-item" d="M 361 937.5 L 395 937.5" data-traces="signal"/>
+<path class="bb-edge data map-item" d="M 681 916.4 L 695 916.4 Q 701 916.4 701 910.4 L 701 768.5 Q 701 762.5 707 762.5 L 715 762.5" marker-end="url(#bb-arrow-data)" data-traces="signal" data-from="macs" data-to="fold"/>
+<path class="bb-flow map-item" d="M 681 916.4 L 695 916.4 Q 701 916.4 701 910.4 L 701 768.5 Q 701 762.5 707 762.5 L 715 762.5" data-traces="signal"/>
+<path class="bb-edge data map-item" d="M 681 958.7 L 695 958.7 Q 701 958.7 701 964.7 L 701 1106.5 Q 701 1112.5 707 1112.5 L 715 1112.5" marker-end="url(#bb-arrow-data)" data-traces="signal" data-from="macs" data-to="pvalue"/>
+<path class="bb-flow map-item" d="M 681 958.7 L 695 958.7 Q 701 958.7 701 964.7 L 701 1106.5 Q 701 1112.5 707 1112.5 L 715 1112.5" data-traces="signal"/>
+</g>
+<g class="bb-node map-item cat-slate" data-id="align-peaks" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for alignments">
+<rect class="bb-node-box" x="75" y="342" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="101" cy="368" r="4"/>
+<text class="bb-kicker" x="112" y="372">FILE TYPE</text>
+<text class="bb-node-title" x="97" y="400">alignments</text>
+<text class="bb-copy" x="97" y="425">ChIP-seq mapping output</text>
+</g>
+<g class="bb-node map-item cat-peach" data-id="spp" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for peak calling">
+<rect class="bb-node-box" x="395" y="342" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="421" cy="368" r="4"/>
+<text class="bb-kicker" x="432" y="372">PEAK CALLING</text>
+<text class="bb-node-title" x="417" y="400">peak calling</text>
+<text class="bb-copy" x="417" y="425">Phantompeakqualtools, SPP</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="peaks" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for peaks">
+<rect class="bb-node-box" x="715" y="342" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="741" cy="368" r="4"/>
+<text class="bb-kicker" x="752" y="372">FILE TYPE</text>
+<text class="bb-node-title" x="737" y="400">peaks</text>
+<text class="bb-copy" x="737" y="425">relaxed calls</text>
+</g>
+<g class="bb-node map-item cat-mauve" data-id="idr" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for unreplicated IDR">
+<rect class="bb-node-box" x="1035" y="167" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1061" cy="193" r="4"/>
+<text class="bb-kicker" x="1072" y="197">UNREPLICATED IDR</text>
+<text class="bb-node-title" x="1057" y="225">unreplicated IDR</text>
+<text class="bb-copy" x="1057" y="250">Irreproducible</text>
+<text class="bb-copy" x="1057" y="270">Discovery Rate</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="pseudo" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for pseudoreplicated">
+<rect class="bb-node-box" x="1355" y="167" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1381" cy="193" r="4"/>
+<text class="bb-kicker" x="1392" y="197">FILE TYPE</text>
+<text class="bb-node-title" x="1377" y="225">pseudoreplicated</text>
+<text class="bb-copy" x="1377" y="250">IDR thresholded peaks</text>
+</g>
+<g class="bb-node map-item cat-peach" data-id="convert-idr" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for bedToBigBed">
+<rect class="bb-node-box" x="1675" y="167" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1701" cy="193" r="4"/>
+<text class="bb-kicker" x="1712" y="197">FILE FORMAT CONVERSION</text>
+<text class="bb-node-title" x="1697" y="225">bedToBigBed</text>
+<text class="bb-copy" x="1697" y="250">IDR peak conversion</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="bigbed-idr" data-traces="peaks" tabindex="0" role="button" aria-label="Open details for bigBed">
+<rect class="bb-node-box" x="1995" y="167" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="2021" cy="193" r="4"/>
+<text class="bb-kicker" x="2032" y="197">FILE TYPE</text>
+<text class="bb-node-title" x="2017" y="225">bigBed</text>
+<text class="bb-copy" x="2017" y="250">converted IDR file</text>
+</g>
+<g class="bb-node map-item cat-peach" data-id="convert-peaks" tabindex="0" role="button" aria-label="Open details for bedToBigBed">
+<rect class="bb-node-box" x="1035" y="517" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1061" cy="543" r="4"/>
+<text class="bb-kicker" x="1072" y="547">FILE FORMAT CONVERSION</text>
+<text class="bb-node-title" x="1057" y="575">bedToBigBed</text>
+<text class="bb-copy" x="1057" y="600">peak conversion</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="bigbed-peaks" tabindex="0" role="button" aria-label="Open details for bigBed">
+<rect class="bb-node-box" x="1355" y="517" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="1381" cy="543" r="4"/>
+<text class="bb-kicker" x="1392" y="547">FILE TYPE</text>
+<text class="bb-node-title" x="1377" y="575">bigBed</text>
+<text class="bb-copy" x="1377" y="600">converted peak file</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="align-signal" data-traces="signal" tabindex="0" role="button" aria-label="Open details for alignments">
+<rect class="bb-node-box" x="75" y="867" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="101" cy="893" r="4"/>
+<text class="bb-kicker" x="112" y="897">FILE TYPE</text>
+<text class="bb-node-title" x="97" y="925">alignments</text>
+<text class="bb-copy" x="97" y="950">signal input</text>
+</g>
+<g class="bb-node map-item cat-sage" data-id="macs" data-traces="signal" tabindex="0" role="button" aria-label="Open details for signal generation">
+<rect class="bb-node-box" x="395" y="867" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="421" cy="893" r="4"/>
+<text class="bb-kicker" x="432" y="897">SIGNAL GENERATION</text>
+<text class="bb-node-title" x="417" y="925">signal generation</text>
+<text class="bb-copy" x="417" y="950">MACS</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="fold" data-traces="signal" tabindex="0" role="button" aria-label="Open details for fold change">
+<rect class="bb-node-box" x="715" y="692" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="741" cy="718" r="4"/>
+<text class="bb-kicker" x="752" y="722">FILE TYPE</text>
+<text class="bb-node-title" x="737" y="750">fold change</text>
+<text class="bb-copy" x="737" y="775">over control</text>
+</g>
+<g class="bb-node map-item cat-slate" data-id="pvalue" data-traces="signal" tabindex="0" role="button" aria-label="Open details for signal p-value">
+<rect class="bb-node-box" x="715" y="1042" width="286" height="141" rx="7"/>
+<circle class="bb-mark" cx="741" cy="1068" r="4"/>
+<text class="bb-kicker" x="752" y="1072">FILE TYPE</text>
+<text class="bb-node-title" x="737" y="1100">signal p-value</text>
+<text class="bb-copy" x="737" y="1125">signal output</text>
+</g>
+<g class="bb-legend" aria-label="Legend"><path class="bb-rule" d="M 40 1209 H 2281"/><circle class="bb-mark cat-slate" cx="44" cy="1227" r="4"/><text class="bb-legend-text" x="56" y="1231">Input and output</text><circle class="bb-mark cat-peach" cx="179.2" cy="1227" r="4"/><text class="bb-legend-text" x="191.2" y="1231">Analysis step</text><circle class="bb-mark cat-mauve" cx="295.42499999999995" cy="1227" r="4"/><text class="bb-legend-text" x="307.42499999999995" y="1231">Unreplicated IDR</text><circle class="bb-mark cat-sage" cx="430.62499999999994" cy="1227" r="4"/><text class="bb-legend-text" x="442.62499999999994" y="1231">Signal generation</text><path class="bb-edge data" d="M 568.1499999999999 1227 L 590.1499999999999 1227"/><text class="bb-legend-text" x="598.1499999999999" y="1231">Data flow</text></g></svg></div>
+<div class="nav" role="toolbar" aria-label="Zoom and navigation"><button id="zoom-out" type="button" aria-label="Zoom out (−)">−</button><button id="zoom-level" type="button" aria-label="Actual size (1)">100%</button><button id="zoom-in" type="button" aria-label="Zoom in (+)">+</button><button id="zoom-fit" type="button" aria-label="Fit to screen (F)">Fit</button><button id="fullscreen" type="button" aria-label="Fullscreen">⤢</button></div>
+<div class="minimap" id="minimap" aria-hidden="true"><img id="minimap-img" alt=""><div class="minimap-frame" id="minimap-frame"></div></div>
+<p class="stage-hint caps">Drag to pan · ⌘/Ctrl + scroll to zoom · F to fit</p>
+</div>
+<aside class="drawer" id="drawer" role="region" aria-labelledby="drawer-title" aria-live="polite" hidden><div class="drawer-head"><div><p class="caps" id="drawer-kicker">Component</p><h2 id="drawer-title"></h2></div><button id="drawer-close" type="button" aria-label="Close details">×</button></div><div class="drawer-body" id="drawer-body"></div></aside>
+<section class="details" aria-labelledby="details-h"><h2 id="details-h">Components</h2><details class="card" id="detail-align-peaks" data-kicker="file type"><summary><span class="t">alignments</span></summary><div class="detail"><p>ChIP-seq mapping output</p></div></details>
+<details class="card" id="detail-spp" data-kicker="peak calling"><summary><span class="t">peak calling</span></summary><div class="detail"><p>Phantompeakqualtools, SPP</p></div></details>
+<details class="card" id="detail-peaks" data-kicker="file type"><summary><span class="t">peaks</span></summary><div class="detail"><p>relaxed calls</p></div></details>
+<details class="card" id="detail-idr" data-kicker="unreplicated IDR"><summary><span class="t">unreplicated IDR</span></summary><div class="detail"><p>This step evaluates pseudoreplicates, not independent biological replicates.</p></div></details>
+<details class="card" id="detail-pseudo" data-kicker="file type"><summary><span class="t">pseudoreplicated</span></summary><div class="detail"><p>IDR thresholded peaks</p></div></details>
+<details class="card" id="detail-convert-idr" data-kicker="file format conversion"><summary><span class="t">bedToBigBed</span></summary><div class="detail"><p>IDR peak conversion</p></div></details>
+<details class="card" id="detail-bigbed-idr" data-kicker="file type"><summary><span class="t">bigBed</span></summary><div class="detail"><p>converted IDR file</p></div></details>
+<details class="card" id="detail-convert-peaks" data-kicker="file format conversion"><summary><span class="t">bedToBigBed</span></summary><div class="detail"><p>peak conversion</p></div></details>
+<details class="card" id="detail-bigbed-peaks" data-kicker="file type"><summary><span class="t">bigBed</span></summary><div class="detail"><p>converted peak file</p></div></details>
+<details class="card" id="detail-align-signal" data-kicker="file type"><summary><span class="t">alignments</span></summary><div class="detail"><p>signal input</p></div></details>
+<details class="card" id="detail-macs" data-kicker="signal generation"><summary><span class="t">signal generation</span></summary><div class="detail"><p>MACS</p></div></details>
+<details class="card" id="detail-fold" data-kicker="file type"><summary><span class="t">fold change</span></summary><div class="detail"><p>over control</p></div></details>
+<details class="card" id="detail-pvalue" data-kicker="file type"><summary><span class="t">signal p-value</span></summary><div class="detail"><p>signal output</p></div></details></section>
+<footer class="caps">Transcription factor ChIP-seq (unreplicated) · generated by bowerbird from <code>encode-unreplicated.bower.json</code> · standalone HTML</footer>
+</div>
+<script type="application/json" id="bb-standalone-css">{"dark":"\ntext{font-family:Geist,\"Geist Sans\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums}\n.bb-title{font-size:36px;font-weight:300;letter-spacing:-.015em}\n.bb-subtitle{font-size:14px;font-weight:400}\n.bb-kicker-top{font-size:10.5px;font-weight:500;letter-spacing:2.6px}\n.bb-meta{font-size:11px;font-weight:400;letter-spacing:.03em}\n.bb-meter-big{font-size:42px;font-weight:300;letter-spacing:-.02em}\n.bb-meter-unit{font-size:17px;font-weight:300}\n.bb-meter-track{stroke-width:1;fill:none}\n.bb-meter-solid,.bb-meter-part{stroke-width:3;fill:none}\n.bb-meter-part{stroke-dasharray:2 3}\n.bb-rule{stroke-width:1;fill:none}\n.bb-zone{stroke-width:1}\n.bb-zone-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.6px}\n.bb-zone-title{font-size:21px;font-weight:400;letter-spacing:-.005em}\n.bb-zone-sub{font-size:11.5px}\n.bb-node-box{stroke-width:1}\n.bb-node.status-planned .bb-node-box{stroke-dasharray:4 4}\n.bb-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.4px}\n.bb-node-title{font-size:17px;font-weight:500;letter-spacing:-.005em}\n.bb-copy{font-size:13.5px;font-weight:400}\n.bb-hint{font-size:11.5px;font-weight:400;letter-spacing:.02em}\n.bb-status-text{font-size:9.5px;font-weight:600;letter-spacing:1.9px}\n.bb-dot{stroke-width:1.1;fill:none}\n.bb-edge{fill:none;stroke-width:1.25;stroke-linejoin:round;stroke-linecap:round}\n.bb-edge.control{stroke-dasharray:3 4}\n.bb-edge.failure{stroke-dasharray:.1 4.5;stroke-width:1.8}\n.bb-edge.is-planned{opacity:.4}\n.bb-label{font-size:11.5px;font-weight:500;letter-spacing:.02em;paint-order:stroke;stroke-width:6px;stroke-linejoin:round}\n.bb-legend-text{font-size:12px;font-weight:400}\n.bb-finding-text{font-size:9px;font-weight:600;letter-spacing:1.6px}\n.iso-face{stroke-width:.8;stroke-linejoin:round}\n.bb-node.status-planned .iso-face{fill:none;stroke-dasharray:4 4;stroke-width:1}\n.iso-hatch line{stroke-width:.8;opacity:.45}\n.iso-label-knockout{paint-order:stroke;stroke-width:6px;stroke-linejoin:round}\n.bb-canvas{fill:#1a1816}\n.bb-title,.bb-zone-title,.bb-node-title,.bb-meter-big,.bb-meter-unit{fill:#ead1b5}\n.bb-subtitle,.bb-copy,.bb-hint,.bb-legend-text,.bb-meta,.bb-kicker,.bb-zone-kicker,.bb-kicker-top,.bb-zone-sub{fill:#b09080}\n.bb-rule,.bb-meter-track{stroke:#35302b}\n.bb-meter-solid{stroke:#ead1b5}\n.bb-meter-part{stroke:#b09080}\n.bb-zone{fill:#1f1c19;stroke:#35302b}\n.bb-node-box{fill:#272421;stroke:#35302b}\n.bb-node.status-planned .bb-node-box{fill:none;stroke:#4c443c}\n.bb-node.status-planned .bb-node-title{fill:#b09080}\n.bb-status-text{fill:#b09080}\n.bb-status.is-implemented .bb-status-text{fill:#b09080}\n.bb-dot{stroke:#b09080}\n.bb-dot-fill{fill:#b09080}\n.bb-status.is-implemented .bb-dot{stroke:#ead1b5}\n.bb-status.is-implemented .bb-dot-fill{fill:#ead1b5}\n.bb-edge.data{stroke:#958574}\n.bb-edge.control{stroke:#6b737e}\n.bb-edge.failure{stroke:#c27a5c}\n.bb-arrow.data{fill:#958574}\n.bb-arrow.control{fill:#6b737e}\n.bb-arrow.failure{fill:#c27a5c}\n.bb-label,.iso-label-knockout{stroke:#1a1816}\n.bb-label.data{fill:#b09080}\n.bb-label.control{fill:#a4a8ae}\n.bb-label.failure{fill:#c27a5c}\n.bb-flow{stroke:#ead1b5;stroke-opacity:.55}\n.bb-finding-text,.bb-finding-inline{fill:#c27a5c}\n.bb-node.has-finding .bb-node-box{stroke:#c27a5c}\n.bb-pseudo-fill{fill:#ead1b5}\n.bb-pseudo-ring{fill:#1a1816;stroke:#ead1b5;stroke-width:1.3}\n.bb-pseudo-choice{fill:#272421}\n.bb-node.is-selected .bb-node-box,.bb-node[tabindex]:focus .bb-node-box{stroke:#ead1b5}\n.cat-slate .bb-mark,.bb-mark.cat-slate{fill:#7a92ae}\n.cat-slate .bb-kicker,.cat-slate .bb-zone-kicker{fill:#8592a5}\n.cat-slate .bb-node-box{fill:#343638;stroke:#454c54}\n.cat-slate.status-planned .bb-node-box{fill:none;stroke:#454f5a}\n.bb-zone.cat-slate{fill:#212121;stroke:#33383e}\n.cat-peach .bb-mark,.bb-mark.cat-peach{fill:#ca9a7d}\n.cat-peach .bb-kicker,.cat-peach .bb-zone-kicker{fill:#c5987e}\n.cat-peach .bb-node-box{fill:#413730;stroke:#624e42}\n.cat-peach.status-planned .bb-node-box{fill:none;stroke:#695344}\n.bb-zone.cat-peach{fill:#26211d;stroke:#483a31}\n.cat-mauve .bb-mark,.bb-mark.cat-mauve{fill:#ae7a9d}\n.cat-mauve .bb-kicker,.cat-mauve .bb-zone-kicker{fill:#ae7e97}\n.cat-mauve .bb-node-box{fill:#3d3235;stroke:#58434e}\n.cat-mauve.status-planned .bb-node-box{fill:none;stroke:#5d4453}\n.bb-zone.cat-mauve{fill:#241f1f;stroke:#403139}\n.cat-sage .bb-mark,.bb-mark.cat-sage{fill:#7fbd9e}\n.cat-sage .bb-kicker,.cat-sage .bb-zone-kicker{fill:#89b498}\n.cat-sage .bb-node-box{fill:#353c35;stroke:#475b4e}\n.cat-sage.status-planned .bb-node-box{fill:none;stroke:#476253}\n.bb-zone.cat-sage{fill:#212420;stroke:#344339}","light":"\ntext{font-family:Geist,\"Geist Sans\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums}\n.bb-title{font-size:36px;font-weight:300;letter-spacing:-.015em}\n.bb-subtitle{font-size:14px;font-weight:400}\n.bb-kicker-top{font-size:10.5px;font-weight:500;letter-spacing:2.6px}\n.bb-meta{font-size:11px;font-weight:400;letter-spacing:.03em}\n.bb-meter-big{font-size:42px;font-weight:300;letter-spacing:-.02em}\n.bb-meter-unit{font-size:17px;font-weight:300}\n.bb-meter-track{stroke-width:1;fill:none}\n.bb-meter-solid,.bb-meter-part{stroke-width:3;fill:none}\n.bb-meter-part{stroke-dasharray:2 3}\n.bb-rule{stroke-width:1;fill:none}\n.bb-zone{stroke-width:1}\n.bb-zone-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.6px}\n.bb-zone-title{font-size:21px;font-weight:400;letter-spacing:-.005em}\n.bb-zone-sub{font-size:11.5px}\n.bb-node-box{stroke-width:1}\n.bb-node.status-planned .bb-node-box{stroke-dasharray:4 4}\n.bb-kicker{font-size:10.5px;font-weight:500;letter-spacing:2.4px}\n.bb-node-title{font-size:17px;font-weight:500;letter-spacing:-.005em}\n.bb-copy{font-size:13.5px;font-weight:400}\n.bb-hint{font-size:11.5px;font-weight:400;letter-spacing:.02em}\n.bb-status-text{font-size:9.5px;font-weight:600;letter-spacing:1.9px}\n.bb-dot{stroke-width:1.1;fill:none}\n.bb-edge{fill:none;stroke-width:1.25;stroke-linejoin:round;stroke-linecap:round}\n.bb-edge.control{stroke-dasharray:3 4}\n.bb-edge.failure{stroke-dasharray:.1 4.5;stroke-width:1.8}\n.bb-edge.is-planned{opacity:.4}\n.bb-label{font-size:11.5px;font-weight:500;letter-spacing:.02em;paint-order:stroke;stroke-width:6px;stroke-linejoin:round}\n.bb-legend-text{font-size:12px;font-weight:400}\n.bb-finding-text{font-size:9px;font-weight:600;letter-spacing:1.6px}\n.iso-face{stroke-width:.8;stroke-linejoin:round}\n.bb-node.status-planned .iso-face{fill:none;stroke-dasharray:4 4;stroke-width:1}\n.iso-hatch line{stroke-width:.8;opacity:.45}\n.iso-label-knockout{paint-order:stroke;stroke-width:6px;stroke-linejoin:round}\n.bb-canvas{fill:#fbf9f6}\n.bb-title,.bb-zone-title,.bb-node-title,.bb-meter-big,.bb-meter-unit{fill:#2f2a27}\n.bb-subtitle,.bb-copy,.bb-hint,.bb-legend-text,.bb-meta,.bb-kicker,.bb-zone-kicker,.bb-kicker-top,.bb-zone-sub{fill:#716961}\n.bb-rule,.bb-meter-track{stroke:#dcdad7}\n.bb-meter-solid{stroke:#2f2a27}\n.bb-meter-part{stroke:#716961}\n.bb-zone{fill:#f5f3f0;stroke:#dcdad7}\n.bb-node-box{fill:#fffdfa;stroke:#dcdad7}\n.bb-node.status-planned .bb-node-box{fill:none;stroke:#c2bfbc}\n.bb-node.status-planned .bb-node-title{fill:#716961}\n.bb-status-text{fill:#716961}\n.bb-status.is-implemented .bb-status-text{fill:#716961}\n.bb-dot{stroke:#716961}\n.bb-dot-fill{fill:#716961}\n.bb-status.is-implemented .bb-dot{stroke:#2f2a27}\n.bb-status.is-implemented .bb-dot-fill{fill:#2f2a27}\n.bb-edge.data{stroke:#888079}\n.bb-edge.control{stroke:#747c86}\n.bb-edge.failure{stroke:#9b4a36}\n.bb-arrow.data{fill:#888079}\n.bb-arrow.control{fill:#747c86}\n.bb-arrow.failure{fill:#9b4a36}\n.bb-label,.iso-label-knockout{stroke:#fbf9f6}\n.bb-label.data{fill:#716961}\n.bb-label.control{fill:#4c535c}\n.bb-label.failure{fill:#9b4a36}\n.bb-flow{stroke:#2f2a27;stroke-opacity:.55}\n.bb-finding-text,.bb-finding-inline{fill:#9b4a36}\n.bb-node.has-finding .bb-node-box{stroke:#9b4a36}\n.bb-pseudo-fill{fill:#2f2a27}\n.bb-pseudo-ring{fill:#fbf9f6;stroke:#2f2a27;stroke-width:1.3}\n.bb-pseudo-choice{fill:#fffdfa}\n.bb-node.is-selected .bb-node-box,.bb-node[tabindex]:focus .bb-node-box{stroke:#2f2a27}\n.cat-slate .bb-mark,.bb-mark.cat-slate{fill:#4a5c73}\n.cat-slate .bb-kicker,.cat-slate .bb-zone-kicker{fill:#4e5d71}\n.cat-slate .bb-node-box{fill:#ebebeb;stroke:#bac0c7}\n.cat-slate.status-planned .bb-node-box{fill:none;stroke:#a3abb5}\n.bb-zone.cat-slate{fill:#f0f0ee;stroke:#c2c7cc}\n.cat-peach .bb-mark,.bb-mark.cat-peach{fill:#a76644}\n.cat-peach .bb-kicker,.cat-peach .bb-zone-kicker{fill:#a26647}\n.cat-peach .bb-node-box{fill:#f5ece6;stroke:#dec4b5}\n.cat-peach.status-planned .bb-node-box{fill:none;stroke:#d1b09d}\n.bb-zone.cat-peach{fill:#f6f0eb;stroke:#e0cabd}\n.cat-mauve .bb-mark,.bb-mark.cat-mauve{fill:#7b4e6d}\n.cat-mauve .bb-kicker,.cat-mauve .bb-zone-kicker{fill:#7a516c}\n.cat-mauve .bb-node-box{fill:#f0eaea;stroke:#cdbbc4}\n.cat-mauve.status-planned .bb-node-box{fill:none;stroke:#bba4b2}\n.bb-zone.cat-mauve{fill:#f3efee;stroke:#d2c2ca}\n.cat-sage .bb-mark,.bb-mark.cat-sage{fill:#427f61}\n.cat-sage .bb-kicker,.cat-sage .bb-zone-kicker{fill:#477d61}\n.cat-sage .bb-node-box{fill:#eaefe9;stroke:#b7cdc0}\n.cat-sage.status-planned .bb-node-box{fill:none;stroke:#9fbcac}\n.bb-zone.cat-sage{fill:#f0f2ed;stroke:#c0d2c6}"}</script>
+<script>(() => {
+  const root = document.documentElement;
+  const svg = document.querySelector("#viewport svg");
+  const themeHooks = [];
+  const drawer = document.getElementById("drawer");
+  const dTitle = document.getElementById("drawer-title");
+  const dBody = document.getElementById("drawer-body");
+  const items = [...svg.querySelectorAll(".map-item")];
+  let active = null;
+  const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+  const key = "bowerbird:" + location.pathname;
+
+  function setTheme(t) { root.dataset.theme = t; store.set(key + ":theme", t); document.getElementById("theme").textContent = t === "dark" ? "Light" : "Dark"; themeHooks.forEach((f) => f()); }
+  function setMotion(on) { root.classList.toggle("motion", on); document.getElementById("motion").setAttribute("aria-pressed", String(on)); store.set(key + ":motion", on ? "1" : "0"); }
+  setTheme(store.get(key + ":theme") || root.dataset.theme);
+  setMotion((store.get(key + ":motion") ?? (root.classList.contains("motion") ? "1" : "0")) === "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches);
+  document.getElementById("theme").onclick = () => setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+  document.getElementById("motion").onclick = () => setMotion(!root.classList.contains("motion"));
+
+  const trace = document.getElementById("trace");
+  function applyTrace(v) {
+    for (const el of items) {
+      el.classList.remove("is-dimmed");
+      if (v === "all") continue;
+      const t = (el.dataset.traces || "").split(/\s+/);
+      if (!t.includes(v)) el.classList.add("is-dimmed");
+    }
+  }
+  if (trace) trace.onchange = () => applyTrace(trace.value);
+
+  function close(focus = true) {
+    if (drawer.hidden) return;
+    drawer.hidden = true; dBody.replaceChildren();
+    if (active) { active.classList.remove("is-selected"); active.setAttribute("aria-expanded", "false"); if (focus) active.focus({ preventScroll: true }); }
+    active = null;
+  }
+  function open(node) {
+    if (active === node && !drawer.hidden) return close();
+    const card = document.getElementById("detail-" + node.dataset.id);
+    if (!card) return;
+    if (active) { active.classList.remove("is-selected"); active.setAttribute("aria-expanded", "false"); }
+    active = node; node.classList.add("is-selected"); node.setAttribute("aria-expanded", "true");
+    dTitle.textContent = card.querySelector("summary .t").textContent;
+    document.getElementById("drawer-kicker").textContent = card.dataset.kicker || "Component";
+    dBody.innerHTML = card.querySelector(".detail").innerHTML;
+    const b = node.getBoundingClientRect();
+    drawer.classList.toggle("from-left", b.left + b.width / 2 > innerWidth / 2);
+    drawer.hidden = false;
+    document.getElementById("drawer-close").focus({ preventScroll: true });
+  }
+  for (const node of svg.querySelectorAll(".bb-node[data-id]")) {
+    node.setAttribute("aria-controls", "drawer"); node.setAttribute("aria-expanded", "false");
+    node.addEventListener("click", () => open(node));
+    node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(node); } });
+  }
+  document.getElementById("drawer-close").onclick = () => close();
+  addEventListener("keydown", (e) => {
+    if (e.target.closest && e.target.closest("input,select,textarea")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "t" || e.key === "T") document.getElementById("theme").click();
+    if (e.key === "m" || e.key === "M") document.getElementById("motion").click();
+  });
+
+  // Client-side export: rebuild a standalone SVG with the active theme's
+  // resolved CSS (no viewer state), then rasterise through a canvas.
+  const styles = JSON.parse(document.getElementById("bb-standalone-css").textContent);
+  function standalone() {
+    const clone = svg.cloneNode(true);
+    clone.querySelectorAll(".is-dimmed,.is-selected").forEach((el) => el.classList.remove("is-dimmed", "is-selected"));
+    clone.querySelectorAll(".bb-flow").forEach((el) => el.remove());
+    clone.querySelector("style").textContent = styles[root.dataset.theme];
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    return new XMLSerializer().serializeToString(clone);
+  }
+  const base = document.body.dataset.basename;
+  function save(blob, ext) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = base + "." + root.dataset.theme + "." + ext; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
+  function raster(type, ext) {
+    const img = new Image();
+    const vb = svg.viewBox.baseVal;
+    img.onload = () => {
+      const c = document.createElement("canvas"); c.width = vb.width * 2; c.height = vb.height * 2;
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      c.toBlob((b) => b && save(b, ext), type, 0.92);
+    };
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(standalone());
+  }
+  document.getElementById("export").onchange = (e) => {
+    const v = e.target.value; e.target.value = "";
+    if (v === "svg") save(new Blob([standalone()], { type: "image/svg+xml" }), "svg");
+    if (v === "png") raster("image/png", "png");
+    if (v === "webp") raster("image/webp", "webp");
+  };
+
+  // ---- Navigation: zoom, pan, fit, fullscreen, minimap ---------------------
+  // The SVG keeps its natural size inside a transformed viewport, so text stays
+  // crisp at any zoom and node positions map 1:1 to diagram coordinates.
+  const stage = document.getElementById("stage");
+  const vp = document.getElementById("viewport");
+  const level = document.getElementById("zoom-level");
+  const vb = svg.viewBox.baseVal;
+  const W = vb.width, H = vb.height;
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  const MIN = 0.08, MAX = 4;
+  let k = 1, tx = 0, ty = 0, atFit = true;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const box = () => stage.getBoundingClientRect();
+  const fitScale = () => { const r = box(); return Math.min((r.width - 40) / W, (r.height - 40) / H); };
+
+  function apply() {
+    vp.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+    level.textContent = Math.round(k * 100) + "%";
+    stage.classList.toggle("at-fit", atFit);
+    drawMiniFrame();
+  }
+  function fit() {
+    const r = box();
+    k = clamp(fitScale(), MIN, MAX);
+    tx = (r.width - W * k) / 2; ty = (r.height - H * k) / 2;
+    atFit = true; apply();
+  }
+  function zoomAt(factor, cx, cy) {
+    const nk = clamp(k * factor, MIN, MAX);
+    tx = cx - (cx - tx) * (nk / k); ty = cy - (cy - ty) * (nk / k);
+    k = nk; atFit = false; apply();
+  }
+  const zoomCenter = (f) => { const r = box(); zoomAt(f, r.width / 2, r.height / 2); };
+  function actual() { const r = box(); zoomAt(1 / k, r.width / 2, r.height / 2); }
+  function panBy(dx, dy) { tx += dx; ty += dy; atFit = false; apply(); }
+
+  document.getElementById("zoom-in").onclick = () => zoomCenter(1.25);
+  document.getElementById("zoom-out").onclick = () => zoomCenter(0.8);
+  document.getElementById("zoom-fit").onclick = fit;
+  level.onclick = actual;
+  document.getElementById("fullscreen").onclick = () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (stage.requestFullscreen) stage.requestFullscreen();
+  };
+  document.addEventListener("fullscreenchange", () => requestAnimationFrame(fit));
+
+  // Ctrl/Cmd + wheel (and trackpad pinch, which reports ctrlKey) zooms at the
+  // cursor. A plain wheel pans only once zoomed in, so the page still scrolls.
+  stage.addEventListener("wheel", (e) => {
+    const r = box();
+    if (e.ctrlKey || e.metaKey) { e.preventDefault(); zoomAt(Math.exp(-e.deltaY * 0.0022), e.clientX - r.left, e.clientY - r.top); }
+    else if (!atFit) { e.preventDefault(); panBy(-e.deltaX, -e.deltaY); }
+  }, { passive: false });
+
+  // Drag to pan anywhere; two pointers pinch-zoom. A drag never opens a node.
+  const pointers = new Map();
+  let moved = 0, pinch = null;
+  stage.addEventListener("pointerdown", (e) => {
+    // Every press starts fresh: a finished drag must never swallow the next
+    // click (that broke the zoom buttons after panning).
+    moved = 0;
+    if (e.target.closest(".nav,.minimap")) return;
+    // A new primary pointer means any earlier gesture is over; stale entries
+    // would otherwise turn the next drag into a phantom pinch.
+    if (e.isPrimary) { pointers.clear(); pinch = null; }
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) };
+    }
+  });
+  stage.addEventListener("pointermove", (e) => {
+    const p = pointers.get(e.pointerId);
+    if (!p) return;
+    const dx = e.clientX - p.x, dy = e.clientY - p.y;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2 && pinch) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y), r = box();
+      zoomAt(d / pinch.d, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top);
+      pinch.d = d; moved += 10; return;
+    }
+    moved += Math.abs(dx) + Math.abs(dy);
+    // Capture only once this is really a drag: capturing on pointerdown would
+    // retarget the click away from the node and break the detail drawer.
+    if (moved > 4) {
+      if (!stage.hasPointerCapture(e.pointerId)) stage.setPointerCapture(e.pointerId);
+      stage.classList.add("panning"); panBy(dx, dy);
+    }
+  });
+  const release = (e) => { pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; if (!pointers.size) stage.classList.remove("panning"); };
+  stage.addEventListener("pointerup", release);
+  stage.addEventListener("pointercancel", release);
+  stage.addEventListener("click", (e) => {
+    if (moved > 4 && !e.target.closest(".nav,.minimap")) { e.stopPropagation(); e.preventDefault(); }
+    moved = 0;
+  }, true);
+
+  // The stage must never scroll: focusing a node would scroll it to "reveal"
+  // the node and shift every coordinate the transform relies on. CSS uses
+  // overflow:clip; this guard covers browsers without it.
+  stage.addEventListener("scroll", () => { stage.scrollLeft = 0; stage.scrollTop = 0; });
+  // Keyboard focus on an off-screen node pans the view to it instead.
+  stage.addEventListener("focusin", (e) => {
+    const node = e.target.closest && e.target.closest(".bb-node");
+    if (!node) return;
+    const r = box(), b = node.getBoundingClientRect(), m = 40;
+    let dx = 0, dy = 0;
+    if (b.left < r.left + m) dx = r.left + m - b.left; else if (b.right > r.right - m) dx = r.right - m - b.right;
+    if (b.top < r.top + m) dy = r.top + m - b.top; else if (b.bottom > r.bottom - m) dy = r.bottom - m - b.bottom;
+    if (dx || dy) panBy(dx, dy);
+  });
+  stage.addEventListener("dblclick", (e) => {
+    if (e.target.closest(".bb-node,.nav,.minimap")) return;
+    const r = box(); zoomAt(e.shiftKey ? 0.6 : 1.6, e.clientX - r.left, e.clientY - r.top);
+  });
+
+  addEventListener("keydown", (e) => {
+    if (e.target.closest && e.target.closest("input,select,textarea")) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === "+" || e.key === "=") zoomCenter(1.25);
+    else if (e.key === "-" || e.key === "_") zoomCenter(0.8);
+    else if (e.key === "0" || e.key === "f" || e.key === "F") fit();
+    else if (e.key === "1") actual();
+    else if (document.activeElement === stage && e.key.startsWith("Arrow")) {
+      e.preventDefault();
+      const s = e.shiftKey ? 200 : 60;
+      panBy(e.key === "ArrowLeft" ? s : e.key === "ArrowRight" ? -s : 0, e.key === "ArrowUp" ? s : e.key === "ArrowDown" ? -s : 0);
+    }
+  });
+
+  // Minimap: the standalone render as an image, with the current view framed.
+  const mini = document.getElementById("minimap");
+  const miniImg = document.getElementById("minimap-img");
+  const frame = document.getElementById("minimap-frame");
+  function paintMini() { miniImg.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(standalone()); }
+  function drawMiniFrame() {
+    const r = box(), m = mini.clientWidth / W;
+    frame.style.left = (-tx / k) * m + "px"; frame.style.top = (-ty / k) * m + "px";
+    frame.style.width = (r.width / k) * m + "px"; frame.style.height = (r.height / k) * m + "px";
+  }
+  function jump(e) {
+    const mr = mini.getBoundingClientRect(), m = mini.clientWidth / W, r = box();
+    const px = (e.clientX - mr.left) / m, py = (e.clientY - mr.top) / m;
+    tx = r.width / 2 - px * k; ty = r.height / 2 - py * k; atFit = false; apply();
+  }
+  let miniDrag = false;
+  mini.addEventListener("pointerdown", (e) => { miniDrag = true; mini.setPointerCapture(e.pointerId); jump(e); });
+  mini.addEventListener("pointermove", (e) => { if (miniDrag) jump(e); });
+  mini.addEventListener("pointerup", () => { miniDrag = false; });
+  themeHooks.push(paintMini);
+  paintMini();
+
+  new ResizeObserver(() => { if (atFit) fit(); else drawMiniFrame(); }).observe(stage);
+  fit();
+})();</script>
+</body>
+</html>

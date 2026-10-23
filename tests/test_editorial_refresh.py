@@ -64,6 +64,30 @@ class EditorialRefreshTests(unittest.TestCase):
                     if link.path and not link.scheme and not link.netloc and not value.startswith('/'):
                         self.assertTrue((ROOT / path).parent.joinpath(unquote(link.path)).exists(), value)
 
+    def test_circadian_fieldnote_and_diagrams_are_public_and_complete(self):
+        path = 'articles/60-percent-of-the-time-it-works-every-time.html'
+        page = (ROOT / path).read_text()
+        feed = ET.parse(ROOT / 'feed.xml')
+        self.assertEqual(sum(e[5] == path for e in build.ENTRIES), 1)
+        self.assertIsNotNone(next((item for item in feed.findall('channel/item')
+                                   if item.findtext('link') == build.SITE + path), None))
+        self.assertIn(path, (ROOT / 'index.html').read_text())
+        self.assertIn(f'<link rel="canonical" href="{build.SITE}{path}">', page)
+        self.assertNotIn('noindex', page)
+        self.assertNotIn('../.scratch/', page)
+        self.assertEqual(page.count('class="pipeline-disclosure"'), 2)
+        self.assertIn('When they are not, no amount of compute will solve that problem.',
+                      ' '.join(page.split()))
+        self.assertNotIn('Circadian-ChIP-seq-reproducibility-audit', page)
+        for value in re.findall(r'(?:href|src)="([^"]+)"', page):
+            link = urlsplit(html.unescape(value))
+            if link.path and not link.scheme and not link.netloc and not value.startswith('/'):
+                self.assertTrue((ROOT / path).parent.joinpath(unquote(link.path)).exists(), value)
+        for name in ('encode-replicated', 'encode-unreplicated'):
+            self.assertTrue((ROOT / f'articles/circadian-diagrams/{name}.bower.json').is_file())
+            self.assertTrue((ROOT / f'articles/circadian-diagrams/exports/{name}.html').is_file())
+            self.assertTrue((ROOT / f'articles/circadian-diagrams/exports/{name}.light.svg').is_file())
+
     def test_thumbnails_use_complete_current_metadata_and_reproduce_exactly(self):
         namespace = {'svg': 'http://www.w3.org/2000/svg'}
         for path, title, _ in REVISIONS:

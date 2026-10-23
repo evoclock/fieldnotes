@@ -1,0 +1,34 @@
+{
+  "schema":"bowerbird/v1",
+  "meta":{"title":"Transcription factor ChIP-seq (unreplicated)","subtitle":"ENCODE pipeline ENCPL493SGC · pseudoreplicate IDR","direction":"LR","animation":"trace","statusTracking":false,"grid":{"col":320,"row":175,"gap":34}},
+  "categories":{"slate":{"label":"Input and output"},"peach":{"label":"Analysis step"},"mauve":{"label":"Unreplicated IDR"},"sage":{"label":"Signal generation"}},
+  "traces":[{"id":"peaks","label":"Peak and pseudoreplicate branches"},{"id":"signal","label":"Signal branch"}],
+  "nodes":[
+    {"id":"align-peaks","at":[0,1],"type":"file type","title":"alignments","lines":["ChIP-seq mapping output"],"category":"slate","traces":["peaks"]},
+    {"id":"spp","at":[1,1],"type":"peak calling","title":"peak calling","lines":["Phantompeakqualtools, SPP"],"category":"peach","traces":["peaks"]},
+    {"id":"peaks","at":[2,1],"type":"file type","title":"peaks","lines":["relaxed calls"],"category":"slate","traces":["peaks"]},
+    {"id":"idr","at":[3,0],"type":"unreplicated IDR","title":"unreplicated IDR","lines":["Irreproducible","Discovery Rate"],"category":"mauve","traces":["peaks"],"details":"This step evaluates pseudoreplicates, not independent biological replicates."},
+    {"id":"pseudo","at":[4,0],"type":"file type","title":"pseudoreplicated","lines":["IDR thresholded peaks"],"category":"slate","traces":["peaks"]},
+    {"id":"convert-idr","at":[5,0],"type":"file format conversion","title":"bedToBigBed","lines":["IDR peak conversion"],"category":"peach","traces":["peaks"]},
+    {"id":"bigbed-idr","at":[6,0],"type":"file type","title":"bigBed","lines":["converted IDR file"],"category":"slate","traces":["peaks"]},
+    {"id":"convert-peaks","at":[3,2],"type":"file format conversion","title":"bedToBigBed","lines":["peak conversion"],"category":"peach"},
+    {"id":"bigbed-peaks","at":[4,2],"type":"file type","title":"bigBed","lines":["converted peak file"],"category":"slate"},
+    {"id":"align-signal","at":[0,4],"type":"file type","title":"alignments","lines":["signal input"],"category":"slate","traces":["signal"]},
+    {"id":"macs","at":[1,4],"type":"signal generation","title":"signal generation","lines":["MACS"],"category":"sage","traces":["signal"]},
+    {"id":"fold","at":[2,3],"type":"file type","title":"fold change","lines":["over control"],"category":"slate","traces":["signal"]},
+    {"id":"pvalue","at":[2,5],"type":"file type","title":"signal p-value","lines":["signal output"],"category":"slate","traces":["signal"]}
+  ],
+  "edges":[
+    {"from":"align-peaks","to":"spp","traces":["peaks"]},
+    {"from":"spp","to":"peaks","traces":["peaks"]},
+    {"from":"peaks","to":"idr","traces":["peaks"]},
+    {"from":"idr","to":"pseudo","traces":["peaks"]},
+    {"from":"pseudo","to":"convert-idr","traces":["peaks"]},
+    {"from":"convert-idr","to":"bigbed-idr","traces":["peaks"]},
+    {"from":"peaks","to":"convert-peaks"},
+    {"from":"convert-peaks","to":"bigbed-peaks"},
+    {"from":"align-signal","to":"macs","traces":["signal"]},
+    {"from":"macs","to":"fold","traces":["signal"]},
+    {"from":"macs","to":"pvalue","traces":["signal"]}
+  ]
+}
