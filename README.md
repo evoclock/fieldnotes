@@ -18,6 +18,8 @@ Published at <https://evoclock.github.io/fieldnotes/>.
 | `publications/` | project briefs, technical reports and slides |
 | `evals/` | evaluation write-ups, and the script that renders their thumbnails |
 | `diagrams/` | figures, with the sources that generate them |
+| `weekly/` | weekly recaps of what my bots and Pi agents built, one dated image per week |
+| `drafts/` | social post drafts that go with each weekly recap, before I post them |
 | `assets/` | the marks, in three copper alloys: sentoku, shibuichi and yamagane |
 
 Thumbnails and diagrams are generated rather than drawn by hand. Regenerate
